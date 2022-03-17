@@ -1,12 +1,5 @@
-# Capstone - 1
+# ⭕️ Eagle Projects Console 
 
----
-
----
-
-# Data(content) Management System
-
----
 
 ### **Goal ✅**
 
@@ -66,21 +59,13 @@ This application mainly focuses on data in the form of rows and columns, contain
     Editor Role user → Does everything that viewer can do → ability to modify the data.
     
 
----
-
 ## Stack ⚙️
 
 ### Database
-
----
-
 - PSQL
 - MongoDB
 
 ### Back-end
-
----
-
 - Flask with Jinja
 - Pandas
 - Flask SQLAlchemy
@@ -89,21 +74,13 @@ This application mainly focuses on data in the form of rows and columns, contain
 - Bcrypt
 
 ### Front-end
-
----
-
 - Vanilla JS
 - Bootstrap5
 - Tailwind
 
 ### API’s & Data
-
----
-
 - Plotly
 - Real organization data + (Mockup for public repo)
 
----
-
-- [ ]  Build REST API for seed data.
-- [ ]
+## TODO
+- Build REST API for seed data.
