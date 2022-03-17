@@ -11,7 +11,6 @@ from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
 
-
 import json
 import pandas as pd
 import plotly
@@ -37,7 +36,10 @@ connect_psqldb(app)
 #! Routes
 @app.route('/')
 def route_homePage():
-  db.create_all()
+  # db.create_all()
+  import pdb
+  pdb.set_trace()
+
   if 'user_email' not in session:
     return redirect('/sign-in')
 
@@ -54,7 +56,7 @@ def new_lot():
   if new_lot_form_inst.validate_on_submit():
     #* get the responses from the form
     name = new_lot_form_inst.lot_name.data
-    date = new_lot_form_inst.lot_date.data
+    date = new_lot_form_inst.lot_date.datEagleProjectsConsole_Readmea
     new_lot_entry = Lot(lot_name=name, lot_date=date)
     db.session.add(new_lot_entry)
     db.session.commit()
@@ -135,8 +137,6 @@ def sign_in():
 #? User Log-In
 @app.route('/sign-in/', methods=["GET", "POST"])
 def register():
-  import pdb
-  pdb.set_trace()
   form = LoginForm()
 
   if form.validate_on_submit():

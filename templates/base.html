@@ -34,8 +34,7 @@
         <li class="nav-item">
           <span>
             <form action="/logout" method="post">
-              <a class="nav-link" href="/logout">submit</a>
-              <button>Logout</button>
+              <button class="btn btn-dark">Logout</button>
             </form>
           </span>
         </li>
@@ -52,15 +51,6 @@
   </nav>
   <div class="navbar-border-wrap"></div>
   
-  <!--! Flash messages  -->
-  <!-- {% with messages=get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-      <p>{{message}}</p>
-    {% endfor %}
-  {% endif %}
-  {% endwith %} -->
-
   <!--! Block content  -->
   {% block content %} {% endblock content %}
   
