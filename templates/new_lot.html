@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="text-center m-2">➕ Add a New Lot </h3>
+
+<div class="container">
+
+  <form action="" method="POST">
+    {{ form_data.hidden_tag() }} 
+    
+    
+    <table class="table table-striped text-center">
+      <thead>
+        {% for field in form_data if field.widget.input_type != 'hidden'%}
+          {% for error in field.errors %}
+            {{ error }}
+          {% endfor %}
+          <th>{{field.label}}</th>
+        {% endfor %}
+      </thead>
+      {% for field in form_data %}
+          <td>
+            {{field}}
+          </td>
+      {% endfor %}
+    </table>
+
+  <div class="col-md-12 text-center">
+    <button class="btn btn-primary">
+    <i class="bi bi-plus-circle"></i> Add</button>
+  </div>
+
+  </form>
+
+</div>
+
+
+{% endblock content %}

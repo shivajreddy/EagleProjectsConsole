@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⭕️</text></svg>">
+    <!--! BS5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--! Style Sheets -->
+    <link rel="stylesheet" href="/static/styles.css">
+
+    <title>Eagle Console</title>
+  </head>
+  <body>
+
+  <!--! Navbar  -->
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <a type="button" class="navbar-brand text-white" href="/">⭕️ Eagle Projects Console</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item text-white">
+          <a class="nav-link" href="https://www.eagleofva.com/" target="_blank">Eagle</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://archi-tec-tonic.com/" target="_blank">Archi-tec-tonic</a>
+        </li>
+
+        {% if session['user_email'] %}
+
+        <li class="nav-item">
+          <span>
+            <form action="/logout" method="post">
+              <a class="nav-link" href="/logout">submit</a>
+              <button>Logout</button>
+            </form>
+          </span>
+        </li>
+
+        {% else %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="/sign-in" id="user_link">Sign-In</a>
+        </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </nav>
+  <div class="navbar-border-wrap"></div>
+  
+  <!--! Flash messages  -->
+  <!-- {% with messages=get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{message}}</p>
+    {% endfor %}
+  {% endif %}
+  {% endwith %} -->
+
+  <!--! Block content  -->
+  {% block content %} {% endblock content %}
+  
+  <!--! Footer Nav  -->
+  <!-- <nav class="navbar fixed-bottom navbar-light bg-light m-0 p-0">
+    <a type="button" class="navbar-brand justify-content-center" href="/">⭕️ Eagle Projects Console</a>
+    <a href="https://www.eagleofva.com/" target="_blank">Eagle</a>
+    <a href="https://archi-tec-tonic.com/" target="_blank">Archi-tec-tonic</a>
+    <a type="button" href="#">⬆ Go to Top</a>
+  </nav> -->
+
+    <!--! jQuery JS -->
+    <script src="/static/jQuery.js"></script>
+
+    <!--! BS5 JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!--! JS scripts -->
+    <script src="/static/script.js"></script>
+  </body>
+</html>
