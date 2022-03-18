@@ -29,33 +29,33 @@ class LotsDirectory(db.Model):
 
   #* Lot information category
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-  community = db.Column(db.String(100), nullable=False)
-  section = db.Column(db.String(100), nullable = False)
-  lot_number = db.Column(db.String(50), nullable = False)
-  product = db.Column(db.String(50),nullable=False)
-  elevation = db.Column(db.String(50), nullable=False)
+  community = db.Column(db.Text, nullable=False)
+  section = db.Column(db.Text, nullable = False)
+  lot_number = db.Column(db.Text, nullable = False)
+  product = db.Column(db.Text,nullable=False)
+  elevation = db.Column(db.Text, nullable=False)
   contract_date = db.Column(db.Date)
 
   #* Drafting Date
-  assigned = db.Column(db.String(50), nullable=False)
+  assigned = db.Column(db.Text, nullable=False)
   draft_deadline = db.Column(db.Date)
   actual = db.Column(db.Date)
   time = db.Column(db.Integer)
 
   #* Engineering
-  eng = db.Column(db.String(50), nullable=False)
+  eng = db.Column(db.Text, nullable=False)
   eng_sent = db.Column(db.Date)
   eng_planned_receipt = db.Column(db.Date)
   eng_actual_receipt = db.Column(db.Date)
   
   #* Plat
-  plat_eng = db.Column(db.String(50), nullable=False)
+  plat_eng = db.Column(db.Text, nullable=False)
   plat_sent = db.Column(db.Date)
   plat_planned_receipt = db.Column(db.Date)
   plat_actual_receipt = db.Column(db.Date)
 
   #* Permit
-  permit_jurisdiction = db.Column(db.String(50), nullable=False)
+  permit_jurisdiction = db.Column(db.Text, nullable=False)
   permit_planned_submit = db.Column(db.Date)
   permit_acutual_submit = db.Column(db.Date)
   permit_received = db.Column(db.Date)
@@ -65,4 +65,4 @@ class LotsDirectory(db.Model):
   bbp_actual_posted = db.Column(db.Date)
 
   #* Notes
-  notes = db.Column(db.String(), nullable=False)
+  notes = db.Column(db.Text, nullable=False)

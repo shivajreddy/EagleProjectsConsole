@@ -6,6 +6,7 @@
   background: linear-gradient(to right, red, purple);
   padding: 1px;
   width: 100%;
+  /* position: sticky; */
 }
 
 
@@ -31,4 +32,31 @@ td {
 #lines {
   width: 100%;
 
+}
+
+.login-box {
+  background-color: rgb(29 29 31);
+  height: calc(100vh - 58px);
+}
+
+.login-box .card {
+  border-radius: 1rem;
+}
+
+/** centring the image */
+.image-box {
+  white-space: nowrap;
+}
+
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.login-box img {
+  vertical-align: middle !important;
+  border-radius: 1rem 0 0 1rem;
+  max-height: 400px;
+  max-width: 400px;
 }

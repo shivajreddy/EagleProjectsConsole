@@ -10,6 +10,10 @@ from sqlalchemy import delete
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
+# Mailing
+from flask_mail import Mail, Message
+
+
 
 import json
 import pandas as pd
@@ -23,7 +27,8 @@ template_path = os.path.join(project_root, 'templates')
 static_path = os.path.join(project_root, 'static')
 app  = Flask(__name__, template_folder=template_path, static_folder=static_path)
 app.config["SECRET_KEY"] = "e7543f072c2f7afd5ddfbba37edbc101b0c480c641a9d3be"
-
+import config
+mail = Mail(app)
 
 #! PSQL database
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///employees'
@@ -32,13 +37,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 connect_psqldb(app)
 
+#! Test route
+@app.route('/testmail')
+def testmail():
+  msg = Message("this is the message", sender='test@tecofva.com', recipients=['shivajreddy@outlook.com'])
+  msg.body = "this is the body of the message"
+  mail.send(msg)
+  return "<h1>mail sent</h1>"
+
 
 #! Routes
 @app.route('/')
 def route_homePage():
   # db.create_all()
-  import pdb
-  pdb.set_trace()
 
   if 'user_email' not in session:
     return redirect('/sign-in')
@@ -50,6 +61,9 @@ def route_homePage():
 
 @app.route('/lot/new', methods=["GET", "POST"])
 def new_lot():
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
   new_lot_form_inst = NewLotForm()
 
   #* Validate the form
@@ -66,6 +80,9 @@ def new_lot():
 
 @app.route('/lot/edit/<int:lot_id>/', methods=["GET", "POST"])
 def edit_lot(lot_id):
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
   lot = Lot.query.get(lot_id)
   lot_form = NewLotForm(obj=lot)
 
@@ -84,6 +101,9 @@ def edit_lot(lot_id):
 
 @app.route('/lot/delete/<int:lot_id>/', methods=["GET", "POST"])
 def delete_lot(lot_id):
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
   lot = db.session.query(Lot).filter(Lot.id==lot_id)
   lot.delete()
   db.session.commit()
@@ -130,7 +150,6 @@ def sign_in():
 
     return redirect('/')
 
-  # flash("wtf")
   return render_template('sign_up.html', form_data=form)
 
 
@@ -146,7 +165,7 @@ def register():
       return redirect('/sign-in/')
     if usr.authenticate(form.email.data, form.password.data):
       session['user_email'] = usr.email
-      flash(f"Welcome {usr.email}")
+      # flash(f"Welcome {usr.email}")
       return redirect('/')
     flash(": Password incorrect", f"{form.email.data}")
     return redirect('/sign-in/')
@@ -157,7 +176,6 @@ def register():
 #? Log out
 @app.route('/logout', methods=["POST"])
 def logout():
-  # session['user_email']
   flash("successfully logged out.", session['user_email'])
   session.pop('user_email')
   return redirect('/sign-in')
