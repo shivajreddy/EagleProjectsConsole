@@ -36,7 +36,7 @@ class LotsDirectory(db.Model):
   elevation = db.Column(db.Text, nullable=False)
   contract_date = db.Column(db.Date)
 
-  #* Drafting Date
+  #* Drafting
   assigned = db.Column(db.Text, nullable=False)
   draft_deadline = db.Column(db.Date)
   actual = db.Column(db.Date)
@@ -57,7 +57,7 @@ class LotsDirectory(db.Model):
   #* Permit
   permit_jurisdiction = db.Column(db.Text, nullable=False)
   permit_planned_submit = db.Column(db.Date)
-  permit_acutual_submit = db.Column(db.Date)
+  permit_actual_submit = db.Column(db.Date)
   permit_received = db.Column(db.Date)
 
   #* BBP
