@@ -3,7 +3,7 @@
 
 ### **Goal ✅**
 
-**Data visualization** and Data management for a small and medium tier companies. That have 100’s of excel files (rows and tables) of data, relevant to the day-to-day operations of the company. Goal is to develope a Dashboard web-application.
+**Data visualization** and Data management for 'Eagle of VA'. That have 100’s of excel files (rows and tables) of data, relevant to the day-to-day operations of the company. Goal is to develope a Dashboard web-application.
 
 > I intend to start this application addressing the General contractors in the home-building sector, who have multiple projects running simultaneously. (But this is not limited to GC’s)
 > 
