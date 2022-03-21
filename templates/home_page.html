@@ -4,68 +4,67 @@
 <h3 class="m-2 text-center">⭕️ Lot Specifics</h3>
 <div class="container-md p-3 lots-table">
 
-  <table class="table table-bordered" id="table1">
+  <table class="table table-bordered " id="table1">
     <thead class="table-dark">
-      <tr>
-        <th class="text-center" colspan="7">Lot Info</th>
+      <tr class="main-header">
+        <th class="text-center" colspan="6">Lot Info</th>
         <th class="text-center" colspan="4">Drafting Info</th>
         <th class="text-center" colspan="4">Engineering Info</th>
         <th class="text-center" colspan="4">Plat Info</th>
         <th class="text-center" colspan="4">Permit Info Info</th>
         <th class="text-center" colspan="2">BBP Info</th>
         <th class="text-center" colspan="1">Notes</th>
+        <th class="text-center" colspan="1">Edit</th>
       </tr>
       <tr>
-        <th>&nbsp;</th>
         <!-- <th>Lot Id</th> -->
-        <th>Community</th>
-        <th>Section</th>
-        <th>Lot_number</th>
-        <th>Product</th>
-        <th>Elevation</th>
-        <th>contract Date</th>
-
+        <th class="lot-info index-header-2">Community</th>
+        <th class="lot-info">Section</th>
+        <th class="lot-info">Lot_number</th>
+        <th class="lot-info">Product</th>
+        <th class="lot-info">Elevation</th>
+        <th class="lot-info">contract Date</th>
+        
         <th>Assigned To</th>
         <th>Draft Deadline</th>
         <th>Actual</th>
         <th>Time</th>
-
+        
         <th>Eng.</th>
         <th>Eng. Sent</th>
         <th>Eng. Planned</th>
         <th>Eng. Actual</th>
-
+        
         <th>Plat Eng.</th>
         <th>Plat Sent</th>
         <th>Plat Planned</th>
         <th>Plat Actual</th>
-
+        
         <th>Permit Jurisdictin</th>
         <th>Permit Planned</th>
         <th>Permit Actual</th>
         <th>Permit Received</th>
-
+        
         <th>BBQ Planned</th>
         <th>BBQ Actual</th>
-
+        
         <th>Notes</th>
+
+        <th>&nbsp;</th>
       </tr>
     </thead>
 
     <tbody>
       {% for lot in lot_data %}
       <tr class="">
-        <!--? Modify Column -->
-        <td>
-          <a type="button" class="btn btn-success modify" href="/">
-          <i class="bi bi-pencil-square"></i> Edit</a>
-        </td>
+        
+
         <!--? All Columns -->
         <!--* Lot Info -->
         <!-- <td>
           {{lot.id}}
         </td> -->
-        <td>
+        <td class="index-header">
           {{lot.community}}
         </td>
         <td class="td-date">
@@ -154,6 +153,12 @@
           {{lot.notes}}
         </td>
 
+        <!--? Modify Column -->
+        <td class="editor-only">
+          <a type="button" class="btn btn-success modify" href="/">
+          <i class="bi bi-pencil-square"></i></a>
+        </td>
+
       </tr>
       {% endfor %}
     </tbody>
@@ -161,7 +166,7 @@
 
 </div>
   
-<div class="col-md-12 p-4 text-center">
+<div class="col-md-12 p-4 text-center editor-only">
   <div class="col-md-8 mx-auto">
     <a href="/lot/new" class="btn btn-primary">
       <i class="bi bi-plus-circle"></i> New Lot</a>

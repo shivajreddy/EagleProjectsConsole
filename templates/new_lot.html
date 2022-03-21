@@ -5,27 +5,41 @@
 
 <h3 class="text-center m-2">➕ Add a New Lot </h3>
 
-<div class="container">
+<div class="container p-4">
 
-  <form action="" method="POST">
+  <form action="/lot/new" method="POST">
     {{ form_data.hidden_tag() }} 
     
     
-    <table class="table table-striped text-center">
+    <!-- <table class="table table-striped text-center">
       <thead>
         {% for field in form_data if field.widget.input_type != 'hidden'%}
           {% for error in field.errors %}
             {{ error }}
           {% endfor %}
           <th>{{field.label}}</th>
+          {% endfor %}
+        </thead>
+        {% for field in form_data %}
+        <td>
+          {{field}}
+        </td>
         {% endfor %}
-      </thead>
-      {% for field in form_data %}
-          <td>
-            {{field}}
-          </td>
+      </table> -->
+      
+    <div class="container">
+        
+      {% for field in form_data if field.widget.input_type != 'hidden'%}
+        {% for error in field.errors %}
+          {{ error }}
+        {% endfor %}
+        <div class="d-flex flex-row">
+          <p class="p-2">{{field.label}}</p>
+          <p>{{field}}</p>
+        </div>
       {% endfor %}
-    </table>
+
+    </div>
 
   <div class="col-md-12 text-center">
     <button class="btn btn-primary">

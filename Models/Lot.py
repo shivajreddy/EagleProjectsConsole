@@ -65,4 +65,4 @@ class LotsDirectory(db.Model):
   bbp_actual_posted = db.Column(db.Date)
 
   #* Notes
-  notes = db.Column(db.Text, nullable=False)
+  notes = db.Column(db.Text)

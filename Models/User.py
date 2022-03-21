@@ -13,6 +13,7 @@ class User(db.Model):
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   email = db.Column(db.Text, nullable=False, unique=True)
   password = db.Column(db.Text, nullable=False)
+  editor = db.Column(db.Boolean, default=False)
 
 
   # Registration

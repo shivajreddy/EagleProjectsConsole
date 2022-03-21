@@ -60,3 +60,19 @@ td {
   max-height: 400px;
   max-width: 400px;
 }
+
+
+/** Sticky header column */
+.index-header-2 {
+  background-color: black;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+.index-header {
+  background-color: white;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}

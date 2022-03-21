@@ -10,128 +10,128 @@ Lot.query.delete()
 
 test_lot_1 = LotsDirectory(
   #* Lot info
-  community="c1",
-  section="s1",
-  lot_number="ln1",
-  product="p1",
-  elevation="e1",
-  contract_date= datetime.datetime(2020, 5, 17),
+  community="Lauradell",
+  section="1",
+  lot_number="101",
+  product="Savannah",
+  elevation="Folk Victorian",
+  contract_date= datetime.datetime(2021, 12, 29),
 
   #* Drafting
-  assigned="a1",
-  draft_deadline= datetime.datetime(2020, 5, 17),
-  actual= datetime.datetime(2020, 5, 17),
-  time=21,
+  assigned="C.Zobel",
+  draft_deadline= datetime.datetime(2021, 12, 31),
+  actual= datetime.datetime(2022, 1, 17),
+  time=240,
 
   #* Engineering
-  eng = "eng1",
-  eng_sent = datetime.datetime(2020, 5, 17),
-  eng_planned_receipt = datetime.datetime(2020, 5, 17),
-  eng_actual_receipt = datetime.datetime(2020, 5, 17),
+  eng = "Struc Tech",
+  eng_sent = datetime.datetime(2022, 1, 17),
+  eng_planned_receipt = datetime.datetime(2022, 1, 14),
+  eng_actual_receipt = datetime.datetime(2022, 1, 24),
   
   #* Plat
-  plat_eng = "plateng1",
-  plat_sent = datetime.datetime(2020, 5, 17),
-  plat_planned_receipt = datetime.datetime(2020, 5, 17),
-  plat_actual_receipt = datetime.datetime(2020, 5, 17),
+  plat_eng = "Bolen",
+  plat_sent = datetime.datetime(2022, 1, 17),
+  plat_planned_receipt = datetime.datetime(2022, 1, 14),
+  plat_actual_receipt = datetime.datetime(2020, 1, 18),
 
   #* Permit
-  permit_jurisdiction = "jury1",
-  permit_planned_submit = datetime.datetime(2020, 5, 17),
-  permit_actual_submit = datetime.datetime(2020, 5, 17),
-  permit_received = datetime.datetime(2020, 5, 17),
+  permit_jurisdiction = "Hanover",
+  permit_planned_submit = datetime.datetime(2022, 1, 19),
+  permit_actual_submit = datetime.datetime(2022, 2, 15),
+  # permit_received = datetime.datetime(2020, 2, 15),
 
   #* BBP
-  bbp_planned_posted = datetime.datetime(2020, 5, 17),
-  bbp_actual_posted = datetime.datetime(2020, 5, 17),
+  # bbp_planned_posted = datetime.datetime(2020, 5, 17),
+  # bbp_actual_posted = datetime.datetime(2020, 5, 17),
 
   #* Notes
-  notes = "notes1"
+  # notes = "notes1"
 
 )
 
 test_lot_2 = LotsDirectory(
   #* Lot info
-  community="c2",
-  section="s2",
-  lot_number="ln2",
-  product="p2",
-  elevation="e2",
-  contract_date= datetime.datetime(2020, 5, 27),
+  community="Readers Branch",
+  section="4",
+  lot_number="8",
+  product="Fulton Terrace",
+  elevation="Folk Victorian",
+  contract_date= datetime.datetime(2021, 12, 28),
 
   #* Drafting
-  assigned="a2",
-  draft_deadline= datetime.datetime(2020, 5, 27),
-  actual= datetime.datetime(2020, 5, 27),
-  time=22,
+  assigned="C.Zobel",
+  draft_deadline= datetime.datetime(2021, 12, 30),
+  actual= datetime.datetime(2021, 1, 26),
+  time=420,
 
   #* Engineering
-  eng = "eng2",
-  eng_sent = datetime.datetime(2020, 5, 27),
-  eng_planned_receipt = datetime.datetime(2020, 5, 27),
-  eng_actual_receipt = datetime.datetime(2020, 5, 27),
+  eng = "HBS",
+  eng_sent = datetime.datetime(2022, 1, 27),
+  eng_planned_receipt = datetime.datetime(2022, 1, 13),
+  eng_actual_receipt = datetime.datetime(2022, 2, 7),
   
   #* Plat
-  plat_eng = "plateng2",
-  plat_sent = datetime.datetime(2020, 5, 27),
-  plat_planned_receipt = datetime.datetime(2020, 5, 27),
-  plat_actual_receipt = datetime.datetime(2020, 5, 27),
+  plat_eng = "Bolen",
+  plat_sent = datetime.datetime(2022, 1, 27),
+  plat_planned_receipt = datetime.datetime(2022, 1, 13),
+  plat_actual_receipt = datetime.datetime(2022, 1, 28),
 
   #* Permit
-  permit_jurisdiction = "jury2",
-  permit_planned_submit = datetime.datetime(2020, 5, 27),
-  permit_actual_submit = datetime.datetime(2020, 5, 27),
-  permit_received = datetime.datetime(2020, 5, 27),
+  permit_jurisdiction = "Goochland",
+  permit_planned_submit = datetime.datetime(2022, 1, 18),
+  # permit_actual_submit = datetime.datetime(2022, 5, 27),
+  # permit_received = datetime.datetime(2020, 5, 27),
 
   #* BBP
-  bbp_planned_posted = datetime.datetime(2020, 5, 27),
-  bbp_actual_posted = datetime.datetime(2020, 5, 27),
+  # bbp_planned_posted = datetime.datetime(2020, 5, 27),
+  # bbp_actual_posted = datetime.datetime(2020, 5, 27),
 
   #* Notes
-  notes = "notes2"
+  notes = "extend front stoop, extend screened porch, 10' ceiling, diamond window, custom entry door"
 
 )
 
 
 test_lot_3 = LotsDirectory(
   #* Lot info
-  community="c3",
-  section="s3",
-  lot_number="ln3",
-  product="p3",
-  elevation="e3",
-  contract_date= datetime.datetime(2020, 5, 3),
+  community="Cypress Creek",
+  section="0",
+  lot_number="229",
+  product="Linden III",
+  elevation="Tradition",
+  contract_date= datetime.datetime(2021, 12, 27),
 
   #* Drafting
-  assigned="a3",
-  draft_deadline= datetime.datetime(2020, 5, 3),
-  actual= datetime.datetime(2020, 5, 3),
-  time=33,
+  assigned="C.Zobel",
+  draft_deadline= datetime.datetime(2021, 12, 29),
+  actual= datetime.datetime(2021, 1, 14),
+  time=240,
 
   #* Engineering
-  eng = "eng3",
-  eng_sent = datetime.datetime(2020, 5, 3),
-  eng_planned_receipt = datetime.datetime(2020, 5, 3),
-  eng_actual_receipt = datetime.datetime(2020, 5, 3),
+  eng = "DFI",
+  eng_sent = datetime.datetime(2022, 1, 17),
+  eng_planned_receipt = datetime.datetime(2022, 1, 12),
+  eng_actual_receipt = datetime.datetime(2022, 2, 16),
   
   #* Plat
-  plat_eng = "plateng3",
-  plat_sent = datetime.datetime(2020, 5, 3),
-  plat_planned_receipt = datetime.datetime(2020, 5, 3),
-  plat_actual_receipt = datetime.datetime(2020, 5, 3),
+  plat_eng = "Hassel",
+  plat_sent = datetime.datetime(2022, 1, 17),
+  plat_planned_receipt = datetime.datetime(2022, 1, 12),
+  plat_actual_receipt = datetime.datetime(2022, 1, 18),
 
   #* Permit
-  permit_jurisdiction = "jury3",
-  permit_planned_submit = datetime.datetime(2020, 5, 3),
-  permit_actual_submit = datetime.datetime(2020, 5, 3),
-  permit_received = datetime.datetime(2020, 5, 3),
+  permit_jurisdiction = "Isle of Wight",
+  permit_planned_submit = datetime.datetime(2022, 1, 17),
+  permit_actual_submit = datetime.datetime(2022, 2, 9),
+  # permit_received = datetime.datetime(2020, 5, 3),
 
   #* BBP
-  bbp_planned_posted = datetime.datetime(2020, 5, 3),
-  bbp_actual_posted = datetime.datetime(2020, 5, 3),
+  # bbp_planned_posted = datetime.datetime(2020, 5, 3),
+  # bbp_actual_posted = datetime.datetime(2020, 5, 3),
 
   #* Notes
-  notes = "notes3"
+  notes = "attached shed"
 
 )
 

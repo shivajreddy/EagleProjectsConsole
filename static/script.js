@@ -31,4 +31,23 @@ $deleteLotButton.on('click', (e) =>{
   else {
     console.log("crysis averted");
   }
-})
+});
+
+
+//* Make an axios request to check if user is editor
+const $editor_fields = $('.editor-only')
+async function check_editor() {
+
+  const response = await axios.get('/check-editor');
+  console.log(response);
+
+  if (!response.data) {
+    $editor_fields.addClass("invisible");
+  }
+  else{
+    $editor_fields.removeClass("invisible");
+  }
+};
+check_editor();
+
+

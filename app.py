@@ -1,6 +1,6 @@
 from crypt import methods
 import os
-from flask import Flask, flash, render_template, redirect, session
+from flask import Flask, flash, jsonify, render_template, redirect, session
 from database.psql_db import db, connect_psqldb
 from Models.Lot import Lot, LotsDirectory
 from Models.User import User
@@ -37,6 +37,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 connect_psqldb(app)
 
+
+
 #! Test route
 @app.route('/testmail')
 def testmail():
@@ -49,7 +51,9 @@ def testmail():
 #! Routes
 @app.route('/')
 def route_homePage():
-  # db.create_all()
+  db.create_all()
+  # import pdb
+  # pdb.set_trace()
 
   if 'user_email' not in session:
     return redirect('/sign-in')
@@ -59,12 +63,14 @@ def route_homePage():
   return render_template('home_page.html', lot_data=all_lots)
 
 
+#? New Lot form
 @app.route('/lot/new', methods=["GET", "POST"])
 def new_lot():
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  new_lot_form_inst = NewLotForm()
+  # new_lot_form_inst = NewLotForm()
+  new_lot_form_inst = NewLot()
 
   #* Validate the form
   if new_lot_form_inst.validate_on_submit():
@@ -165,6 +171,7 @@ def register():
       return redirect('/sign-in/')
     if usr.authenticate(form.email.data, form.password.data):
       session['user_email'] = usr.email
+      session['editor'] = usr.editor
       # flash(f"Welcome {usr.email}")
       return redirect('/')
     flash(": Password incorrect", f"{form.email.data}")
@@ -184,4 +191,23 @@ def logout():
 @app.errorhandler(404)
 def not_found_404(e):
   return render_template('404.html')
+
+
+#? API
+@app.route('/check-editor', methods=["GET"])
+def check_editor_rights():
+  if "user_email" in session and session['editor'] == True:
+    return jsonify(True)
+  return jsonify(False)
+
+
+#! Route to make the current user an editor
+# @app.route('/change', methods=["GET", "POST"])
+# def change_rights():
+#   usr = User.query.filter_by(email="admin@tecofva.com").first()
+#   usr.editor = True
+#   db.session.add(usr)
+#   db.session.commit()
+#   print(usr) 
+#   return f"{usr}"
 
