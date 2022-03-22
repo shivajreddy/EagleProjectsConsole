@@ -66,3 +66,4 @@ class LotsDirectory(db.Model):
 
   #* Notes
   notes = db.Column(db.Text)
+

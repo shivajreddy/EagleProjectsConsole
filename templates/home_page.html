@@ -18,6 +18,7 @@
       </tr>
       <tr>
         <!-- <th>Lot Id</th> -->
+        <div class="">
         <th class="lot-info index-header-2">Community</th>
         <th class="lot-info">Section</th>
         <th class="lot-info">Lot_number</th>
@@ -51,6 +52,7 @@
         <th>Notes</th>
 
         <th>&nbsp;</th>
+        </div>
       </tr>
     </thead>
 
@@ -154,7 +156,7 @@
         </td>
 
         <!--? Modify Column -->
-        <td class="editor-only">
+        <td class="editor-only invisible">
           <a type="button" class="btn btn-success modify" href="/">
           <i class="bi bi-pencil-square"></i></a>
         </td>
@@ -166,11 +168,26 @@
 
 </div>
   
-<div class="col-md-12 p-4 text-center editor-only">
+<!--? print the above table -->
+<div class="col-md-12 p-4 text-center editor-only invisible">
   <div class="col-md-8 mx-auto">
     <a href="/lot/new" class="btn btn-primary">
       <i class="bi bi-plus-circle"></i> New Lot</a>
     </div>
-  </div>
+</div>
+
+
+<!--! Create new lot  -->
+<div class="col-md-12 p-4 text-center editor-only invisible">
+  <div class="col-md-8 mx-auto">
+    <a href="/lot/new" class="btn btn-primary">
+      <i class="bi bi-plus-circle"></i> New Lot</a>
+    </div>
+</div>
+
+
+
+
+
 
 {% endblock content %}

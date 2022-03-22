@@ -38,7 +38,6 @@ app.config['SQLALCHEMY_ECHO'] = True
 connect_psqldb(app)
 
 
-
 #! Test route
 @app.route('/testmail')
 def testmail():
@@ -51,7 +50,7 @@ def testmail():
 #! Routes
 @app.route('/')
 def route_homePage():
-  db.create_all()
+  # db.create_all()
   # import pdb
   # pdb.set_trace()
 
@@ -74,14 +73,47 @@ def new_lot():
 
   #* Validate the form
   if new_lot_form_inst.validate_on_submit():
+    print("PASSSSSSS")
+
     #* get the responses from the form
-    name = new_lot_form_inst.lot_name.data
-    date = new_lot_form_inst.lot_date.datEagleProjectsConsole_Readmea
-    new_lot_entry = Lot(lot_name=name, lot_date=date)
+    new_lot_entry = LotsDirectory(
+      community=new_lot_form_inst.community.data,
+      section = new_lot_form_inst.section.data,
+      lot_number = new_lot_form_inst.lot_number.data,
+      product = new_lot_form_inst.product.data,
+      elevation = new_lot_form_inst.elevation.data,
+      contract_date = new_lot_form_inst.contract_date.data,
+
+      assigned = new_lot_form_inst.assigned.data,
+      draft_deadline = new_lot_form_inst.draft_deadline.data,
+      actual = new_lot_form_inst.actual.data,
+      time = new_lot_form_inst.time.data,
+
+      eng = new_lot_form_inst.eng.data,
+      eng_sent = new_lot_form_inst.eng_sent.data,
+      eng_planned_receipt = new_lot_form_inst.eng_planned_receipt.data,
+      eng_actual_receipt = new_lot_form_inst.eng_actual_receipt.data,
+
+      plat_eng = new_lot_form_inst.plat_eng.data,
+      plat_sent = new_lot_form_inst.plat_sent.data,
+      plat_planned_receipt = new_lot_form_inst.plat_planned_receipt.data,
+      plat_actual_receipt = new_lot_form_inst.plat_actual_receipt.data,
+
+      permit_jurisdiction = new_lot_form_inst.permit_jurisdiction.data,
+      permit_planned_submit = new_lot_form_inst.permit_planned_submit.data,
+      permit_actual_submit = new_lot_form_inst.permit_acutual_submit.data,
+      permit_received = new_lot_form_inst.permit_received.data,
+
+      bbp_planned_posted = new_lot_form_inst.bbp_planned_posted.data,
+      bbp_actual_posted = new_lot_form_inst.bbp_actual_posted.data,
+
+      notes = new_lot_form_inst.notes.data 
+    )
     db.session.add(new_lot_entry)
     db.session.commit()
     return redirect('/')
   else:
+    print("FAILLLLL")
     return render_template('new_lot.html', form_data = new_lot_form_inst)
 
 @app.route('/lot/edit/<int:lot_id>/', methods=["GET", "POST"])
@@ -160,7 +192,7 @@ def sign_in():
 
 
 #? User Log-In
-@app.route('/sign-in/', methods=["GET", "POST"])
+@app.route('/sign-in', methods=["GET", "POST"])
 def register():
   form = LoginForm()
 
@@ -170,8 +202,13 @@ def register():
       flash("not found!", f"{form.email.data}")
       return redirect('/sign-in/')
     if usr.authenticate(form.email.data, form.password.data):
+
       session['user_email'] = usr.email
       session['editor'] = usr.editor
+
+      # import pdb
+      # pdb.set_trace()
+
       # flash(f"Welcome {usr.email}")
       return redirect('/')
     flash(": Password incorrect", f"{form.email.data}")
@@ -185,6 +222,7 @@ def register():
 def logout():
   flash("successfully logged out.", session['user_email'])
   session.pop('user_email')
+  session.pop('editor')
   return redirect('/sign-in')
 
 
@@ -196,12 +234,14 @@ def not_found_404(e):
 #? API
 @app.route('/check-editor', methods=["GET"])
 def check_editor_rights():
-  if "user_email" in session and session['editor'] == True:
+  if "user_email" not in session:
+    return json(False)
+  if "user_email" in session and 'editor' in session and session['editor'] == True:
     return jsonify(True)
   return jsonify(False)
 
 
-#! Route to make the current user an editor
+# #! Route to make the current user an editor
 # @app.route('/change', methods=["GET", "POST"])
 # def change_rights():
 #   usr = User.query.filter_by(email="admin@tecofva.com").first()

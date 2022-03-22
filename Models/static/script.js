@@ -39,15 +39,14 @@ const $editor_fields = $('.editor-only')
 async function check_editor() {
 
   const response = await axios.get('/check-editor');
-  console.log(response);
 
-  if (!response.data) {
-    $editor_fields.addClass("invisible");
-  }
-  else{
+  if (response.data === true) {
     $editor_fields.removeClass("invisible");
   }
+  else{
+    $editor_fields.addClass("invisible");
+  }
+
 };
 check_editor();
-
 
