@@ -1,6 +1,4 @@
 __pycache__
 venv
-/config.py
-config.py
 *.DS_Store
-test.py
+config.py
