@@ -1,12 +1,12 @@
 from crypt import methods
 import os
 from flask import Flask, flash, jsonify, render_template, redirect, session
-from database.psql_db import db, connect_psqldb
-from Models.Lot import Lot, LotsDirectory
-from Models.User import User
-from forms.NewLotForm import NewLotForm, NewLot
-from forms.LoginForm import LoginForm, RegistrationForm
-from sqlalchemy import delete
+# from database.psql_db import db, connect_psqldb
+from ..Models.Lot import Lot, LotsDirectory
+from ..Models.User import User
+from ..forms.NewLotForm import NewLotForm, NewLot
+from ..forms.LoginForm import LoginForm, RegistrationForm
+# from sqlalchemy import delete
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
@@ -21,30 +21,35 @@ import plotly
 import plotly.express as px
 import ssl
 
+
+from app import app, db
+
+
 #! App Conifguration
-project_root = os.path.dirname(os.path.realpath('__file__'))
-template_path = os.path.join(project_root, 'templates')
-static_path = os.path.join(project_root, 'static')
-app  = Flask(__name__, template_folder=template_path, static_folder=static_path)
-app.config["SECRET_KEY"] = "e7543f072c2f7afd5ddfbba37edbc101b0c480c641a9d3be"
-import config
-mail = Mail(app)
+# project_root = os.path.dirname(os.path.realpath('__file__'))
+# template_path = os.path.join(project_root, 'templates')
+# static_path = os.path.join(project_root, 'static')
+# app  = Flask(__name__, template_folder=template_path, static_folder=static_path)
+# app.config["SECRET_KEY"] = "e7543f072c2f7afd5ddfbba37edbc101b0c480c641a9d3be"
+# import config
+# mail = Mail(app)
 
 #! PSQL database
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///employees'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///eagleconsole'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ECHO'] = True
-connect_psqldb(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///eagleconsole'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_ECHO'] = True
+# connect_psqldb(app)
 
 
 #! Test route
-@app.route('/testmail')
-def testmail():
-  msg = Message("this is the message", sender='test@tecofva.com', recipients=['shivajreddy@outlook.com'])
-  msg.body = "this is the body of the message"
-  mail.send(msg)
-  return "<h1>mail sent</h1>"
+# @app.route('/testmail')
+# def testmail():
+#   import pdb
+#   pdb.set_trace()
+#   msg = Message("this is the message", sender='test@tecofva.com', recipients=['shivajreddy@outlook.com'])
+#   msg.body = "this is the body of the message"
+#   mail.send(msg)
+#   return "<h1>mail sent</h1>"
 
 
 #! Routes
@@ -197,10 +202,12 @@ def register():
   form = LoginForm()
 
   if form.validate_on_submit():
+    import pdb
+    pdb.set_trace()
     usr = User.query.filter_by(email=form.email.data).first()
     if not usr:
       flash("not found!", f"{form.email.data}")
-      return redirect('/sign-in/')
+      return redirect('/sign-in')
     if usr.authenticate(form.email.data, form.password.data):
 
       session['user_email'] = usr.email
@@ -212,7 +219,7 @@ def register():
       # flash(f"Welcome {usr.email}")
       return redirect('/')
     flash(": Password incorrect", f"{form.email.data}")
-    return redirect('/sign-in/')
+    return redirect('/sign-in')
     
   return render_template('login.html', form_data=form)
 
@@ -221,8 +228,10 @@ def register():
 @app.route('/logout', methods=["POST"])
 def logout():
   flash("successfully logged out.", session['user_email'])
-  session.pop('user_email')
-  session.pop('editor')
+  if 'user_email' in session:
+    session.pop('user_email')
+  if 'editor' in session:
+    session.pop('editor')
   return redirect('/sign-in')
 
 
@@ -239,6 +248,7 @@ def check_editor_rights():
   if "user_email" in session and 'editor' in session and session['editor'] == True:
     return jsonify(True)
   return jsonify(False)
+
 
 
 # #! Route to make the current user an editor

@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField
-from database.psql_db import db
+from app import db
+# from database.psql_db import db
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
@@ -32,6 +33,4 @@ class User(db.Model):
     if usr and bcrypt.check_password_hash(usr.password , form_password):
       return usr
     return False
-
-
 

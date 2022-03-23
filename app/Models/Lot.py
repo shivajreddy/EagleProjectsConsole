@@ -1,7 +1,8 @@
 
 #! MODEL -> Lot Model
 from flask_sqlalchemy import SQLAlchemy
-from database.psql_db import db
+from app import db
+# from database.psql_db import db
 
 class Lot(db.Model):
   """Lot Table"""
