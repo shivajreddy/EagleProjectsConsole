@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, PasswordField
-from app import db
-# from database.psql_db import db
+
+from .. import db
+
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
 
@@ -17,14 +18,14 @@ class User(db.Model):
   editor = db.Column(db.Boolean, default=False)
 
 
-  # Registration
+  #? Registration
   @classmethod
   def register(cls, form_email, form_password):
     hashed_password = bcrypt.generate_password_hash(form_password)
     hashed_password_utf = hashed_password.decode('utf8')
     return cls(email=form_email, password=hashed_password_utf)
 
-  # Authentication
+  #? Authentication
   @classmethod
   def authenticate(cls, form_email, form_password):
 

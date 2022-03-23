@@ -1,44 +1,20 @@
-from crypt import methods
-import os
-from flask import Flask, flash, jsonify, render_template, redirect, session
-# from database.psql_db import db, connect_psqldb
-from ..Models.Lot import Lot, LotsDirectory
+from flask import flash, jsonify, render_template, redirect, session
+# from ..Models.Lot import Lot
+from ..Models.Lot import LotsDirectory
 from ..Models.User import User
 from ..forms.NewLotForm import NewLotForm, NewLot
 from ..forms.LoginForm import LoginForm, RegistrationForm
-# from sqlalchemy import delete
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt()
-
-# Mailing
-from flask_mail import Mail, Message
-
 
 
 import json
 import pandas as pd
 import plotly
 import plotly.express as px
-import ssl
 
 
 from app import app, db
-
-
-#! App Conifguration
-# project_root = os.path.dirname(os.path.realpath('__file__'))
-# template_path = os.path.join(project_root, 'templates')
-# static_path = os.path.join(project_root, 'static')
-# app  = Flask(__name__, template_folder=template_path, static_folder=static_path)
-# app.config["SECRET_KEY"] = "e7543f072c2f7afd5ddfbba37edbc101b0c480c641a9d3be"
-# import config
-# mail = Mail(app)
-
-#! PSQL database
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///eagleconsole'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_ECHO'] = True
-# connect_psqldb(app)
 
 
 #! Test route
@@ -56,13 +32,11 @@ from app import app, db
 @app.route('/')
 def route_homePage():
   # db.create_all()
-  # import pdb
-  # pdb.set_trace()
 
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  all_lots = Lot.query.order_by("lot_name")
+  # all_lots = Lot.query.order_by("lot_name")
   all_lots = LotsDirectory.query.all()
   return render_template('home_page.html', lot_data=all_lots)
 
@@ -73,7 +47,6 @@ def new_lot():
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  # new_lot_form_inst = NewLotForm()
   new_lot_form_inst = NewLot()
 
   #* Validate the form
@@ -126,7 +99,8 @@ def edit_lot(lot_id):
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  lot = Lot.query.get(lot_id)
+  # lot = Lot.query.get(lot_id)
+  lot = LotsDirectory.query.get(lot_id)
   lot_form = NewLotForm(obj=lot)
 
   #* Validate the edited form
@@ -147,14 +121,14 @@ def delete_lot(lot_id):
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  lot = db.session.query(Lot).filter(Lot.id==lot_id)
+  # lot = db.session.query(Lot).filter(Lot.id==lot_id)
+  lot = db.session.query(LotsDirectory).filter(LotsDirectory.id==lot_id)
   lot.delete()
   db.session.commit()
   return redirect('/')
 
 
-ssl._create_default_https_context = ssl._create_unverified_context
-df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/c78bf172206ce24f77d6363a2d754b59/raw/c353e8ef842413cae56ae3920b8fd78468aa4cb2/usa-agricultural-exports-2011.csv')
+
 
 
 
@@ -202,8 +176,6 @@ def register():
   form = LoginForm()
 
   if form.validate_on_submit():
-    import pdb
-    pdb.set_trace()
     usr = User.query.filter_by(email=form.email.data).first()
     if not usr:
       flash("not found!", f"{form.email.data}")
@@ -213,10 +185,6 @@ def register():
       session['user_email'] = usr.email
       session['editor'] = usr.editor
 
-      # import pdb
-      # pdb.set_trace()
-
-      # flash(f"Welcome {usr.email}")
       return redirect('/')
     flash(": Password incorrect", f"{form.email.data}")
     return redirect('/sign-in')
@@ -244,7 +212,7 @@ def not_found_404(e):
 @app.route('/check-editor', methods=["GET"])
 def check_editor_rights():
   if "user_email" not in session:
-    return json(False)
+    return jsonify(False)
   if "user_email" in session and 'editor' in session and session['editor'] == True:
     return jsonify(True)
   return jsonify(False)

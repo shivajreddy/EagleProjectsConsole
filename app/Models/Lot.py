@@ -1,24 +1,22 @@
-
-#! MODEL -> Lot Model
+""" MODEL for a Lot entry"""
 from flask_sqlalchemy import SQLAlchemy
 from app import db
-# from database.psql_db import db
 
-class Lot(db.Model):
-  """Lot Table"""
+# class Lot(db.Model):
+#   """Lot Table"""
 
-  __tablename__ = "lots"
+#   __tablename__ = "lots"
 
-  id = db.Column(db.Integer,
-  primary_key=True,
-  autoincrement=True)
+#   id = db.Column(db.Integer,
+#   primary_key=True,
+#   autoincrement=True)
 
-  lot_name = db.Column(db.String(50))
+#   lot_name = db.Column(db.String(50))
   
-  lot_date = db.Column(db.Date)
+#   lot_date = db.Column(db.Date)
 
-  def all_columns(self):
-    return [self.lot_name, self.lot_date]
+#   def all_columns(self):
+#     return [self.lot_name, self.lot_date]
 
 
 

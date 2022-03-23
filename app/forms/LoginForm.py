@@ -1,13 +1,12 @@
 from flask import flash
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField ,PasswordField, ValidationError
-from wtforms.validators import input_required, email
+from wtforms import EmailField ,PasswordField, ValidationError
+from wtforms.validators import input_required
 
 #! Log-in Form
 class LoginForm(FlaskForm):
   """Log in form using WTForm"""
 
-  # email = StringField("Email address", validators=[input_required()])
   email = EmailField("Email address", validators=[input_required()])
   password = PasswordField("Password", validators=[input_required()])
 
@@ -17,7 +16,6 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
   """Register using Eagle/Tec email"""
 
-  # email = StringField("Email address", validators=[input_required()])
   email = EmailField("Email address", validators=[input_required()])
   password = PasswordField("Password", validators=[input_required()])
 
