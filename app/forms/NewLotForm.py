@@ -1,30 +1,31 @@
 
 #! Form -> New Lot Form
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField
+from wtforms import StringField, DateField, SelectField
 from wtforms.validators import input_required, optional
 
-class NewLotForm(FlaskForm):
+# class NewLotForm(FlaskForm):
 
-  lot_name = StringField("Lot Identification")
+#   lot_name = StringField("Lot Identification")
 
-  lot_date = DateField(" Lot Start Date")
+#   lot_date = DateField(" Lot Start Date")
 
 class NewLot(FlaskForm):
 
   #* Lot information category
-  community = StringField("Community", validators=[input_required()])
+  # community = StringField("Community", validators=[input_required()])
+  community = SelectField("Community", validators=[input_required()])
   section = StringField("Section", validators=[input_required()])
   lot_number = StringField("Lot Number", validators=[input_required()])
   product = StringField("Product", validators=[input_required()])
   elevation = StringField("Elevation", validators=[input_required()])
-  contract_date = DateField("Contract Date")
+  contract_date = DateField("Contract Date", validators=[input_required()])
 
   #* Drafting Date
   assigned = StringField("Assigned to", validators=[input_required()])
   draft_deadline = DateField("Draft Deadline", validators=[optional()])
   actual = DateField("Actual Date", validators=[optional()])
-  time = StringField("Time in Minutes")
+  time = StringField("Time in Minutes", validators=[optional()])
 
   #* Engineering
   eng = StringField("Engineer Name", validators=[input_required()])

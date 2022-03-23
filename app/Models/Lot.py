@@ -2,23 +2,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 
-# class Lot(db.Model):
-#   """Lot Table"""
-
-#   __tablename__ = "lots"
-
-#   id = db.Column(db.Integer,
-#   primary_key=True,
-#   autoincrement=True)
-
-#   lot_name = db.Column(db.String(50))
-  
-#   lot_date = db.Column(db.Date)
-
-#   def all_columns(self):
-#     return [self.lot_name, self.lot_date]
-
-
 
 #* Actual lot model
 class LotsDirectory(db.Model):
@@ -39,7 +22,7 @@ class LotsDirectory(db.Model):
   assigned = db.Column(db.Text, nullable=False)
   draft_deadline = db.Column(db.Date)
   actual = db.Column(db.Date)
-  time = db.Column(db.Integer)
+  time = db.Column(db.Text)
 
   #* Engineering
   eng = db.Column(db.Text, nullable=False)
@@ -65,4 +48,57 @@ class LotsDirectory(db.Model):
 
   #* Notes
   notes = db.Column(db.Text)
+
+
+#!Serialization method
+def serialize_lot(lot):
+
+  return {
+    "lot_info" :{
+    "id" : lot.id,
+    "community" : lot.community,
+    "section" : lot.section,
+    "lot_number" : lot.lot_number,
+    "product" : lot.product,
+    "elevation" : lot.elevation,
+    "contract_date" : lot.contract_date,
+    },
+
+    "drafting" : {
+    "assigned" : lot.assigned,
+    "draft_deadline" : lot.draft_deadline,
+    "actual" : lot.actual,
+    "time" : lot.time,
+    },
+
+    "engineering" : {
+    "eng" : lot.eng,
+    "eng_sent" : lot.eng_sent,
+    "eng_planned_receipt" : lot.eng_planned_receipt,
+    "eng_actual_receipt" : lot.eng_actual_receipt,
+    },
+    
+    "plat" : {
+    "plat_eng" : lot.plat_eng,
+    "plat_sent" : lot.plat_sent,
+    "plat_planned_receipt" : lot.plat_planned_receipt,
+    "plat_actual_receipt" : lot.plat_actual_receipt,
+    },
+
+    "permit" : {
+    "permit_jurisdiction" : lot.permit_jurisdiction,
+    "permit_planned_submit" : lot.permit_planned_submit,
+    "permit_actual_submit" : lot.permit_actual_submit,
+    "permit_received" : lot.permit_received,
+    },
+
+    "bbp" : {
+    "bbp_planned_posted" : lot.bbp_planned_posted,
+    "bbp_actual_posted" : lot.bbp_actual_posted,
+    },
+
+    "notes" : {
+    "notes" : lot.notes
+    }
+  }
 

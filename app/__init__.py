@@ -17,7 +17,7 @@ def connect_db(app):
 connect_db(app)
 
 #* Import all views
-from .views import views
+from .views import views, auth_views, api, super_user_views
 
 
 

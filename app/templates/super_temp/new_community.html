@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center p-4">New Community</h1>
+
+<div class="container">
+  <h3 class="text-center">Existing communities</h3>
+  {% for c in communities %}
+    <div>
+      {{c.id}} : {{c.community_name}}
+    </div>
+  {% endfor %}
+</div>
+
+<div class="container p-4">
+  <form action="/super/new-community" method="POST">
+    {{ form.hidden_tag() }}
+    
+    {% for field in form if field.widget.input_type != 'hidden' %}
+    <div>
+      {{field.label}}
+      {{field}}
+    </div>
+    {% endfor %}
+    <button class="btn btn-primary">Add community</button>
+    
+  </form>
+</div>
+
+{% endblock content %}

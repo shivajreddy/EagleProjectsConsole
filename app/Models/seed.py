@@ -1,12 +1,14 @@
-from Models.Lot import LotsDirectory, Lot
-from database.psql_db import db, connect_psqldb
+"""Seed file for lots"""
+
+from ..Models.Lot import LotsDirectory
+from app import db
 import datetime
 
-db.drop_all()
-db.create_all()
+# db.drop_all()
+# db.create_all()
+
 
 LotsDirectory.query.delete()
-Lot.query.delete()
 
 test_lot_1 = LotsDirectory(
   #* Lot info
@@ -136,14 +138,16 @@ test_lot_3 = LotsDirectory(
 )
 
 
-# test_lot = Lot(lot_name="testname1",
-# lot_date="1")
-
-
-# db.session.add(test_lot)
 db.session.add(test_lot_1)
 db.session.add(test_lot_2)
 db.session.add(test_lot_3)
 
-
 db.session.commit()
+
+# @app.route('/seed/lots')
+# def seed_lots():
+#   db.session.add(test_lot_1)
+#   db.session.add(test_lot_2)
+#   db.session.add(test_lot_3)
+#   db.session.commit()
+#   return f"Seeded all test lots"
