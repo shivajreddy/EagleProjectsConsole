@@ -94,7 +94,9 @@ function generate() {
       //     minCellHeight: 40
       // }
   })
-  doc.save('All_lots.pdf');
+  var today = new Date();
+  // save the file with month-date-year as name
+  doc.save(`LotSpecifics_${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}_${today.getHours()}:${today.getMinutes()}.pdf`);
 }
 
 //! Download table into PDF
@@ -110,3 +112,8 @@ $print_table.on('click', function (e){
 
 });
 
+
+//! Convert tables to datatables
+$(document).ready( function () {
+  $('#main-lots-table').DataTable();
+});

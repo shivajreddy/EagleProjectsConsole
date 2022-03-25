@@ -11,33 +11,33 @@ class LotsDirectory(db.Model):
 
   #* Lot information category
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-  community = db.Column(db.Text, nullable=False)
-  section = db.Column(db.Text, nullable = False)
-  lot_number = db.Column(db.Text, nullable = False)
-  product = db.Column(db.Text,nullable=False)
-  elevation = db.Column(db.Text, nullable=False)
+  community = db.Column(db.Text)
+  section = db.Column(db.Text)
+  lot_number = db.Column(db.Text)
+  product = db.Column(db.Text)
+  elevation = db.Column(db.Text)
   contract_date = db.Column(db.Date)
 
   #* Drafting
-  assigned = db.Column(db.Text, nullable=False)
+  assigned = db.Column(db.Text)
   draft_deadline = db.Column(db.Date)
   actual = db.Column(db.Date)
   time = db.Column(db.Text)
 
   #* Engineering
-  eng = db.Column(db.Text, nullable=False)
+  eng = db.Column(db.Text)
   eng_sent = db.Column(db.Date)
   eng_planned_receipt = db.Column(db.Date)
   eng_actual_receipt = db.Column(db.Date)
   
   #* Plat
-  plat_eng = db.Column(db.Text, nullable=False)
+  plat_eng = db.Column(db.Text)
   plat_sent = db.Column(db.Date)
   plat_planned_receipt = db.Column(db.Date)
   plat_actual_receipt = db.Column(db.Date)
 
   #* Permit
-  permit_jurisdiction = db.Column(db.Text, nullable=False)
+  permit_jurisdiction = db.Column(db.Text)
   permit_planned_submit = db.Column(db.Date)
   permit_actual_submit = db.Column(db.Date)
   permit_received = db.Column(db.Date)
