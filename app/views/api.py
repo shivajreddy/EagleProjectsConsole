@@ -111,3 +111,37 @@ def delete_lot(lot_id):
   lot.delete()
   db.session.commit()
   return redirect('/')
+
+
+
+@app.route('/check-editor', methods=["GET"])
+def check_editor_rights():
+  if "user_email" not in session:
+    return jsonify(False)
+  if "user_email" in session and 'editor' in session and session['editor'] == True:
+    return jsonify(True)
+  return jsonify(False)
+
+
+#? EDIT lot 
+@app.route('/lot/edit/<int:lot_id>/', methods=["GET", "POST"])
+def edit_lot(lot_id):
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  lot = LotsDirectory.query.get(lot_id)
+  lot_form = NewLot(obj=lot)
+
+  #* Validate the edited form
+  if lot_form.validate_on_submit():
+    #* get the edited responses
+    new_name = lot_form.lot_name.data
+    new_date = lot_form.lot_date.data
+    lot.lot_name = new_name
+    lot.lot_date = new_date
+    db.session.add(lot)
+    db.session.commit()
+    return redirect('/')
+
+  print("FAILL")
+  return render_template('edit_lot.html', lot=lot_form)

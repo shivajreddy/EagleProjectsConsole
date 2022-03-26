@@ -5,10 +5,10 @@ from wtforms import StringField, DateField, SelectField
 from wtforms.validators import input_required, optional
 
 # class NewLotForm(FlaskForm):
-
 #   lot_name = StringField("Lot Identification")
-
 #   lot_date = DateField(" Lot Start Date")
+
+
 
 class NewLot(FlaskForm):
 

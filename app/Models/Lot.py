@@ -49,6 +49,10 @@ class LotsDirectory(db.Model):
   #* Notes
   notes = db.Column(db.Text)
 
+  def __repr__(self):
+    lot_info = f"[{self.community} {self.section} {self.lot_number} {self.contract_date}]"
+    return lot_info
+
 
 #!Serialization method
 def serialize_lot(lot):

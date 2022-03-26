@@ -1,26 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h3 class="text-center m-2"> ⚙️ Edit lot </h3>
+<h3 class="text-center m-2 p-4"> ⚙️ Edit lot </h3>
+
 
 <!-- Lot container -->
-<div class="container">
+<div class="container m-4">
   <form action="" method="POST">
     {{ lot.hidden_tag() }} 
+    {{ lot.csrf_token }}
+
+    <div class="container">
+
+      {% for field in lot if field.widget.input_type != 'hidden' %}
+        <div class="d-flex flex-row">
+          <p>{{field.label}}</p>
+          <p>{{field}}</p>
+        </div>
+      {% endfor %}
+
+    </div>
     
-    <table class="table table-bordered text-center">
+    <!-- <table class="table table-bordered text-center">
       <thead class="table-dark">
         <th>Name</th>
         <th>Date</th>
       </thead>
       <td>
-        {{lot.lot_name}}
+        {{lot.community}}
       </td>
       <td>
-        {{lot.lot_date}}
+        {{lot.section}}
       </td>
-
-    </table>
+    </table> -->
 
   <div class="text-center">
     <button class="btn btn-success modify-update">

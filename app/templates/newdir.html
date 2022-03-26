@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center p-4">This is the new lot directory</h1>
+
+<div class="container-md p-3 lots-table">
+
+  {% for i in all_lots %}
+    <p>
+    {{i}}
+    </p>
+  {% endfor %}
+
+  <table>
+    
+    <thead>
+    </thead>
+
+    <tbody>
+      <td>
+
+      </td>
+    </tbody>
+
+  </table>
+
+</div>
+
+{% endblock content %}

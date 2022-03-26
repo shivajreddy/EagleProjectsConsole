@@ -4,8 +4,9 @@
 $modifyButton = $('.modify');
 $modifyButton.on('click', (e)=>{
   e.preventDefault();
-  const t = e.target.parentElement;
-  const id = parseInt(t.nextElementSibling.innerText);
+
+  let id = parseInt($(e.currentTarget).attr("data-id"));
+
   window.location.href = `/lot/edit/${id}`;
 });
 

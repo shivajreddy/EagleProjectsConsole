@@ -10,8 +10,7 @@
 }
 
 
-.td-date {
-  /* min-width: 150px; */
+td {
   white-space: nowrap;
 
 }
@@ -25,9 +24,6 @@ th {
   overflow-x: scroll;
 }
 
-td {
-  font-size: 12px;
-}
 
 #lines {
   width: 100%;
@@ -75,4 +71,17 @@ td {
   position: sticky;
   left: 0;
   z-index: 2;
+}
+
+/* color coding */
+.late_3 {
+  background-color: red;
+}
+
+.late_2 {
+  background-color: rgb(248, 133, 67);
+}
+
+.late_1 {
+  background-color: rgb(255, 251, 0);
 }
