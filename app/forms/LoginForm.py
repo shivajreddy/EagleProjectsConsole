@@ -19,6 +19,7 @@ class RegistrationForm(FlaskForm):
   email = EmailField("Email address", validators=[input_required()])
   password = PasswordField("Password", validators=[input_required()])
 
+  # this is the name of the function that has to be, for custom email validation
   def validate_email(self, email):
     i = (email.data).index('@')
     j = (email.data).index('.com')
