@@ -8,7 +8,6 @@ from ..Models.Lot import LotsDirectory
 from ..forms.NewLotForm import NewLot
 
 
-import pandas as pd
 
 
 from app import app, db
@@ -17,12 +16,13 @@ from app import app, db
 #! Test route
 @app.route('/test')
 def test_route():
+  # from ..Models.Lot import LotsDirectory
   # from ..Models.seed import test_lot_1, test_lot_2, test_lot_3
   # db.session.add(test_lot_1)
   # db.session.add(test_lot_2)
   # db.session.add(test_lot_3)
   # db.session.commit()
-  db.create_all()
+  # db.create_all()
   return f"test page"
 
 
@@ -51,7 +51,7 @@ def new_test_home():
 # from ..Models.User import User
 # @app.route('/change', methods=["GET", "POST"])
 # def change_rights():
-#   usr = User.query.filter_by(email="shiva@tecofva.com").first()
+#   usr = User.query.filter_by(email="sreddy@tecofva.com").first()
 #   usr.editor = True
 #   usr.super_editor = True
 #   db.session.add(usr)

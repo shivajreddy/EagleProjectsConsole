@@ -3,18 +3,18 @@
 <!-- <img id="lines" src="https://appsrv1-147a1.kxcdn.com/soft-ui-design-v1.0.1/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0"> -->
 <h3 class="p-2 text-center">⭕️ Lot Specifics</h3>
 
-<div class="container-md p-3 lots-table">
+<div class="p-3 lots-table">
   <h3 class="text-center">search box</h3>
   <h5 id="mydate"></h5>
 </div>
 
 
-<div class="container-md p-3 lots-table">
+<div class="m-2 p-3 lots-table">
 
   <table class="table table-bordered table-striped" id="main-lots-table">
     <thead class="table-dark">
       <tr class="main-header">
-        <th class="text-center" colspan="1">&nbsp;</th>
+        <th class="text-center editor-only" colspan="2">Modify</th>
         <th class="text-center" colspan="6">Lot Info</th>
         <th class="text-center" colspan="4">Drafting Info</th>
         <th class="text-center" colspan="4">Engineering Info</th>
@@ -24,7 +24,8 @@
         <th class="text-center" colspan="1">&nbsp;</th>
       </tr>
       <tr>
-        <th>Edit</th>
+        <th class="editor-only">Edit</th>
+        <th class="editor-only">✅</th>
         <th class="lot-info index-header-2">Community</th>
         <th class="lot-info">Section</th>
         <th class="lot-info">Lot_number</th>
@@ -68,6 +69,9 @@
         <td class="editor-only invisible">
           <a type="button" class="btn btn-success modify" data-id="{{lot.id}}" href="/">
           <i class="bi bi-pencil-square"></i></a>
+        </td>
+        <td class="editor-only invisible p-2">
+          <input class="form-check-input" type="checkbox" role="switch">
         </td>
 
         <!--* Lot Info -->

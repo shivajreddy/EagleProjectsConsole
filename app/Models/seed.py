@@ -12,6 +12,7 @@ LotsDirectory.query.delete()
 
 test_lot_1 = LotsDirectory(
   #* Lot info
+  finished = False,
   community="Lauradell",
   section="1",
   lot_number="101",
