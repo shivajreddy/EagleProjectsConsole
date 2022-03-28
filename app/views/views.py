@@ -16,13 +16,13 @@ from app import app, db
 #! Test route
 @app.route('/test')
 def test_route():
-  # from ..Models.Lot import LotsDirectory
-  # from ..Models.seed import test_lot_1, test_lot_2, test_lot_3
-  # db.session.add(test_lot_1)
-  # db.session.add(test_lot_2)
-  # db.session.add(test_lot_3)
-  # db.session.commit()
+  from ..Models.Lot import LotsDirectory
+  from ..Models.seed import test_lot_1, test_lot_2, test_lot_3
   # db.create_all()
+  db.session.add(test_lot_1)
+  db.session.add(test_lot_2)
+  db.session.add(test_lot_3)
+  db.session.commit()
   return f"test page"
 
 

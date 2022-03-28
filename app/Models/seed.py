@@ -8,11 +8,11 @@ import datetime
 # db.create_all()
 
 
-LotsDirectory.query.delete()
+# LotsDirectory.query.delete()
 
 test_lot_1 = LotsDirectory(
   #* Lot info
-  finished = False,
+  # finished = False,
   community="Lauradell",
   section="1",
   lot_number="101",
@@ -55,6 +55,7 @@ test_lot_1 = LotsDirectory(
 
 test_lot_2 = LotsDirectory(
   #* Lot info
+  # finished = False,
   community="Readers Branch",
   section="4",
   lot_number="8",
@@ -98,6 +99,7 @@ test_lot_2 = LotsDirectory(
 
 test_lot_3 = LotsDirectory(
   #* Lot info
+  # finished = False,
   community="Cypress Creek",
   section="0",
   lot_number="229",
