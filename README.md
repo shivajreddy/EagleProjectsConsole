@@ -10,7 +10,6 @@
 - This application stores the data in a relational database, and displays that data visually through graphs, plots, tables e.t.c,.
 - CRUD functionality for user’s with editor roles.
 
-![Screen Shot 2022-03-13 at 1.55.18 PM.png](Capstone%20-%203c7ef/Screen_Shot_2022-03-13_at_1.55.18_PM.png)
 
 ### **Who is it for ⁉️**
 

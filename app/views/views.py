@@ -1,14 +1,11 @@
+""" main views """
 from crypt import methods
 from flask import jsonify, render_template, redirect, request, session
 
 from ..Models.Lot import LotsDirectory
 # from ..Models.User import User
 
-
 from ..forms.NewLotForm import NewLot
-
-
-
 
 from app import app, db
 
@@ -33,18 +30,24 @@ def route_homePage():
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  all_lots = LotsDirectory.query.all()
+  finished_lots = LotsDirectory.query.filter_by(finished=False).all()
+  return render_template('home_page.html', lot_data=finished_lots)
 
-  return render_template('home_page.html', lot_data=all_lots)
+
+@app.route('/all-lots')
+def all_lots_page():
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+  
+  all_lots = LotsDirectory.query.all()
+  return render_template('home_page.html', lot_data = all_lots)
 
 
 @app.route('/new', methods=["GET"])
 def new_test_home():
   all_lots = LotsDirectory.query.all()
 
-
   return render_template('newdir.html', all_lots = all_lots)
-
 
 
 #! Route to make the current user an editor
@@ -58,4 +61,3 @@ def new_test_home():
 #   db.session.commit()
 #   print(usr) 
 #   return f"{usr}"
-

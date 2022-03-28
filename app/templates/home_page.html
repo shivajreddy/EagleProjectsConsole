@@ -71,12 +71,16 @@
           <i class="bi bi-pencil-square"></i></a>
         </td>
         <td class="editor-only invisible p-2">
-          <input class="form-check-input" type="checkbox" role="switch">
+          {% if lot.finished %}
+            <input class="form-check-input" checked disabled type="checkbox" role="switch">
+          {% else %}
+            <input class="form-check-input" disabled type="checkbox" role="switch">
+          {% endif %}
         </td>
 
         <!--* Lot Info -->
         <td class="lotinfo community">
-          {{lot.community}}
+          {{lot.community}}{{lot.finished}}
         </td>
         <td class="lotinfo section">
           {{lot.section}}

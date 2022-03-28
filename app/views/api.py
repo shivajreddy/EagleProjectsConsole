@@ -34,13 +34,6 @@ def get_single_lot(id):
   return render_template('404.html', data={"id":id, "msg":"not in LotsDirectory table"}), 404
 
 
-# TODO
-# #? POST new lot
-# @app.route('/api/new-lot', methods=["POST"])
-# def new_lot(lot):
-
-#   return jsonify(serialize_lot(lot))
-
 #? New Lot form
 @app.route('/lot/new', methods=["GET", "POST"])
 def new_lot():
@@ -113,7 +106,7 @@ def delete_lot(lot_id):
   return redirect('/')
 
 
-
+#? Check USER ROLE
 @app.route('/check-editor', methods=["GET"])
 def check_editor_rights():
   if "user_email" not in session:
@@ -131,6 +124,9 @@ def edit_lot(lot_id):
 
   lot = LotsDirectory.query.get(lot_id)
   lot_form = NewLot(obj=lot)
+
+  # import pdb
+  # pdb.set_trace()
 
   #* Validate the edited form
   if lot_form.validate_on_submit():

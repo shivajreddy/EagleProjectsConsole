@@ -1,7 +1,7 @@
 
 #! Form -> New Lot Form
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField
+from wtforms import StringField, DateField, SelectField, BooleanField
 from wtforms.validators import input_required, optional
 
 # class NewLotForm(FlaskForm):
@@ -14,6 +14,7 @@ class NewLot(FlaskForm):
 
   #* Lot information category
   # community = StringField("Community", validators=[input_required()])
+  finished = BooleanField("Finished", validators=[optional()])
   community = SelectField("Community", validators=[input_required()])
   section = StringField("Section", validators=[input_required()])
   lot_number = StringField("Lot Number", validators=[input_required()])

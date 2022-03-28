@@ -4,42 +4,27 @@
 <h3 class="text-center m-2 p-4"> ⚙️ Edit lot </h3>
 
 
-<!-- Lot container -->
+<!--! Lot container -->
 <div class="container m-4">
   <form action="" method="POST">
     {{ lot.hidden_tag() }} 
     {{ lot.csrf_token }}
 
     <div class="container">
-
-      {% for field in lot if field.widget.input_type != 'hidden' %}
-        <div class="d-flex flex-row">
-          <p>{{field.label}}</p>
-          <p>{{field}}</p>
-        </div>
-      {% endfor %}
-
+    {% for field in lot if field.widget.input_type != 'hidden' %}
+      <div class="d-flex flex-row">
+        <p>{{field.label}}</p>
+        <p>{{field}}</p>
+      </div>
+    {% endfor %}
     </div>
     
-    <!-- <table class="table table-bordered text-center">
-      <thead class="table-dark">
-        <th>Name</th>
-        <th>Date</th>
-      </thead>
-      <td>
-        {{lot.community}}
-      </td>
-      <td>
-        {{lot.section}}
-      </td>
-    </table> -->
-
-  <div class="text-center">
-    <button class="btn btn-success modify-update">
-      <i class="bi bi-check-circle-fill"></i> Confirm Changes</button>
-    <button class="btn btn-danger modify-delete" >
-      <i class="bi bi-x-circle-fill"></i> Delete Lot</button>
-  </div>
+    <div class="text-center">
+      <button class="btn btn-success modify-update">
+        <i class="bi bi-check-circle-fill"></i> Confirm Changes</button>
+      <button class="btn btn-danger modify-delete" >
+        <i class="bi bi-x-circle-fill"></i> Delete Lot</button>
+    </div>
 
   </form>
 
