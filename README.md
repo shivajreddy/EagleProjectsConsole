@@ -26,7 +26,6 @@ This application mainly focuses on data in the form of rows and columns, contain
     > Since it focused for addressing the mutliple projects, schema looks similar to the tabular representation of project’s details.
     > 
     
-    ![Screen Shot 2022-03-13 at 1.42.39 PM.png](Capstone%20-%203c7ef/Screen_Shot_2022-03-13_at_1.42.39_PM.png)
     
     Starting of with the main table data, that has information for a specific project. Some columns will be referring to other tables.
     
