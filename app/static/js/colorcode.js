@@ -4,7 +4,7 @@ const  today = new Date();
 const prevWeekDate = new Date()
 prevWeekDate.setDate(new Date().getDate() - 7)
 
-console.log(today,prevWeekDate)
+// console.log(today,prevWeekDate)
 
 // var dd = String(today.getDate()).padStart(2, '0');
 // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!

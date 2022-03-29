@@ -1,4 +1,3 @@
-// const { default: jsPDF } = require("jspdf");
 
 //! Modify button for each lot on homepage
 $modifyButton = $('.modify');
@@ -10,12 +9,6 @@ $modifyButton.on('click', (e)=>{
   window.location.href = `/lot/edit/${id}`;
 });
 
-
-$user_link = $('#user_link')
-$user_link.on('click', (e) => {
-  // e.preventDefault();
-  console.log("This link is pressed");
-});
 
 //! Delete lot button
 $deleteLotButton = $('.modify-delete')
@@ -36,7 +29,7 @@ $deleteLotButton.on('click', (e) =>{
 });
 
 
-//* Make an axios request to check if user is editor
+//! Show user-role based content
 const $editor_fields = $('.editor-only')
 async function check_editor() {
 
@@ -53,6 +46,7 @@ async function check_editor() {
 check_editor();
 
 
+//! Generate PDF using the jsPDF module
 function generate() {
   var doc = new jsPDF('p', 'pt', 'letter');
   var htmlstring = '';
@@ -100,7 +94,7 @@ function generate() {
   doc.save(`LotSpecifics_${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}_${today.getHours()}:${today.getMinutes()}.pdf`);
 }
 
-//! Download table into PDF
+// Run the generate function to save table as PDF
 const $print_table = $('#print-table')
 $print_table.on('click', function (e){
   e.preventDefault();
@@ -108,13 +102,6 @@ $print_table.on('click', function (e){
   // download pdf
   console.log("STARTING FUNCTION");
   generate()
-
-
-
 });
 
 
-//! Convert tables to datatables
-$(document).ready( function () {
-  $('#main-lots-table').DataTable();
-});

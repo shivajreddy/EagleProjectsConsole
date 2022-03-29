@@ -38,6 +38,10 @@ from app import app, db
   # db.session.commit()
   # return f"test page"
 
+@app.route('/aggrid')
+def aggrid_test():
+  return render_template('aggrid.html')
+
 
 #! Routes
 @app.route('/')
