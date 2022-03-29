@@ -125,16 +125,61 @@ def edit_lot(lot_id):
   lot = LotsDirectory.query.get(lot_id)
   lot_form = NewLot(obj=lot)
 
+  all_communities = [(c.community_name, c.community_name) for c in Community.query.all()]
+  lot_form.community.choices = all_communities
+
   # import pdb
   # pdb.set_trace()
 
   #* Validate the edited form
   if lot_form.validate_on_submit():
+
+    # new_name = lot_form.lot_name.data
+    # new_date = lot_form.lot_date.data
+    # lot.lot_name = new_name
+    # lot.lot_date = new_date
+
     #* get the edited responses
-    new_name = lot_form.lot_name.data
-    new_date = lot_form.lot_date.data
-    lot.lot_name = new_name
-    lot.lot_date = new_date
+    #* Lot information category
+    lot.finished = lot_form.finished.data
+    lot.community = lot_form.community.data
+    lot.section = lot_form.section.data
+    lot.lot_number = lot_form.lot_number.data
+    lot.product = lot_form.product.data
+    lot.elevation = lot_form.elevation.data
+    lot.contract_date = lot_form.contract_date.data
+
+    #* Drafting
+    lot.assigned = lot_form.assigned.data
+    lot.draft_deadline = lot_form.draft_deadline.data
+    lot.actual = lot_form.actual.data
+    lot.time = lot_form.time.data
+
+    #* Engineering
+    lot.eng = lot_form.eng.data
+    lot.eng_sent = lot_form.eng_sent.data
+    lot.eng_planned_receipt = lot_form.eng_planned_receipt.data
+    lot.eng_actual_receipt = lot_form.eng_actual_receipt.data
+    
+    #* Plat
+    lot.plat_eng = lot_form.plat_eng.data
+    lot.plat_sent = lot_form.plat_sent.data
+    lot.plat_planned_receipt = lot_form.plat_planned_receipt.data
+    lot.plat_actual_receipt = lot_form.plat_actual_receipt.data
+
+    #* Permit
+    lot.permit_jurisdiction = lot_form.permit_jurisdiction.data
+    lot.permit_planned_submit = lot_form.permit_planned_submit.data
+    lot.permit_actual_submit = lot_form.permit_actual_submit.data
+    lot.permit_received = lot_form.permit_received.data
+
+    #* BBP
+    lot.bbp_planned_posted = lot_form.bbp_planned_posted.data
+    lot.bbp_actual_posted = lot_form.bbp_actual_posted.data
+
+    #* Notes
+    lot.notes = lot_form.notes.data
+
     db.session.add(lot)
     db.session.commit()
     return redirect('/')

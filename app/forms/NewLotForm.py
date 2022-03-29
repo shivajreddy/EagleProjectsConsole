@@ -15,35 +15,35 @@ class NewLot(FlaskForm):
   #* Lot information category
   # community = StringField("Community", validators=[input_required()])
   finished = BooleanField("Finished", validators=[optional()])
-  community = SelectField("Community", validators=[input_required()])
-  section = StringField("Section", validators=[input_required()])
-  lot_number = StringField("Lot Number", validators=[input_required()])
-  product = StringField("Product", validators=[input_required()])
-  elevation = StringField("Elevation", validators=[input_required()])
-  contract_date = DateField("Contract Date", validators=[input_required()])
+  community = SelectField("Community", validators=[optional()])
+  section = StringField("Section", validators=[optional()])
+  lot_number = StringField("Lot Number", validators=[optional()])
+  product = StringField("Product", validators=[optional()])
+  elevation = StringField("Elevation", validators=[optional()])
+  contract_date = DateField("Contract Date", validators=[optional()])
 
   #* Drafting Date
-  assigned = StringField("Assigned to", validators=[input_required()])
+  assigned = StringField("Assigned to", validators=[optional()])
   draft_deadline = DateField("Draft Deadline", validators=[optional()])
   actual = DateField("Actual Date", validators=[optional()])
   time = StringField("Time in Minutes", validators=[optional()])
 
   #* Engineering
-  eng = StringField("Engineer Name", validators=[input_required()])
+  eng = StringField("Engineer Name", validators=[optional()])
   eng_sent = DateField("Engineering Sent", validators=[optional()])
   eng_planned_receipt = DateField("Engineering Planned Receipt", validators=[optional()])
   eng_actual_receipt = DateField("Engineering Actual Receipt", validators=[optional()])
   
   #* Plat
-  plat_eng = StringField("Plat Eng", validators=[input_required()])
+  plat_eng = StringField("Plat Eng", validators=[optional()])
   plat_sent = DateField("Plat Sent", validators=[optional()])
   plat_planned_receipt = DateField("Plat Receipt", validators=[optional()])
   plat_actual_receipt = DateField("Plat Actual Receipt", validators=[optional()])
 
   #* Permit
-  permit_jurisdiction = StringField("Jursidiction", validators=[input_required()])
+  permit_jurisdiction = StringField("Jursidiction", validators=[optional()])
   permit_planned_submit = DateField("Permit planned submit", validators=[optional()])
-  permit_acutual_submit = DateField("Permit Actual submit", validators=[optional()])
+  permit_actual_submit = DateField("Permit Actual submit", validators=[optional()])
   permit_received =DateField("Permit Received", validators=[optional()])
 
   #* BBP
