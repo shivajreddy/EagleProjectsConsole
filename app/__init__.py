@@ -11,7 +11,6 @@ app = Flask(__name__)
 #* Load Configurations
 app.config.from_object('config')
 
-
 #* Connect Databaase
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
