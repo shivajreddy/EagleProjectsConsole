@@ -1,4 +1,4 @@
-
+console.log("scripts file starts");
 //! Modify button for each lot on homepage
 $modifyButton = $('.modify');
 $modifyButton.on('click', (e)=>{
@@ -94,14 +94,14 @@ function generate() {
   doc.save(`LotSpecifics_${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}_${today.getHours()}:${today.getMinutes()}.pdf`);
 }
 
-// Run the generate function to save table as PDF
-const $print_table = $('#print-table')
-$print_table.on('click', function (e){
-  e.preventDefault();
+// // Run the generate function to save table as PDF
+// const $print_table = $('#print-table')
+// $print_table.on('click', function (e){
+//   e.preventDefault();
 
-  // download pdf
-  console.log("STARTING FUNCTION");
-  generate()
-});
+//   // download pdf
+//   console.log("STARTING FUNCTION");
+//   generate()
+// });
 
 

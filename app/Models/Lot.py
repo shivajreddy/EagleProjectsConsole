@@ -55,6 +55,13 @@ class LotsDirectory(db.Model):
     return lot_info
 
 
+
+#! converting DATE-TIME string into Date
+from datetime import datetime
+def convert_to_date(datetime_string):
+  dt_object = datetime.strptime(datetime_string, '%a, %d %b %Y %H:%M:%S %Z')
+  return dt_object.date()
+
 #!Serialization method
 def serialize_lot(lot):
 
@@ -66,40 +73,40 @@ def serialize_lot(lot):
     "lot_number" : lot.lot_number,
     "product" : lot.product,
     "elevation" : lot.elevation,
-    "contract_date" : lot.contract_date,
+    "contract_date" : str(lot.contract_date),
     },
 
     "drafting" : {
     "assigned" : lot.assigned,
-    "draft_deadline" : lot.draft_deadline,
-    "actual" : lot.actual,
-    "time" : lot.time,
+    "draft_deadline" : str(lot.draft_deadline),
+    "actual" : str(lot.actual),
+    "time" : str(lot.time),
     },
 
     "engineering" : {
     "eng" : lot.eng,
-    "eng_sent" : lot.eng_sent,
-    "eng_planned_receipt" : lot.eng_planned_receipt,
-    "eng_actual_receipt" : lot.eng_actual_receipt,
+    "eng_sent" : str(lot.eng_sent),
+    "eng_planned_receipt" : str(lot.eng_planned_receipt),
+    "eng_actual_receipt" : str(lot.eng_actual_receipt),
     },
     
     "plat" : {
     "plat_eng" : lot.plat_eng,
-    "plat_sent" : lot.plat_sent,
-    "plat_planned_receipt" : lot.plat_planned_receipt,
-    "plat_actual_receipt" : lot.plat_actual_receipt,
+    "plat_sent" : str(lot.plat_sent),
+    "plat_planned_receipt" : str(lot.plat_planned_receipt),
+    "plat_actual_receipt" : str(lot.plat_actual_receipt),
     },
 
     "permit" : {
     "permit_jurisdiction" : lot.permit_jurisdiction,
-    "permit_planned_submit" : lot.permit_planned_submit,
-    "permit_actual_submit" : lot.permit_actual_submit,
-    "permit_received" : lot.permit_received,
+    "permit_planned_submit" : str(lot.permit_planned_submit),
+    "permit_actual_submit" : str(lot.permit_actual_submit),
+    "permit_received" : str(lot.permit_received),
     },
 
     "bbp" : {
-    "bbp_planned_posted" : lot.bbp_planned_posted,
-    "bbp_actual_posted" : lot.bbp_actual_posted,
+    "bbp_planned_posted" : str(lot.bbp_planned_posted),
+    "bbp_actual_posted" : str(lot.bbp_actual_posted),
     },
 
     "notes" : {

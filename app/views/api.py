@@ -76,7 +76,7 @@ def new_lot():
 
       permit_jurisdiction = new_lot_form_inst.permit_jurisdiction.data,
       permit_planned_submit = new_lot_form_inst.permit_planned_submit.data,
-      permit_actual_submit = new_lot_form_inst.permit_acutual_submit.data,
+      permit_actual_submit = new_lot_form_inst.permit_actual_submit.data,
       permit_received = new_lot_form_inst.permit_received.data,
 
       bbp_planned_posted = new_lot_form_inst.bbp_planned_posted.data,
@@ -128,16 +128,8 @@ def edit_lot(lot_id):
   all_communities = [(c.community_name, c.community_name) for c in Community.query.all()]
   lot_form.community.choices = all_communities
 
-  # import pdb
-  # pdb.set_trace()
-
   #* Validate the edited form
   if lot_form.validate_on_submit():
-
-    # new_name = lot_form.lot_name.data
-    # new_date = lot_form.lot_date.data
-    # lot.lot_name = new_name
-    # lot.lot_date = new_date
 
     #* get the edited responses
     #* Lot information category
@@ -184,5 +176,4 @@ def edit_lot(lot_id):
     db.session.commit()
     return redirect('/')
 
-  print("FAILL")
   return render_template('edit_lot.html', lot=lot_form)
