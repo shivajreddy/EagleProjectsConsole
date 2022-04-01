@@ -11,8 +11,10 @@ from app import app, db
 
 
 #! Test route
-# @app.route('/test')
-# def test_route():
+@app.route('/test')
+def test_route():
+  db.create_all()
+  return "create db"
 #   from ..Models.Lot import LotsDirectory
 #   from ..Models.Community import Community
 #   all_lots = LotsDirectory.query.all()
