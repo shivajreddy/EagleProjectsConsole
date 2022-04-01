@@ -8,7 +8,9 @@ mail = Mail(app)
 def send_confirmation_mail(recipient_email, token):
 
   # create a link with email and token
-  domain = "http://127.0.0.1:5000/confirm/"
+  # domain = "http://127.0.0.1:5000/confirm/"
+  # domain = "https://archi-tec-tonic.com/"
+  domain = "https://eagle-console-app.herokuapp.com/"
   link = f"{domain}{recipient_email}/{token}"
 
   msg = Message(
