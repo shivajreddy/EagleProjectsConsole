@@ -15,7 +15,7 @@ SECRET_KEY = "d8bfa0ccf1b5e3ab8121a4747a8eeef2ec2f83ba3e4a9966"
 
 #! DB config
 # SQLALCHEMY_DATABASE_URI = 'postgresql:///eagleconsole'
-SQLALCHEMY_DATABASE_URI = 'postgresql://tecofvac_sreddy:Intel1020$$@tecofvac@tecofvac.wwmi3-ts15.a2hosted.com:5432/tecofvac_eagleconsole'
+SQLALCHEMY_DATABASE_URI = 'postgresql://tecofvac_sreddy:Intel1020$$@tecofvac.wwwmi3-ts15.a2hosted.com:5432/tecofvac_eagleconsole'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ECHO = True
 
