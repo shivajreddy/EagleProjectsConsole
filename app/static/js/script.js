@@ -1,4 +1,4 @@
-console.log("scripts file starts");
+// console.log("scripts file starts");
 //! Modify button for each lot on homepage
 $modifyButton = $('.modify');
 $modifyButton.on('click', (e)=>{

@@ -25,14 +25,8 @@ function color_code(date_str){
 var columnDefs = [
 
   //! Status Column
-  {
-    headerName: 'Status',
-    children :
-    [
-      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'},
-      {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass: 'editor-only'},
-    ]
-  },
+  {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'},
+  {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass: 'editor-only'},
 
   //! Lot info
   {
@@ -127,82 +121,57 @@ var columnDefs = [
   },
 ]
 
-var rowDefs = [
-  // {community : 'Row1', section : 's1', lot_number : 'l1', product: 'p1', elevation:'e1', contract_date:'date1'},
-  // {community : 'Roww', section : 's2', lot_number : 'l2', product: 'p2', elevation:'e2', contract_date:'date2'},
-]
+const rowDefs = [];
 
-function cellClass(params){
-  return params.value >= 10 ? '.late_1' : '.late_2';
+
+//! AJAX CALL TO GET THE LOTS
+async function my_async(){
+  console.log("xxxxxxxxxxx ASYNC FUNCTION STARTED xxxxxxxxx")
+  
+  const result = await axios.get('/api/get-lots')
+
+  for (const lot of result.data){
+    rowDefs.push(lot);
+  }
+
+  const gridOptions = {
+    columnDefs : columnDefs,
+    rowData : rowDefs,
+    rowSelection : 'multiple',
+    domLayout: 'autoHeight',
+
+    tooltipShowDelay:0,
+    tooltipHideDelay: 2000,
+
+    defaultColDef: {
+      width: 150,
+      editable: false,
+      filter: 'agTextColumnFilter',
+      floatingFilter: true,
+      resizable: false,
+      lockPosition: true,
+    },    
+  }
+
+  const lotGrid = document.querySelector('#lotGrid');
+  new agGrid.Grid(lotGrid, gridOptions);
+
+  //* Auto - size columns
+  const allColumnIds = [];
+  gridOptions.columnApi.getAllColumns().forEach((column) => {
+    allColumnIds.push(column.getId());
+  })
+  gridOptions.columnApi.autoSizeColumns(allColumnIds, true);
+
+  //! Save as CSV
+  const $print_table = $('#print-table')
+  $print_table.on('click', function (e){
+    e.preventDefault();
+    gridOptions.api.exportDataAsCsv();
+  });
+
+  console.log("----------- ASYNC FUNCTION END -------------")
 }
 
-fetch('/api/get-lots')
-  .then(response => response.json())
-  .then(data => {
-    for (const lot_data of data){
-      
-      const currentRow = {}
-      for (const k of Object.keys(lot_data.lot_info)) {
-        currentRow[k] = lot_data.lot_info[k]
-      }
-      for (const k of Object.keys(lot_data.drafting)) {
-        currentRow[k] = lot_data.drafting[k]
-      }
-      for (const k of Object.keys(lot_data.engineering)) {
-        currentRow[k] = lot_data.engineering[k]
-      }
-      for (const k of Object.keys(lot_data.plat)) {
-        currentRow[k] = lot_data.plat[k]
-      }
-      for (const k of Object.keys(lot_data.permit)) {
-        currentRow[k] = lot_data.permit[k]
-      }
-      for (const k of Object.keys(lot_data.bbp)) {
-        currentRow[k] = lot_data.bbp[k]
-      }
-      for (const k of Object.keys(lot_data.notes)) {
-        currentRow[k] = lot_data.notes[k]
-      }
-
-      rowDefs.push(currentRow)
-    }
-  }).then(()=>{
-
-    var gridOptions = {
-      columnDefs : columnDefs,
-      rowData : rowDefs,
-      rowSelection : 'multiple',
-      domLayout: 'autoHeight',
-
-      tooltipShowDelay:0,
-      tooltipHideDelay: 2000,
-
-      defaultColDef: {
-        width: 150,
-        editable: false,
-        filter: 'agTextColumnFilter',
-        floatingFilter: true,
-        // resizable: false,
-        // lockPosition: true,
-      },
-    }
-
-    const lotGrid = document.querySelector('#lotGrid');
-    new agGrid.Grid(lotGrid, gridOptions);
-    
-    //* Auto - size columns
-    // const allColumnIds = [];
-    // gridOptions.columnApi.getAllColumns().forEach((column) => {
-    //   allColumnIds.push(column.getId());
-    // })
-    // gridOptions.columnApi.autoSizeColumns(allColumnIds, true);
-
-    //! Save as CSV
-    const $print_table = $('#print-table')
-    $print_table.on('click', function (e){
-      e.preventDefault();
-      gridOptions.api.exportDataAsCsv();
-    });
-
-  })
+my_async();
 

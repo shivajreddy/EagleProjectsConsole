@@ -66,7 +66,7 @@ def convert_to_date(datetime_string):
 def serialize_lot(lot):
 
   return {
-    "lot_info" :{
+    # "lot_info" :{
     "id" : lot.id,
     "community" : lot.community,
     "section" : lot.section,
@@ -74,43 +74,43 @@ def serialize_lot(lot):
     "product" : lot.product,
     "elevation" : lot.elevation,
     "contract_date" : str(lot.contract_date),
-    },
+    # },
 
-    "drafting" : {
+    # "drafting" : {
     "assigned" : lot.assigned,
     "draft_deadline" : str(lot.draft_deadline),
     "actual" : str(lot.actual),
     "time" : str(lot.time),
-    },
+    # },
 
-    "engineering" : {
+    # "engineering" : {
     "eng" : lot.eng,
     "eng_sent" : str(lot.eng_sent),
     "eng_planned_receipt" : str(lot.eng_planned_receipt),
     "eng_actual_receipt" : str(lot.eng_actual_receipt),
-    },
+    # },
     
-    "plat" : {
+    # "plat" : {
     "plat_eng" : lot.plat_eng,
     "plat_sent" : str(lot.plat_sent),
     "plat_planned_receipt" : str(lot.plat_planned_receipt),
     "plat_actual_receipt" : str(lot.plat_actual_receipt),
-    },
+    # },
 
-    "permit" : {
+    # "permit" : {
     "permit_jurisdiction" : lot.permit_jurisdiction,
     "permit_planned_submit" : str(lot.permit_planned_submit),
     "permit_actual_submit" : str(lot.permit_actual_submit),
     "permit_received" : str(lot.permit_received),
-    },
+    # },
 
-    "bbp" : {
+    # "bbp" : {
     "bbp_planned_posted" : str(lot.bbp_planned_posted),
     "bbp_actual_posted" : str(lot.bbp_actual_posted),
-    },
+    # },
 
-    "notes" : {
+    # "notes" : {
     "notes" : lot.notes
-    }
+    # }
   }
 
