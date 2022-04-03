@@ -118,7 +118,7 @@ def serialize_lot(lot):
 
   # check if user rights
   if session['editor']:
-    lot_object['edit'] = "<h1>Yes</h1>"
+    lot_object['edit'] = "yes"
   if lot.finished:
     lot_object['finished'] = "✅"
 

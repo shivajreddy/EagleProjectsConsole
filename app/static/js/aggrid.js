@@ -10,7 +10,7 @@ function color_code(date_str){
   let date = new Date(date_str)
   // return [date, today]
   if (parseInt(date.getMonth()) >= parseInt(today.getMonth())){
-    console.log(today.getMonth(), date.getMonth())
+    // console.log(today.getMonth(), date.getMonth())
     return "late_3"
   }
   // if (date >= prevWeekDate){
@@ -29,7 +29,6 @@ var columnDefs = [
 //! Status Column
 async function get_curr_usr() {
   const usr = await axios.get('/api/get-current-user');
-  // console.log("this is the usr", usr);
   if (usr.data.editor){
     columnDefs.push(
       {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'},
@@ -56,7 +55,7 @@ async function get_curr_usr() {
       {headerName : 'Elevation', field: 'elevation', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Elevation', pinned:'left', },
       {headerName : 'Contract-Date', field: 'contract_date', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Contract-Date', width:120, pinned:'left', 
       cellClass: params => {
-        console.log(color_code(params.value), params.value)
+        // console.log(color_code(params.value), params.value)
         return color_code(params)
         // return params.value > today ? 'late_1' : 'late_2';
       }},

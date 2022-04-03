@@ -11,8 +11,11 @@ from app import app, db
 
 
 #! Test route
-# @app.route('/test')
-# def test_route():
+@app.route('/test')
+def test_route():
+  import pdb
+  pdb.set_trace()
+  return "THIS IS FINISHED"
   # db.create_all()
   # return "create db"
 #   from ..Models.Lot import LotsDirectory
