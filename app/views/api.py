@@ -23,6 +23,23 @@ def get_all_lots():
   
   return jsonify(results)
 
+
+#? Get Current User
+@app.route('/api/get-current-user', methods=["GET"])
+def get_current_user():
+  if 'user_email' not in session:
+    return redirect('/')
+  usr = User.query.filter_by(email=session['user_email']).first()
+  usr_object = {
+    "email" : usr.email,
+    "token" : usr.token,
+    "confirmed" : usr.confirmed_user,
+    "editor" : usr.editor,
+    "super_editor" : usr.super_editor,
+  }
+  return usr_object
+
+
 #? Get User details
 @app.route('/api/get-user-details/<user_email>', methods=["GET"])
 def get_user_details(user_email):
@@ -35,7 +52,6 @@ def get_user_details(user_email):
     "super_editor" : usr.super_editor,
   }
   return usr_object
-
 
 
 #? GET lot of id

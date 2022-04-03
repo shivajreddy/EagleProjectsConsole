@@ -19,27 +19,25 @@ function color_code(date_str){
   else{
     return "late_1"
   }
-
 }
 
 
 var columnDefs = [
-    
-    
 ]
-var usr;
+
 
 //! Status Column
 async function get_curr_usr() {
-  usr = await axios.get('/api/get-user-details/test@tecofva.com');
+  const usr = await axios.get('/api/get-current-user');
+  // console.log("this is the usr", usr);
   if (usr.data.editor){
     columnDefs.push(
-      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'}
+      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'},
+      {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass: 'editor-only'},
       )
     }
   
   columnDefs.push(
-  {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass: 'editor-only'},
   //! Lot info
   {
     headerName: 'Lot Info',
