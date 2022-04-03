@@ -1,4 +1,5 @@
 """ MODEL for a Lot entry"""
+from flask import session
 from flask_sqlalchemy import SQLAlchemy
 from app import db
 
@@ -64,9 +65,12 @@ def convert_to_date(datetime_string):
 
 #!Serialization method
 def serialize_lot(lot):
-
-  return {
+  
+  lot_object = {
     # "lot_info" :{
+      #! make this finished valeus as a checkbox
+    "finished" : "",
+    # "finished" : lot.finished,
     "id" : lot.id,
     "community" : lot.community,
     "section" : lot.section,
@@ -113,4 +117,12 @@ def serialize_lot(lot):
     "notes" : lot.notes
     # }
   }
+
+  # check if user rights
+  if session['editor']:
+    lot_object['edit'] = "yes"
+  if lot.finished:
+    lot_object['finished'] = "✅"
+
+  return lot_object
 

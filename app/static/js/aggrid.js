@@ -22,12 +22,24 @@ function color_code(date_str){
 
 }
 
+
 var columnDefs = [
+    
+    
+]
+var usr;
 
-  //! Status Column
-  {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'},
+//! Status Column
+async function get_curr_usr() {
+  usr = await axios.get('/api/get-user-details/test@tecofva.com');
+  if (usr.data.editor){
+    columnDefs.push(
+      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'}
+      )
+    }
+  
+  columnDefs.push(
   {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass: 'editor-only'},
-
   //! Lot info
   {
     headerName: 'Lot Info',
@@ -119,59 +131,89 @@ var columnDefs = [
       {headerName : 'Notes', field: 'notes', sortable:true, filter:true, headerTooltip:'Extra notes', width:400, },
     ]
   },
-]
+  )
+}
+get_curr_usr();
 
 const rowDefs = [];
 
+const gridOptions = {
+  columnDefs : columnDefs,
+  rowData : rowDefs,
+  rowSelection : 'multiple',
+  domLayout: 'autoHeight',
+
+  tooltipShowDelay:0,
+  tooltipHideDelay: 2000,
+
+  defaultColDef: {
+    width: 150,
+    editable: false,
+    filter: 'agTextColumnFilter',
+    floatingFilter: true,
+    resizable: false,
+    lockPosition: true,
+  },    
+}
 
 //! AJAX CALL TO GET THE LOTS
-async function my_async(){
+async function get_lots(){
   console.log("xxxxxxxxxxx ASYNC FUNCTION STARTED xxxxxxxxx")
   
   const result = await axios.get('/api/get-lots')
 
+
   for (const lot of result.data){
     rowDefs.push(lot);
   }
+  // gridOptions.api.setRowData(result.data)
 
-  const gridOptions = {
-    columnDefs : columnDefs,
-    rowData : rowDefs,
-    rowSelection : 'multiple',
-    domLayout: 'autoHeight',
-
-    tooltipShowDelay:0,
-    tooltipHideDelay: 2000,
-
-    defaultColDef: {
-      width: 150,
-      editable: false,
-      filter: 'agTextColumnFilter',
-      floatingFilter: true,
-      resizable: false,
-      lockPosition: true,
-    },    
-  }
 
   const lotGrid = document.querySelector('#lotGrid');
   new agGrid.Grid(lotGrid, gridOptions);
 
-  //* Auto - size columns
-  const allColumnIds = [];
-  gridOptions.columnApi.getAllColumns().forEach((column) => {
-    allColumnIds.push(column.getId());
-  })
-  gridOptions.columnApi.autoSizeColumns(allColumnIds, true);
-
-  //! Save as CSV
-  const $print_table = $('#print-table')
-  $print_table.on('click', function (e){
-    e.preventDefault();
-    gridOptions.api.exportDataAsCsv();
-  });
-
+  
+  // remove loading spinner
+  const spinner = document.getElementById('home-spinner');
+  spinner.parentNode.removeChild(spinner);
+  
   console.log("----------- ASYNC FUNCTION END -------------")
 }
+get_lots();
 
-my_async();
+// //! Save as CSV
+// const $print_table = $('#print-table')
+// $print_table.on('click', function (e){
+//   e.preventDefault();
+//   gridOptions.api.exportDataAsCsv();
+// });
+
+
+//! TEST
+var testcolumnDefs = [{ field: 'make' }, { field: 'model' }, { field: 'price' }];
+var rowDataA = [
+  // { make: 'Toyota', model: 'Celica', price: 35000 },
+  // { make: 'Porsche', model: 'Boxter', price: 72000 },
+  // { make: 'Aston Martin', model: 'DBX', price: 190000 },
+];
+const testgridOptions = {
+  columnDefs: testcolumnDefs,
+  rowData: rowDataA,
+}
+
+  
+function test_grid_func(){
+  const testGrid = document.querySelector('#testgrid');
+  new agGrid.Grid(testGrid, testgridOptions);
+
+  testgridOptions.api.setRowData(
+    [
+      { make: 'Aston Martin', model: 'DBX', price: 190000 },
+      { make: 'Aston Martin', model: 'DBX', price: 190000 },
+      { make: 'Aston Martin', model: 'DBX'},
+    ],
+  )
+
+}
+test_grid_func();
 

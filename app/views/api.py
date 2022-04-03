@@ -3,6 +3,7 @@ from app import app, db
 from flask import jsonify, redirect, render_template, session
 
 from ..Models.Lot import LotsDirectory, serialize_lot
+from ..Models.User import User
 from ..Models.Community import Community
 from ..forms.NewLotForm import NewLot
 
@@ -12,11 +13,29 @@ from ..forms.NewLotForm import NewLot
 def get_all_lots():
 
   # query DB for all lots
-  all_lots = LotsDirectory.query.all()
+  # all_lots = LotsDirectory.query.all()
+  # query DB for all finished lots
+  # import pdb
+  # pdb.set_trace()
+  all_lots = LotsDirectory.query.filter_by(finished=False).all()
   # serialize each lot
   results = [serialize_lot(lot) for lot in all_lots]
   
   return jsonify(results)
+
+#? Get User details
+@app.route('/api/get-user-details/<user_email>', methods=["GET"])
+def get_user_details(user_email):
+  usr = User.query.filter_by(email=user_email).first()
+  usr_object = {
+    "email" : usr.email,
+    "token" : usr.token,
+    "confirmed" : usr.confirmed_user,
+    "editor" : usr.editor,
+    "super_editor" : usr.super_editor,
+  }
+  return usr_object
+
 
 
 #? GET lot of id
@@ -28,7 +47,8 @@ def get_single_lot(id):
 
   # lot id exists in db
   if lot:
-    return jsonify(serialize_lot(lot))
+    return serialize_lot(lot)
+    # return jsonify(serialize_lot(lot))
   
   # lot id DOES NOT exists in db
   return render_template('404.html', data={"id":id, "msg":"not in LotsDirectory table"}), 404
