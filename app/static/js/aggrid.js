@@ -31,8 +31,8 @@ async function get_curr_usr() {
   const usr = await axios.get('/api/get-current-user');
   if (usr.data.editor){
     columnDefs.push(
-      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:'editor-only'},
-      {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass: 'editor-only'},
+      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:['editor-only']},
+      {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass:['editor-only']},
       )
     }
   
@@ -69,7 +69,7 @@ async function get_curr_usr() {
     [
       {headerName : 'Assigned To', field: 'assigned', sortable:true, filter:true, headerTooltip:'Drafter Name',width:100, },
       {headerName : 'Draft Deadline', field: 'draft_deadline', sortable:true, filter:true, headerTooltip:'Drafting-Deadline Date', width:120, },
-      {headerName : 'Actual', field: 'actual', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Actual Finished Date', width:120, },
+      {headerName : 'Actual', field: 'actual', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Actual Finished Date', width:120,  },
       {headerName : 'Time', field: 'time', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Total Time in minutes', width:120, },
     ],
   },
@@ -79,7 +79,7 @@ async function get_curr_usr() {
     headerName: 'Engineering',
     children:
     [
-      {headerName : 'Engineering', field: 'eng', sortable:true, filter:true, headerTooltip:'Engineering Name', },
+      {headerName : 'Engineering', field: 'eng', sortable:true, filter:true, headerTooltip:'Engineering Name',  },
       {headerName : 'Eng. Sent', field: 'eng_sent', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Engineering Sent Date', width:120, },
       {headerName : 'Eng. Planned Receipt', field: 'eng_planned_receipt', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Engineering Planned Receipt Date', width:120, },
       {headerName : 'Eng. Actual Receipt', field: 'eng_actual_receipt', sortable:true, filter:true, headerTooltip:'Engineering Actual Receipt Date', width:120, },
