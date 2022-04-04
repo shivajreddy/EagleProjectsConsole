@@ -11,61 +11,36 @@ from app import app, db
 
 
 #! Test route
-@app.route('/test')
-def test_route():
-  import pdb
-  pdb.set_trace()
-  return "THIS IS FINISHED"
+# @app.route('/test')
+# def test_route():
+  # import pdb
+  # pdb.set_trace()
+  # return "THIS IS FINISHED"
   # db.create_all()
   # return "create db"
-#   from ..Models.Lot import LotsDirectory
-#   from ..Models.Community import Community
-#   all_lots = LotsDirectory.query.all()
-#   all_communities = []
-
-#   for lot in all_lots:
-#     if lot.community not in all_communities and lot.community != 'None':
-#       all_communities.append(lot.community)
-  
-#   import pdb
-#   pdb.set_trace()
-
-#   for comm in all_communities:
-#     c = Community(community_name=comm)
-#     db.session.add(c)
-#     db.session.commit()
-
-  # from ..Models.seed import test_lot_1, test_lot_2, test_lot_3
-  # db.create_all()
-  # db.session.add(test_lot_1)
-  # db.session.add(test_lot_2)
-  # db.session.add(test_lot_3)
-  # db.session.commit()
-  # return f"test page"
-
-@app.route('/aggrid')
-def aggrid_test():
-  return render_template('aggrid.html')
 
 
 #! Routes
+#! Un-Finished lots
 @app.route('/')
 def route_homePage():
-
   if 'user_email' not in session:
     return redirect('/sign-in')
 
   finished_lots = LotsDirectory.query.filter_by(finished=False).all()
-  return render_template('home_page.html', lot_data=finished_lots)
+  return render_template('home_page.html')
+  # return render_template('home_page.html', lot_data=finished_lots)
 
 
+#! ALL lots
 @app.route('/all-lots')
 def all_lots_page():
   if 'user_email' not in session:
     return redirect('/sign-in')
   
-  all_lots = LotsDirectory.query.all()
-  return render_template('home_page.html', lot_data = all_lots)
+  # all_lots = LotsDirectory.query.all()
+  # return render_template('all_lots.html', lot_data = all_lots)
+  return render_template('all_lots.html')
 
 
 @app.route('/new', methods=["GET"])

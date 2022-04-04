@@ -1,11 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
-<!-- <img id="lines" src="https://appsrv1-147a1.kxcdn.com/soft-ui-design-v1.0.1/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0"> -->
-<h3 class="p-2 text-center">⭕️ Eagle Lot Specifics</h3>
+<h3 class="p-2 text-center">⭕️ All Lot Specifics</h3>
 
 
 <!--! Ag grid div -->
-<div id="lotGrid" class="mx-2 px-4 ag-theme-alpine">
+<div id="all-lotGrid" class="mx-2 px-4 ag-theme-alpine">
   <!-- spinner -->
   <div class="d-flex justify-content-center m-4" id="home-spinner" >
     <div class="spinner-border" role="status" style="width: 5rem; height: 5rem;">
@@ -25,19 +24,10 @@
 </div>
 
 
-<!--! Create new lot  -->
-<div class="col-md-12 p-4 text-center editor-only invisible">
-  <div class="col-md-8 mx-auto">
-    <a href="/lot/new" class="btn btn-primary">
-      <i class="bi bi-plus-circle"></i> New Lot</a>
-    </div>
-</div>
-
-
 {% endblock content %}
 
 {% block custom_script %}
 
-<script src="../static/js/homeaggrid.js"></script>
+<script src="../static/js/all_lots_aggrid.js"></script>
 
 {% endblock custom_script %}

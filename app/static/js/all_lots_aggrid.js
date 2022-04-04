@@ -36,7 +36,7 @@ async function get_curr_usr() {
         return `<a type="button" class="modify-lot" data-id="${params.data.id}" href="/lot/edit/${params.data.id}"><i class="bi bi-pencil-fill"></i></a>`;
       }
     },
-      // {headerName : '✔️', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass:['editor-only'], headerTooltip:'Finished Status', },
+      {headerName : '✔️', field: 'finished', sortable:false, filter:false, width:80, pinned:'left', cellClass:['editor-only'], headerTooltip:'Finished Status', sortable:true, filter:true, },
       )
     }
   
@@ -164,7 +164,7 @@ const gridOptions = {
 async function get_lots(){
   console.log("xxxxxxxxxxx ASYNC FUNCTION STARTED xxxxxxxxx")
   
-  const result = await axios.get('/api/get-lots')
+  const result = await axios.get('/api/get-all-lots')
 
   gridOptions.rowData = result.data
   // for (const lot of result.data){
@@ -177,9 +177,8 @@ async function get_lots(){
   //   gridOptions.api.setRowData([lot])
   // }
 
-  const lotGrid = document.querySelector('#lotGrid');
+  const lotGrid = document.querySelector('#all-lotGrid');
   new agGrid.Grid(lotGrid, gridOptions);
-
   
   // remove loading spinner
   const spinner = document.getElementById('home-spinner');
@@ -187,7 +186,13 @@ async function get_lots(){
   
   console.log("----------- ASYNC FUNCTION END -------------")
 }
-get_lots();
+
+get_lots()
+// Make AJAX call only on home page
+// if (document.domain == '127.0.0.1' ){
+//   get_lots()
+// }
+
 
 //! Save as CSV
 const $print_table = $('#print-table')
@@ -195,33 +200,3 @@ $print_table.on('click', function (e){
   e.preventDefault();
   gridOptions.api.exportDataAsCsv();
 });
-
-
-//! TEST
-var testcolumnDefs = [{ field: 'make' }, { field: 'model' }, { field: 'price' }];
-var rowDataA = [
-  // { make: 'Toyota', model: 'Celica', price: 35000 },
-  // { make: 'Porsche', model: 'Boxter', price: 72000 },
-  // { make: 'Aston Martin', model: 'DBX', price: 190000 },
-];
-const testgridOptions = {
-  columnDefs: testcolumnDefs,
-  rowData: rowDataA,
-}
-
-  
-function test_grid_func(){
-  const testGrid = document.querySelector('#testgrid');
-  new agGrid.Grid(testGrid, testgridOptions);
-
-  testgridOptions.api.setRowData(
-    [
-      { make: 'Aston Martin', model: 'DBX', price: 190000 },
-      { make: 'Aston Martin', model: 'DBX', price: 190000 },
-      { make: 'Aston Martin', model: 'DBX'},
-    ],
-  )
-
-}
-test_grid_func();
-

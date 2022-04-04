@@ -8,19 +8,20 @@ from ..Models.Community import Community
 from ..forms.NewLotForm import NewLot
 
 
-#? GET all lots
+#? GET FINISHED lots
 @app.route('/api/get-lots', methods=["GET"])
-def get_all_lots():
-
-  # query DB for all lots
-  # all_lots = LotsDirectory.query.all()
-  # query DB for all finished lots
-  # import pdb
-  # pdb.set_trace()
+def get_finished_lots():
   all_lots = LotsDirectory.query.filter_by(finished=False).all()
   # serialize each lot
   results = [serialize_lot(lot) for lot in all_lots]
+  return jsonify(results)
   
+
+@app.route('/api/get-all-lots', methods=["GET"])
+def get_every_lots():
+  all_lots = LotsDirectory.query.all()
+  # serialize each lot
+  results = [serialize_lot(lot) for lot in all_lots]
   return jsonify(results)
 
 
