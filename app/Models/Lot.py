@@ -56,12 +56,12 @@ class LotsDirectory(db.Model):
     return lot_info
 
 
-
 #! converting DATE-TIME string into Date
 from datetime import datetime
 def convert_to_date(datetime_string):
   dt_object = datetime.strptime(datetime_string, '%a, %d %b %Y %H:%M:%S %Z')
   return dt_object.date()
+
 
 #!Serialization method
 def serialize_lot(lot):
@@ -120,7 +120,7 @@ def serialize_lot(lot):
   if session['editor']:
     lot_object['edit'] = "."
   if lot.finished:
-    lot_object['finished'] = "✅"
+    lot_object['finished'] = "✔️"
 
   return lot_object
 
