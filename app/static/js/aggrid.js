@@ -189,12 +189,12 @@ async function get_lots(){
 }
 get_lots();
 
-// //! Save as CSV
-// const $print_table = $('#print-table')
-// $print_table.on('click', function (e){
-//   e.preventDefault();
-//   gridOptions.api.exportDataAsCsv();
-// });
+//! Save as CSV
+const $print_table = $('#print-table')
+$print_table.on('click', function (e){
+  e.preventDefault();
+  gridOptions.api.exportDataAsCsv();
+});
 
 
 //! TEST
