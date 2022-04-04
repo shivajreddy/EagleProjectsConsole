@@ -1,0 +1,165 @@
+
+<div class="m-2 p-3 lots-table" id="main-lots" >
+
+  <table class="table table-bordered table-striped" id="main-lots-table">
+    <thead class="table-dark">
+      <tr class="main-header">
+        <th class="text-center editor-only" colspan="2">Modify</th>
+        <th class="text-center" colspan="6">Lot Info</th>
+        <th class="text-center" colspan="4">Drafting Info</th>
+        <th class="text-center" colspan="4">Engineering Info</th>
+        <th class="text-center" colspan="4">Plat Info</th>
+        <th class="text-center" colspan="4">Permit Info Info</th>
+        <th class="text-center" colspan="2">BBP Info</th>
+        <th class="text-center" colspan="1">&nbsp;</th>
+      </tr>
+      <tr>
+        <th class="editor-only">Edit</th>
+        <th class="editor-only">✅</th>
+        <th class="lot-info index-header-2">Community</th>
+        <th class="lot-info">Section</th>
+        <th class="lot-info">Lot_number</th>
+        <th class="lot-info">Product</th>
+        <th class="lot-info">Elevation</th>
+        <th class="lot-info">contract Date</th>
+        
+        <th>Assigned To</th>
+        <th>Draft Deadline</th>
+        <th>Actual</th>
+        <th>Time</th>
+        
+        <th>Eng.</th>
+        <th>Eng. Sent</th>
+        <th>Eng. Planned</th>
+        <th>Eng. Actual</th>
+        
+        <th>Plat Eng.</th>
+        <th>Plat Sent</th>
+        <th>Plat Planned</th>
+        <th>Plat Actual</th>
+        
+        <th>Permit Jurisdictin</th>
+        <th>Permit Planned</th>
+        <th>Permit Actual</th>
+        <th>Permit Received</th>
+        
+        <th>BBQ Planned</th>
+        <th>BBQ Actual</th>
+        
+        <th>Notes</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for lot in lot_data %}
+      <tr class="lot-row">
+        
+        <!--? Modify Column -->
+        <td class="editor-only invisible">
+          <a type="button" class="btn btn-success modify" data-id="{{lot.id}}" href="/">
+          <i class="bi bi-pencil-square"></i></a>
+        </td>
+        <td class="editor-only invisible p-2">
+          {% if lot.finished %}
+            <input class="form-check-input" checked disabled type="checkbox" role="switch">
+          {% else %}
+            <input class="form-check-input" disabled type="checkbox" role="switch">
+          {% endif %}
+        </td>
+
+        <!--* Lot Info -->
+        <td class="lotinfo community">
+          {{lot.community}}
+        </td>
+        <td class="lotinfo section">
+          {{lot.section}}
+        </td>
+        <td class="lotinfo lot_number">
+          {{lot.lot_number}}
+        </td>
+        <td class="lotinfo product">
+          {{lot.product}}
+        </td>
+        <td class="lotinfo elevation">
+          {{lot.elevation}}
+        </td>
+        <td class="lotinfo contract_date">
+          {{lot.contract_date}}
+        </td>
+
+        <!--* Drafting -->
+        <td class="drafting assigned">
+          {{lot.assigned}}
+        </td>
+        <td class="drafting draft_deadline">
+          {{lot.draft_deadline}}
+        </td>
+        <td class="drafting actual">
+          {{lot.actual}}
+        </td>
+        <td class="drafting time">
+          {{lot.time}}
+        </td>
+          
+        <!--* Engineering -->
+        <td class="engineering eng">
+          {{lot.eng}}
+        </td>
+        <td class="engineering eng_sent">
+          {{lot.eng_sent}}
+        </td>
+        <td class="engineering eng_planned_receipt">
+          {{lot.eng_planned_receipt}}
+        </td>
+        <td class="engineering eng_actual_receipt">
+          {{lot.eng_actual_receipt}}
+        </td>
+          
+        <!--* Plat -->
+        <td class="plat plat_eng">
+          {{lot.plat_eng}}
+        </td>
+        <td class="plat plat_sent">
+          {{lot.plat_sent}}
+        </td>
+        <td class="plat plat_planned_receipt">
+          {{lot.plat_planned_receipt}}
+        </td>
+        <td class="plat plat_actual_receipt">
+          {{lot.plat_actual_receipt}}
+        </td>
+
+        <!--* Permit -->
+        <td class="permit permi_jurisdiction">
+          {{lot.permit_jurisdiction}}
+        </td>
+        <td class="permit permit_planned_submit">
+          {{lot.permit_planned_submit}}
+        </td>
+        <td class="permit permit_actual_submit">
+          {{lot.permit_actual_submit}}
+        </td>
+        <td class="permit permit_received">
+          {{lot.permit_received}}
+        </td>
+          
+        <!--* BBP -->
+        <td class="bbp bbp_planned_posted">
+          {{lot.bbp_planned_posted}}
+        </td>
+        <td class="bbp bbp_actual_posted">
+          {{lot.bbp_actual_posted}}
+        </td>
+        
+        <!--* Notes -->
+        <td class="notes">
+          {{lot.notes}}
+        </td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
