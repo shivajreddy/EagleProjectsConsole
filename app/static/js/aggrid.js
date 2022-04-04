@@ -31,8 +31,13 @@ async function get_curr_usr() {
   const usr = await axios.get('/api/get-current-user');
   if (usr.data.editor){
     columnDefs.push(
-      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:70, pinned:'left', cellClass:['editor-only']},
-      {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass:['editor-only']},
+      {headerName : 'Edit', field: 'edit', sortable:false, filter:false, width:80, pinned:'left', cellClass:['editor-only'],
+      cellRenderer: params => {
+        return '<a type="button" class="btn btn-success modify" data-id="{{lot.id}}" href="/"><i class="bi bi-pencil-square"></i></a>';
+        // return 'Value is **' + params.value + '**';
+      }
+    },
+      {headerName : '✅.', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass:['editor-only'], },
       )
     }
   
