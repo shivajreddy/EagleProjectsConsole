@@ -132,11 +132,11 @@ async function get_curr_usr() {
 }
 get_curr_usr();
 
-const rowDefs = [];
+// const rowDefs = [];
 
 const gridOptions = {
   columnDefs : columnDefs,
-  rowData : rowDefs,
+  // rowData : rowDefs,
   rowSelection : 'multiple',
   domLayout: 'autoHeight',
 
@@ -150,7 +150,10 @@ const gridOptions = {
     floatingFilter: true,
     resizable: false,
     lockPosition: true,
-  },    
+  },
+  // pagination: true,
+  // paginationPageSize: 20,
+
 }
 
 //! AJAX CALL TO GET THE LOTS
@@ -159,12 +162,16 @@ async function get_lots(){
   
   const result = await axios.get('/api/get-lots')
 
+  gridOptions.rowData = result.data
+  // for (const lot of result.data){
+  //   rowDefs.push(lot);
+  // }
 
-  for (const lot of result.data){
-    rowDefs.push(lot);
-  }
-  // gridOptions.api.setRowData(result.data)
-
+  // gridOptions.api is undefined because it has to be called only after the grid is ready
+  // console.log("this is api", gridOptions.api );
+  // for (const lot of result.data){
+  //   gridOptions.api.setRowData([lot])
+  // }
 
   const lotGrid = document.querySelector('#lotGrid');
   new agGrid.Grid(lotGrid, gridOptions);

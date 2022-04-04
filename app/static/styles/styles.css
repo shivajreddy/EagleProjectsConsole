@@ -86,6 +86,11 @@ th {
   background-color: rgb(255, 251, 0);
 }
 
-.header-2 {
-  background-color: blueviolet;
+.ag-header{
+  /* background-color: gray !important; */
+  color: white !important;
+  position: sticky !important;
+  /* top: 180px; */
+  z-index: 99;
+
 }
