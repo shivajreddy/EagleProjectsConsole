@@ -1,12 +1,13 @@
-//? AG Grid script
+//? AG Grid script for homepage showing unfinished lots
 
+
+//! Color Coding the dates Feature ----- START
 const  today = new Date();
-
 const prevWeekDate = new Date()
 prevWeekDate.setDate(new Date().getDate() - 7)
 
 function color_code(date_str){
-
+  
   let date = new Date(date_str)
   // return [date, today]
   if (parseInt(date.getMonth()) >= parseInt(today.getMonth())){
@@ -14,14 +15,17 @@ function color_code(date_str){
     return "late_3"
   }
   // if (date >= prevWeekDate){
-  //   return "late_2"
-  // }
+    //   return "late_2"
+    // }
   else{
     return "late_1"
   }
 }
+//! Color Coding the dates Feature ------ END
 
 
+
+//! AG GRID ------ START
 var columnDefs = [
 ]
 
@@ -149,10 +153,11 @@ const gridOptions = {
 
   defaultColDef: {
     width: 150,
-    editable: false,
+    editable: true,
     filter: 'agTextColumnFilter',
     floatingFilter: true,
-    resizable: false,
+    // resizable: false,
+    resizable: true,
     lockPosition: true,
   },
   // pagination: true,
@@ -188,6 +193,7 @@ async function get_lots(){
 }
 
 get_lots()
+//! AG GRID ------ END
 
 
 //! Save as CSV
