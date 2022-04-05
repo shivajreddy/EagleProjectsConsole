@@ -2,25 +2,58 @@
 
 
 //! Color Coding the dates Feature ----- START
-const  today = new Date();
-const prevWeekDate = new Date()
-prevWeekDate.setDate(new Date().getDate() - 7)
 
+const  today = new Date();
+const prevWeekDate = new Date();
+prevWeekDate.setDate(new Date().getDate() - 7);
+
+// styles represent the urgency. 1 being less urgent, 3 being most urgent
+const style_1 = {color : 'black', backgroundColor:'#aaffaa'} // bg green
+const style_2 = {color : 'black', backgroundColor:'#FFAAAA'}  //bg light red
+const style_3 = {color : 'white', backgroundColor:'#DC441B'}  //bg reg
+
+// based on the given date_str return the style_n object
 function color_code(date_str){
-  
-  let date = new Date(date_str)
-  // return [date, today]
-  if (parseInt(date.getMonth()) >= parseInt(today.getMonth())){
-    // console.log(today.getMonth(), date.getMonth())
-    return "late_3"
+  let curr_date = new Date(date_str)
+
+  if (parseInt(curr_date.getMonth()) > parseInt(today.getMonth())) {
+    return style_3
   }
-  // if (date >= prevWeekDate){
-    //   return "late_2"
-    // }
-  else{
-    return "late_1"
+  else if(parseInt(curr_date.getDate()) > 9) {
+    return style_2
   }
+  return style_1
 }
+
+//? Calculate next N'th work date from given Date
+// Helper function to create actual date object from string
+function create_date(str_date){
+	const splitted = str_date.split('-')
+	const year = parseInt(splitted[0])
+	const month = parseInt(splitted[1]-1)   // for some weird reason month is being set to given+1, so setting it as -1
+	const date = parseInt(splitted[2])
+	let today = new Date();
+	today.setYear(year);
+	today.setMonth(month);
+	today.setDate(date);
+	return today;
+}
+
+// starting from the next day of given day, return the nth working day
+function calc_work_date(from_date_str, no_of_days){
+	let to_date = create_date(from_date_str);
+  while (no_of_days > 0){
+    to_date.setDate(to_date.getDate() + 1)
+		
+    if (to_date.getDay() != 0 && to_date.getDay() != 6){
+      no_of_days--;
+    }
+  }
+  return to_date;
+}
+
+
+
 //! Color Coding the dates Feature ------ END
 
 
@@ -53,18 +86,18 @@ async function get_curr_usr() {
       {headerName : 'Community', field: 'community', sortable:true, filter:true, headerTooltip:'Community', pinned:'left', },
       {headerName : 'Section', field: 'section', sortable:true, filter:true, headerTooltip:'Section', width:80, pinned:'left', },
       {headerName : 'Lot-Number', field: 'lot_number', sortable:true, filter:true, headerTooltip:'Lot-Number', width:80, pinned:'left', 
-        cellStyle: params => {
-          if (params.value > 10){
-            return {color: 'white', backgroundColor : 'green'}
-          }
-        }
+        // cellStyle: params => {
+        //   if (params.value > 10){
+        //     return {color: 'white', backgroundColor : '#aaffaa'}
+        //   }
+        // }
       },
       {headerName : 'Product', field: 'product', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Product', pinned:'left', },
       {headerName : 'Elevation', field: 'elevation', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Elevation', pinned:'left', },
       {headerName : 'Contract-Date', field: 'contract_date', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Contract-Date', width:120, pinned:'left', 
       cellClass: params => {
-        // console.log(color_code(params.value), params.value)
-        return color_code(params)
+        console.warn(color_code(params.value), params.value)
+        return color_code(params.value)
         // return params.value > today ? 'late_1' : 'late_2';
       }},
     ],
@@ -76,7 +109,11 @@ async function get_curr_usr() {
     children:
     [
       {headerName : 'Assigned To', field: 'assigned', sortable:true, filter:true, headerTooltip:'Drafter Name',width:100, },
-      {headerName : 'Draft Deadline', field: 'draft_deadline', sortable:true, filter:true, headerTooltip:'Drafting-Deadline Date', width:120, },
+      {headerName : 'Draft Deadline', field: 'draft_deadline', sortable:true, filter:true, headerTooltip:'Drafting-Deadline Date', width:120,
+        cellStyle: params => {
+          return color_code(params.value)
+        }
+      },
       {headerName : 'Actual', field: 'actual', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Actual Finished Date', width:120,  },
       {headerName : 'Time', field: 'time', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Total Time in minutes', width:120, },
     ],
@@ -153,12 +190,11 @@ const gridOptions = {
 
   defaultColDef: {
     width: 150,
-    editable: true,
-    filter: 'agTextColumnFilter',
+    editable: false,
+    // filter: 'agTextColumnFilter',
     floatingFilter: true,
-    // resizable: false,
-    resizable: true,
-    lockPosition: true,
+    resizable: false,
+    // lockPosition: true, //ability to drag the columns
   },
   // pagination: true,
   // paginationPageSize: 20,
@@ -167,7 +203,7 @@ const gridOptions = {
 
 //! AJAX CALL TO GET THE LOTS
 async function get_lots(){
-  console.log("xxxxxxxxxxx ASYNC FUNCTION STARTED xxxxxxxxx")
+  // console.info("xxxxxxxxxxx ASYNC FUNCTION STARTED xxxxxxxxx")
   
   const result = await axios.get('/api/get-lots')
 
@@ -189,7 +225,7 @@ async function get_lots(){
   const spinner = document.getElementById('home-spinner');
   spinner.parentNode.removeChild(spinner);
   
-  console.log("----------- ASYNC FUNCTION END -------------")
+  // console.info("----------- ASYNC FUNCTION END -------------")
 }
 
 get_lots()
