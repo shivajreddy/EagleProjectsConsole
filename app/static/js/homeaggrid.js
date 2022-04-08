@@ -179,6 +179,7 @@ async function get_curr_usr() {
       {headerName : 'Permit Jurisdiction', field: 'permit_jurisdiction', sortable:true, filter:true, headerTooltip:'Jurisdiction Name', },
       {headerName : 'Permit Planned Submit', field: 'permit_planned_submit', sortable:true, filter:true, headerTooltip:'Permit Planned Submit Date', width:120,
         cellStyle: params => {
+          console.log(params.value, this)
           return color_code(params.value)
         }
       },
@@ -262,9 +263,14 @@ async function get_lots(){
   spinner.parentNode.removeChild(spinner);
   
   // console.info("----------- ASYNC FUNCTION END -------------")
+  remove_color_code(gridOptions.rowData);
 }
 
 get_lots()
+
+function remove_color_code(p){
+  console.log(p);
+}
 //! AG GRID ------ END
 
 
