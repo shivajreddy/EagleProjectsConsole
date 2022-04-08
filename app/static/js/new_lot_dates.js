@@ -87,4 +87,3 @@ function set_bbp_date(e){
 
 
 }
-
