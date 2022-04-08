@@ -10,22 +10,39 @@ prevWeekDate.setDate(new Date().getDate() - 7);
 // styles represent the urgency. 1 being less urgent, 3 being most urgent
 const style_1 = {color : 'black', backgroundColor:'#a2d2ff'}  //bg blue. dist >= 11
 const style_2 = {color : 'black', backgroundColor:'#99d98c'}  //bg green. 6<=dist<=10
-const style_3 = {color : 'white', backgroundColor:'#ffb703'}  //bg yellow. 3<=dist<=5
+const style_3 = {color : 'black', backgroundColor:'#ffb703'}  //bg yellow. 3<=dist<=5
 const style_4 = {color : 'white', backgroundColor:'#e85d04'}  //bg Orange. 1<=dist<=2
 const style_5 = {color : 'white', backgroundColor:'#dc2f02'}  //bg dark-orange. dist==0
 const style_6 = {color : 'white', backgroundColor:'#d00000'}  //bg red. dist < 0
+const style_none = {color : 'black', backgroundColor:'white'}  // No Style
 
 // based on the given date_str return the style_n object
-function color_code(date_str){
-  let curr_date = new Date(date_str)
+function color_code(date_str) {
+	let curr_date = create_date(date_str);
+	let today = new Date();
+	let diff = curr_date.getTime() - today.getTime();
+	let mins = 1000 * 3600 * 24;
+	let diff_days = diff/mins;
 
-  if (parseInt(curr_date.getMonth()) > parseInt(today.getMonth())) {
-    return style_3
+  if (diff_days >= 11){
+    return style_1
   }
-  else if(parseInt(curr_date.getDate()) > 9) {
+  if (6 <= diff_days){
     return style_2
   }
-  return style_1
+  if (3 <= diff_days){
+    return style_3
+  }
+  if (1 <= diff_days){
+    return style_4
+  }
+  if (0 <= diff_days){
+    return style_5
+  }
+	if (diff_days < 0){
+    return style_6
+  }
+	return style_none
 }
 
 //? Calculate next N'th work date from given Date
@@ -99,7 +116,7 @@ async function get_curr_usr() {
       {headerName : 'Elevation', field: 'elevation', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Elevation', pinned:'left', },
       {headerName : 'Contract-Date', field: 'contract_date', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Contract-Date', width:120, pinned:'left', 
       cellClass: params => {
-        console.warn(color_code(params.value), params.value)
+        // console.warn(color_code(params.value), params.value)
         return color_code(params.value)
         // return params.value > today ? 'late_1' : 'late_2';
       }},
@@ -129,8 +146,12 @@ async function get_curr_usr() {
     [
       {headerName : 'Engineering', field: 'eng', sortable:true, filter:true, headerTooltip:'Engineering Name',  },
       {headerName : 'Eng. Sent', field: 'eng_sent', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Engineering Sent Date', width:120, },
-      {headerName : 'Eng. Planned Receipt', field: 'eng_planned_receipt', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Engineering Planned Receipt Date', width:120, },
-      {headerName : 'Eng. Actual Receipt', field: 'eng_actual_receipt', sortable:true, filter:true, headerTooltip:'Engineering Actual Receipt Date', width:120, },
+      {headerName : 'Eng. Planned Receipt', field: 'eng_planned_receipt', sortable:true, filter:true, headerTooltip:'Engineering Planned Receipt Date', width:120,
+        cellStyle: params => {
+          return color_code(params.value)
+        }
+      },
+      {headerName : 'Eng. Actual Receipt', field: 'eng_actual_receipt', sortable:true, filter:true,columnGroupShow:'open', headerTooltip:'Engineering Actual Receipt Date', width:120, },
     ]
   },
   
@@ -141,8 +162,12 @@ async function get_curr_usr() {
     [
       {headerName : 'Plat Engineering', field: 'plat_eng', sortable:true, filter:true, headerTooltip:'Plat Engineering Name', },
       {headerName : 'Plat Sent', field: 'plat_sent', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Plat Sent Date', width:120, },
-      {headerName : 'Plat Planned Receipt', field: 'plat_planned_receipt', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Plat Planned Receipt Date', width:120, },
-      {headerName : 'Plat Actual Receipt', field: 'plat_actual_receipt', sortable:true, filter:true, headerTooltip:'Plat Actual Receipt Date', width:120, },
+      {headerName : 'Plat Planned Receipt', field: 'plat_planned_receipt', sortable:true, filter:true, headerTooltip:'Plat Planned Receipt Date', width:120,
+        cellStyle: params => {
+          return color_code(params.value)
+        }
+      },
+      {headerName : 'Plat Actual Receipt', field: 'plat_actual_receipt', sortable:true, filter:true, columnGroupShow:'open',headerTooltip:'Plat Actual Receipt Date', width:120, },
     ]
   },
   
@@ -152,9 +177,13 @@ async function get_curr_usr() {
     children:
     [
       {headerName : 'Permit Jurisdiction', field: 'permit_jurisdiction', sortable:true, filter:true, headerTooltip:'Jurisdiction Name', },
-      {headerName : 'Permit Planned Submit', field: 'permit_planned_submit', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Permit Planned Submit Date', width:120, },
+      {headerName : 'Permit Planned Submit', field: 'permit_planned_submit', sortable:true, filter:true, headerTooltip:'Permit Planned Submit Date', width:120,
+        cellStyle: params => {
+          return color_code(params.value)
+        }
+      },
       {headerName : 'Permit Actual Submit', field: 'permit_actual_submit', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Permit Actual Submit Date', width:120, },
-      {headerName : 'Permit Received', field: 'permit_received', sortable:true, filter:true, headerTooltip:'Permit Received Date', width:120, },
+      {headerName : 'Permit Received', field: 'permit_received', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Permit Received Date', width:120, },
     ]
   },
   
@@ -163,7 +192,11 @@ async function get_curr_usr() {
     headerName: 'BBP',
     children:
     [
-      {headerName : 'BBP Planned Posted', field: 'bbp_planned_posted', sortable:true, filter:true, headerTooltip:'BBP Planned Posted Date', width:120, },
+      {headerName : 'BBP Planned Posted', field: 'bbp_planned_posted', sortable:true, filter:true, headerTooltip:'BBP Planned Posted Date', width:120,
+        cellStyle: params => {
+          return color_code(params.value)
+        }
+      },
       {headerName : 'BBP Actual Posted', field: 'bbp_actual_posted', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'BBP Actual Posted Date', width:120, },
     ]
   },
