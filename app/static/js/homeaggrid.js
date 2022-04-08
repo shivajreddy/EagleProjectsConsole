@@ -8,9 +8,12 @@ const prevWeekDate = new Date();
 prevWeekDate.setDate(new Date().getDate() - 7);
 
 // styles represent the urgency. 1 being less urgent, 3 being most urgent
-const style_1 = {color : 'black', backgroundColor:'#aaffaa'} // bg green
-const style_2 = {color : 'black', backgroundColor:'#FFAAAA'}  //bg light red
-const style_3 = {color : 'white', backgroundColor:'#DC441B'}  //bg reg
+const style_1 = {color : 'black', backgroundColor:'#a2d2ff'}  //bg blue. dist >= 11
+const style_2 = {color : 'black', backgroundColor:'#99d98c'}  //bg green. 6<=dist<=10
+const style_3 = {color : 'white', backgroundColor:'#ffb703'}  //bg yellow. 3<=dist<=5
+const style_4 = {color : 'white', backgroundColor:'#e85d04'}  //bg Orange. 1<=dist<=2
+const style_5 = {color : 'white', backgroundColor:'#dc2f02'}  //bg dark-orange. dist==0
+const style_6 = {color : 'white', backgroundColor:'#d00000'}  //bg red. dist < 0
 
 // based on the given date_str return the style_n object
 function color_code(date_str){
