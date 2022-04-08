@@ -52,10 +52,3 @@ class NewLot(FlaskForm):
 
   #* Notes
   notes = StringField("Lot Notes", validators=[optional()])
-
-#! Setting Dates based of Contract Date
-from DateTime import DateTime
-
-# Date
-
-
