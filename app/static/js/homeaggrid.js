@@ -105,21 +105,10 @@ async function get_curr_usr() {
     [
       {headerName : 'Community', field: 'community', sortable:true, filter:true, headerTooltip:'Community', pinned:'left', },
       {headerName : 'Section', field: 'section', sortable:true, filter:true, headerTooltip:'Section', width:80, pinned:'left', },
-      {headerName : 'Lot-Number', field: 'lot_number', sortable:true, filter:true, headerTooltip:'Lot-Number', width:80, pinned:'left', 
-        // cellStyle: params => {
-        //   if (params.value > 10){
-        //     return {color: 'white', backgroundColor : '#aaffaa'}
-        //   }
-        // }
-      },
+      {headerName : 'Lot-Number', field: 'lot_number', sortable:true, filter:true, headerTooltip:'Lot-Number', width:80, pinned:'left', },
+      {headerName : 'Contract-Date', field: 'contract_date', sortable:true, filter:true, headerTooltip:'Contract-Date', width:120, pinned:'left', },
       {headerName : 'Product', field: 'product', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Product', pinned:'left', },
       {headerName : 'Elevation', field: 'elevation', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Elevation', pinned:'left', },
-      {headerName : 'Contract-Date', field: 'contract_date', sortable:true, filter:true, columnGroupShow: 'open', headerTooltip:'Contract-Date', width:120, pinned:'left', 
-      cellClass: params => {
-        // console.warn(color_code(params.value), params.value)
-        return color_code(params.value)
-        // return params.value > today ? 'late_1' : 'late_2';
-      }},
     ],
   },
   
@@ -131,7 +120,13 @@ async function get_curr_usr() {
       {headerName : 'Assigned To', field: 'assigned', sortable:true, filter:true, headerTooltip:'Drafter Name',width:100, },
       {headerName : 'Draft Deadline', field: 'draft_deadline', sortable:true, filter:true, headerTooltip:'Drafting-Deadline Date', width:120,
         cellStyle: params => {
-          return color_code(params.value)
+          if (params.data.actual === "None" || params.data.actual === ""){
+            console.log("Dont delete the color")
+            return color_code(params.value)
+          }
+          else{
+            console.log("delete the color")
+          }
         }
       },
       {headerName : 'Actual', field: 'actual', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Actual Finished Date', width:120,  },
@@ -148,7 +143,13 @@ async function get_curr_usr() {
       {headerName : 'Eng. Sent', field: 'eng_sent', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Engineering Sent Date', width:120, },
       {headerName : 'Eng. Planned Receipt', field: 'eng_planned_receipt', sortable:true, filter:true, headerTooltip:'Engineering Planned Receipt Date', width:120,
         cellStyle: params => {
-          return color_code(params.value)
+          if (params.data.eng_actual_receipt === "None" || params.data.eng_actual_receipt === ""){
+            console.log("Dont delete the color")
+            return color_code(params.value)
+          }
+          else{
+            console.log("delete the color")
+          }
         }
       },
       {headerName : 'Eng. Actual Receipt', field: 'eng_actual_receipt', sortable:true, filter:true,columnGroupShow:'open', headerTooltip:'Engineering Actual Receipt Date', width:120, },
@@ -164,7 +165,13 @@ async function get_curr_usr() {
       {headerName : 'Plat Sent', field: 'plat_sent', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Plat Sent Date', width:120, },
       {headerName : 'Plat Planned Receipt', field: 'plat_planned_receipt', sortable:true, filter:true, headerTooltip:'Plat Planned Receipt Date', width:120,
         cellStyle: params => {
-          return color_code(params.value)
+          if (params.data.plat_actual_receipt === "None" || params.data.plat_actual_receipt === ""){
+            console.log("Dont delete the color")
+            return color_code(params.value)
+          }
+          else{
+            console.log("delete the color")
+          }
         }
       },
       {headerName : 'Plat Actual Receipt', field: 'plat_actual_receipt', sortable:true, filter:true, columnGroupShow:'open',headerTooltip:'Plat Actual Receipt Date', width:120, },
@@ -179,8 +186,13 @@ async function get_curr_usr() {
       {headerName : 'Permit Jurisdiction', field: 'permit_jurisdiction', sortable:true, filter:true, headerTooltip:'Jurisdiction Name', },
       {headerName : 'Permit Planned Submit', field: 'permit_planned_submit', sortable:true, filter:true, headerTooltip:'Permit Planned Submit Date', width:120,
         cellStyle: params => {
-          console.log(params.value, this)
-          return color_code(params.value)
+          if (params.data.permit_actual_submit === "None" || params.data.permit_actual_submit === ""){
+            console.log("Dont delete the color")
+            return color_code(params.value)
+          }
+          else{
+            console.log("delete the color")
+          }
         }
       },
       {headerName : 'Permit Actual Submit', field: 'permit_actual_submit', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'Permit Actual Submit Date', width:120, },
@@ -195,7 +207,13 @@ async function get_curr_usr() {
     [
       {headerName : 'BBP Planned Posted', field: 'bbp_planned_posted', sortable:true, filter:true, headerTooltip:'BBP Planned Posted Date', width:120,
         cellStyle: params => {
-          return color_code(params.value)
+          if (params.data.bbp_actual_posted === "None" || params.data.bbp_actual_posted === ""){
+            console.log("Dont delete the color")
+            return color_code(params.value)
+          }
+          else{
+            console.log("delete the color")
+          }
         }
       },
       {headerName : 'BBP Actual Posted', field: 'bbp_actual_posted', sortable:true, filter:true, columnGroupShow:'open', headerTooltip:'BBP Actual Posted Date', width:120, },
@@ -263,13 +281,15 @@ async function get_lots(){
   spinner.parentNode.removeChild(spinner);
   
   // console.info("----------- ASYNC FUNCTION END -------------")
-  remove_color_code(gridOptions.rowData);
+  //! Remove color for the not needed
+  // remove_color_code(gridOptions.rowData);
 }
 
 get_lots()
 
 function remove_color_code(p){
   console.log(p);
+
 }
 //! AG GRID ------ END
 
