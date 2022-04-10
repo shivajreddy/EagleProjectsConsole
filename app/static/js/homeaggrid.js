@@ -121,11 +121,10 @@ async function get_curr_usr() {
       {headerName : 'Draft Deadline', field: 'draft_deadline', sortable:true, filter:true, headerTooltip:'Drafting-Deadline Date', width:120,
         cellStyle: params => {
           if (params.data.actual === "None" || params.data.actual === ""){
-            console.log("Dont delete the color")
             return color_code(params.value)
           }
           else{
-            console.log("delete the color")
+            return style_none
           }
         }
       },
@@ -144,11 +143,10 @@ async function get_curr_usr() {
       {headerName : 'Eng. Planned Receipt', field: 'eng_planned_receipt', sortable:true, filter:true, headerTooltip:'Engineering Planned Receipt Date', width:120,
         cellStyle: params => {
           if (params.data.eng_actual_receipt === "None" || params.data.eng_actual_receipt === ""){
-            console.log("Dont delete the color")
             return color_code(params.value)
           }
           else{
-            console.log("delete the color")
+            return style_none
           }
         }
       },
@@ -166,11 +164,10 @@ async function get_curr_usr() {
       {headerName : 'Plat Planned Receipt', field: 'plat_planned_receipt', sortable:true, filter:true, headerTooltip:'Plat Planned Receipt Date', width:120,
         cellStyle: params => {
           if (params.data.plat_actual_receipt === "None" || params.data.plat_actual_receipt === ""){
-            console.log("Dont delete the color")
             return color_code(params.value)
           }
           else{
-            console.log("delete the color")
+            return style_none
           }
         }
       },
@@ -187,11 +184,10 @@ async function get_curr_usr() {
       {headerName : 'Permit Planned Submit', field: 'permit_planned_submit', sortable:true, filter:true, headerTooltip:'Permit Planned Submit Date', width:120,
         cellStyle: params => {
           if (params.data.permit_actual_submit === "None" || params.data.permit_actual_submit === ""){
-            console.log("Dont delete the color")
             return color_code(params.value)
           }
           else{
-            console.log("delete the color")
+            return style_none
           }
         }
       },
@@ -208,11 +204,10 @@ async function get_curr_usr() {
       {headerName : 'BBP Planned Posted', field: 'bbp_planned_posted', sortable:true, filter:true, headerTooltip:'BBP Planned Posted Date', width:120,
         cellStyle: params => {
           if (params.data.bbp_actual_posted === "None" || params.data.bbp_actual_posted === ""){
-            console.log("Dont delete the color")
             return color_code(params.value)
           }
           else{
-            console.log("delete the color")
+            return style_none
           }
         }
       },
