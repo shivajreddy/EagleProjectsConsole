@@ -41,7 +41,7 @@
           </li>
           
           {% if session['user_email'] %}
-          
+          <!-- Logged In Links -->
           <li class="nav-item">
             <a class="nav-link" href="/all-lots"> All-Lots </a>
           </li>
@@ -59,11 +59,19 @@
           </li>
           
           {% else %}
-          
+          <!-- Log off Links -->
           <li class="nav-item">
             <a class="nav-link" href="/sign-in" id="user_link">Sign-In</a>
           </li>
           {% endif %}
+
+          <!-- Super User Links -->
+          {% if session['super_editor'] %}
+            <li class="nav-item">
+              <a class="nav-link" href="/super-links" > Super-User </a>
+            </li>
+          {% endif %}
+
         </ul>
       </div>
 

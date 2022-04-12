@@ -3,6 +3,7 @@ from crypt import methods
 from flask import jsonify, render_template, redirect, request, session
 
 from ..Models.Lot import LotsDirectory
+from ..Models.Community import Community
 # from ..Models.User import User
 
 from ..forms.NewLotForm import NewLot
@@ -13,11 +14,7 @@ from app import app, db
 #! Test route
 # @app.route('/test')
 # def test_route():
-  # import pdb
-  # pdb.set_trace()
   # return "THIS IS FINISHED"
-  # db.create_all()
-  # return "create db"
 
 
 #! Routes
@@ -48,6 +45,17 @@ def new_test_home():
   all_lots = LotsDirectory.query.all()
 
   return render_template('newdir.html', all_lots = all_lots)
+
+#! Super User Links
+@app.route('/super-links')
+def route_super_links():
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+  
+  if "super_editor" not in session or session['super_editor'] != True:
+    return redirect('/')
+
+  return render_template('./super_temp/super_links.html')
 
 
 #! Route to make the current user an editor
