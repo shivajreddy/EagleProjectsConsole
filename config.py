@@ -22,7 +22,7 @@ SQLALCHEMY_ECHO = True
 #! Mail Config
 MAIL_SERVER = 'mi3-ts15.a2hosting.com'
 MAIL_PORT = 465
-MAIL_USERNAME = "consoleadmin@tecofva.com"
-MAIL_PASSWORD = "Intel1020$$"
+# MAIL_USERNAME = "consoleadmin@tecofva.com"
+# MAIL_PASSWORD = "Intel1020$$"
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
