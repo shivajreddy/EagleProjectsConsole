@@ -74,7 +74,7 @@ th {
 }
 
 /* color coding */
-.late_3 {
+/* .late_3 {
   background-color: red;
 }
 
@@ -84,7 +84,7 @@ th {
 
 .late_1 {
   background-color: rgb(255, 251, 0);
-}
+} */
 
 .ag-header{
   /* background-color: gray !important; */
@@ -93,4 +93,20 @@ th {
   /* top: 180px; */
   z-index: 99;
 
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  margin: 0;
+  padding-bottom: 50px; /* the height of the footer */
+  box-sizing: border-box;
+}
+
+/* Footer */
+.footer-bs{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
 }
