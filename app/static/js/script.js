@@ -21,20 +21,3 @@ $modifyButton.on('click', (e)=>{
 // });
 
 
-//! Delete lot button
-$deleteLotButton = $('.modify-delete')
-$deleteLotButton.on('click', (e) =>{
-  e.preventDefault();
-
-  const path = window.location.pathname;
-  var parts = path.split("/");
-  var id = parseInt(parts[parts.length - 2]);
-
-  const dialog = confirm(`‼️ THIS ACTION IS NOT REVERSIBLE. Confirm delete?`);
-  if (dialog) {
-    window.location.href = `/lot/delete/${id}`;
-  }
-  else {
-    console.log("crysis averted");
-  }
-});

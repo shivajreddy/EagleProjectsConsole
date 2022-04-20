@@ -1,4 +1,3 @@
-console.log("problem came here?");
 //! Show user-role based content
 const $editor_fields = $('.editor-only')
 async function check_editor() {

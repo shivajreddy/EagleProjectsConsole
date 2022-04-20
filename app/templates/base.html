@@ -37,12 +37,6 @@
       </button>
       <div class="collapse navbar-collapse " id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item text-white">
-            <a class="nav-link" href="https://www.eagleofva.com/" target="_blank">Eagle</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://archi-tec-tonic.com/" target="_blank">Archi-tec-tonic</a>
-          </li>
           
           {% if session['user_email'] %}
           <!-- Logged In Links -->
@@ -50,10 +44,17 @@
             <a class="nav-link" href="/all-lots"> All-Lots </a>
           </li>
           
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" > {{session['user_email']}}</a>
-          </li>
-          
+          </li> -->
+
+            <!-- Super User Links -->
+            {% if session['super_editor'] %}
+              <li class="nav-item">
+                <a class="nav-link" href="/super-links" > Super-User </a>
+              </li>
+            {% endif %}
+
           <li class="nav-item">
             <span>
               <form action="/logout" method="post">
@@ -67,13 +68,6 @@
           <li class="nav-item">
             <a class="nav-link" href="/sign-in" id="user_link">Sign-In</a>
           </li>
-          {% endif %}
-
-          <!-- Super User Links -->
-          {% if session['super_editor'] %}
-            <li class="nav-item">
-              <a class="nav-link" href="/super-links" > Super-User </a>
-            </li>
           {% endif %}
 
         </ul>

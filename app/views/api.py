@@ -131,8 +131,8 @@ def new_lot():
     return render_template('new_lot.html', form_data = new_lot_form_inst)
 
 
-#? DELETE a lot
-@app.route('/api/delete-lot/<int:lot_id>/', methods=["DELETE"])
+#! DELETE a lot
+@app.route('/api/delete-lot/<int:lot_id>', methods=["GET", "DELETE", "POST"])
 def delete_lot(lot_id):
   if 'user_email' not in session:
     return redirect('/sign-in')
@@ -141,7 +141,10 @@ def delete_lot(lot_id):
   lot = db.session.query(LotsDirectory).filter(LotsDirectory.id==lot_id)
   lot.delete()
   db.session.commit()
-  return redirect('/')
+  import pdb
+  pdb.set_trace()
+  return jsonify(True)
+  # return redirect('/')
 
 
 #? Check USER ROLE

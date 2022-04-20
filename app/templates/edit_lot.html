@@ -5,17 +5,17 @@
 
 
 <!--! Lot container -->
-<div class="container m-4">
+<div class="container-sm mb-4 pb-4">
   <form action="" method="POST">
     {{ lot.hidden_tag() }} 
     {{ lot.csrf_token }}
 
     <div class="container">
       {% for field in lot if field.widget.input_type != 'hidden' %}
-        <div class="d-flex flex-row">
-          <p>{{field.label}}</p>
-          <p>{{field}}</p>
-        </div>
+      <div class="">
+        <p class="text-secondary p-0 m-0">{{field.label}}</p>
+        <div class="mb-2 pb-2">{{field}}</div>
+      </div>
       {% endfor %}
     </div>
     
@@ -33,5 +33,11 @@
   </form>
 
 </div>
+
+{% endblock %}
+
+{% block custom_script %}
+
+<script src="{{ url_for('static', filename = '/js/deletelot.js')}}"></script>
 
 {% endblock %}

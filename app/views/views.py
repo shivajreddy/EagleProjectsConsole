@@ -45,12 +45,6 @@ def all_lots_page():
   return render_template('all_lots.html')
 
 
-@app.route('/new', methods=["GET"])
-def new_test_home():
-  all_lots = LotsDirectory.query.all()
-
-  return render_template('newdir.html', all_lots = all_lots)
-
 #! Super User Links
 @app.route('/super-links')
 def route_super_links():
@@ -61,8 +55,3 @@ def route_super_links():
     return redirect('/')
 
   return render_template('./super_temp/super_links.html')
-
-
-@app.route('/lot/testedit/<int:theid>', methods=["GET", "POST"])
-def test_edit_lot(theid):
-  return render_template('test_edit.html', theid=theid)
