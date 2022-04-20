@@ -23,6 +23,9 @@ connect_db(app)
 #* Import all views
 from .views import views, auth_views, api, super_user_views
 
+#* Import features
+from .features.autoreport import automail
+
 
 #* may be need this for ssl problems
 # import ssl

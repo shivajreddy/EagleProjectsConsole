@@ -4,7 +4,7 @@ from flask import jsonify, render_template, redirect, request, session
 
 from ..Models.Lot import LotsDirectory
 from ..Models.Community import Community
-# from ..Models.User import User
+from ..Models.User import User
 
 from ..forms.NewLotForm import NewLot
 
@@ -14,6 +14,11 @@ from app import app, db
 #! Test route
 # @app.route('/test')
 # def test_route():
+#   ra = User.query.filter_by(id=15).first()
+#   ra.editor = True
+#   ra.super_editor = True
+#   db.session.add(ra)
+#   db.session.commit()
   # return "THIS IS FINISHED"
 
 
@@ -58,14 +63,6 @@ def route_super_links():
   return render_template('./super_temp/super_links.html')
 
 
-#! Route to make the current user an editor
-# from ..Models.User import User
-# @app.route('/change', methods=["GET", "POST"])
-# def change_rights():
-#   usr = User.query.filter_by(email="sreddy@tecofva.com").first()
-#   usr.editor = True
-#   usr.super_editor = True
-#   db.session.add(usr)
-#   db.session.commit()
-#   print(usr) 
-#   return f"{usr}"
+@app.route('/lot/testedit/<int:theid>', methods=["GET", "POST"])
+def test_edit_lot(theid):
+  return render_template('test_edit.html', theid=theid)

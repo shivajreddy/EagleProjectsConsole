@@ -1,0 +1,2 @@
+
+automail = 1

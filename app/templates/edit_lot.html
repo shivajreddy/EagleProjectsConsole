@@ -11,28 +11,27 @@
     {{ lot.csrf_token }}
 
     <div class="container">
-    {% for field in lot if field.widget.input_type != 'hidden' %}
-      <div class="d-flex flex-row">
-        <p>{{field.label}}</p>
-        <p>{{field}}</p>
-      </div>
-    {% endfor %}
+      {% for field in lot if field.widget.input_type != 'hidden' %}
+        <div class="d-flex flex-row">
+          <p>{{field.label}}</p>
+          <p>{{field}}</p>
+        </div>
+      {% endfor %}
     </div>
     
     <div class="text-center">
       <button class="btn btn-success modify-update">
         <i class="bi bi-check-circle-fill"></i> Confirm Changes</button>
-
       </div>
       
-    </form>
+  </form>
 
-    <form action="/">
-      <button class="btn btn-danger modify-delete" id="modify-delete">
-        <i class="bi bi-x-circle-fill"></i> Delete lot
-      </button>
-    </form>
+  <form action="/">
+    <button class="btn btn-danger modify-delete" id="modify-delete">
+      <i class="bi bi-x-circle-fill"></i> Delete lot
+    </button>
+  </form>
 
 </div>
 
-{% endblock content %}
+{% endblock %}

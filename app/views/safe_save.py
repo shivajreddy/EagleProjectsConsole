@@ -21,4 +21,21 @@ def test_route():
 
   return "DONE"
 
+# How to add editor, super_editor roles to user by id
+ra = User.query.filter_by(id=12).first()
+ra.editor = True
+ra.super_editor = True
+db.session.add(ra)
+db.session.commit()
 
+#! Route to make the current user an editor
+# from ..Models.User import User
+# @app.route('/change', methods=["GET", "POST"])
+# def change_rights():
+#   usr = User.query.filter_by(email="sreddy@tecofva.com").first()
+#   usr.editor = True
+#   usr.super_editor = True
+#   db.session.add(usr)
+#   db.session.commit()
+#   print(usr) 
+#   return f"{usr}"

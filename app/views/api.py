@@ -15,8 +15,9 @@ def get_finished_lots():
   # serialize each lot
   results = [serialize_lot(lot) for lot in all_lots]
   return jsonify(results)
-  
 
+
+#? GET All Lots
 @app.route('/api/get-all-lots', methods=["GET"])
 def get_every_lots():
   all_lots = LotsDirectory.query.all()
@@ -214,3 +215,5 @@ def edit_lot(lot_id):
     return redirect('/')
 
   return render_template('edit_lot.html', lot=lot_form)
+
+
