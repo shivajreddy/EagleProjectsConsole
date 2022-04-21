@@ -14,7 +14,7 @@ const style_3 = {color : 'black', backgroundColor:'#ffb703'}  //bg yellow. 3<=di
 const style_4 = {color : 'white', backgroundColor:'#e85d04'}  //bg Orange. 1<=dist<=2 yellow
 const style_5 = {color : 'white', backgroundColor:'#dc2f02'}  //bg dark-orange. dist==0 orange
 const style_6 = {color : 'white', backgroundColor:'#d00000'}  //bg red. dist < 0 red
-const style_none = {color : 'black', backgroundColor:'white'}  // No Style
+const style_none = {color : 'black'}  // No Style
 
 // based on the given date_str return the style_n object
 function color_code(date_str) {
