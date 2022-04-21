@@ -8,7 +8,7 @@ from ..Models.Community import Community
 from ..forms.NewLotForm import NewLot
 
 
-#? GET FINISHED lots
+#! GET FINISHED lots
 @app.route('/api/get-lots', methods=["GET"])
 def get_finished_lots():
   all_lots = LotsDirectory.query.filter_by(finished=False).all()
@@ -17,7 +17,7 @@ def get_finished_lots():
   return jsonify(results)
 
 
-#? GET All Lots
+#! GET All Lots
 @app.route('/api/get-all-lots', methods=["GET"])
 def get_every_lots():
   all_lots = LotsDirectory.query.all()
@@ -26,7 +26,7 @@ def get_every_lots():
   return jsonify(results)
 
 
-#? Get Current User
+#! Get Current User
 @app.route('/api/get-current-user', methods=["GET"])
 def get_current_user():
   if 'user_email' not in session:
@@ -42,7 +42,7 @@ def get_current_user():
   return usr_object
 
 
-#? Get User details
+#! Get User details
 @app.route('/api/get-user-details/<user_email>', methods=["GET"])
 def get_user_details(user_email):
   usr = User.query.filter_by(email=user_email).first()
@@ -56,7 +56,7 @@ def get_user_details(user_email):
   return usr_object
 
 
-#? GET lot of id
+#! GET lot of id
 @app.route('/api/get-lot/<int:id>', methods=["GET"])
 def get_single_lot(id):
 
@@ -72,7 +72,7 @@ def get_single_lot(id):
   return render_template('404.html', data={"id":id, "msg":"not in LotsDirectory table"}), 404
 
 
-#? New Lot form
+#! New Lot form
 @app.route('/lot/new', methods=["GET", "POST"])
 def new_lot():
   if 'user_email' not in session:
@@ -132,19 +132,18 @@ def new_lot():
 
 
 #! DELETE a lot
-@app.route('/api/delete-lot/<int:lot_id>', methods=["GET", "DELETE", "POST"])
+@app.route('/api/delete-lot/<int:lot_id>', methods=["GET", "DELETE"])
 def delete_lot(lot_id):
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  # lot = db.session.query(Lot).filter(Lot.id==lot_id)
   lot = db.session.query(LotsDirectory).filter(LotsDirectory.id==lot_id)
   lot.delete()
   db.session.commit()
-  import pdb
-  pdb.set_trace()
-  return jsonify(True)
-  # return redirect('/')
+  db.session.close()
+  return jsonify(message=f'delete lot with id {lot_id}')
+  #if you redirect to url, then axios will send again a request to this url 
+  # return redirect('/') 
 
 
 #? Check USER ROLE
@@ -157,9 +156,14 @@ def check_editor_rights():
   return jsonify(False)
 
 
-#? EDIT lot 
+#! EDIT lot 
 @app.route('/lot/edit/<int:lot_id>/', methods=["GET", "POST"])
 def edit_lot(lot_id):
+  # redirect if there is no lot at this lot number
+  lot_exists = bool(LotsDirectory.query.filter_by(id=lot_id).first())
+  if not lot_exists:
+    return redirect('/')
+
   if 'user_email' not in session:
     return redirect('/sign-in')
 

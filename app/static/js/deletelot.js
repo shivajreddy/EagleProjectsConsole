@@ -30,12 +30,14 @@ async function delete_request(e) {
 
   const dialog = confirm(`‼️ THIS ACTION IS NOT REVERSIBLE. Confirm delete?`);
   if (dialog) {
-    const res = await axios.delete(`/api/delete-lot/${id}`)
-    console.log(res)
-    if (res){
-      console.log(res);
-      window.location.assign("/");
-    }
+    await axios.delete(`/api/delete-lot/${id}`)
+    window.location.assign('/')
+    // const res = await axios.delete(`/api/delete-lot/${id}`)
+    // console.log(res)
+    // if (res){
+    //   console.log(res);
+    //   window.location.assign("/");
+    // }
   }
   else {
     console.log('crysis is avertled :)')
