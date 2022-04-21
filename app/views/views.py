@@ -1,5 +1,4 @@
 """ main views """
-from crypt import methods
 from flask import jsonify, render_template, redirect, request, session
 
 from ..Models.Lot import LotsDirectory
@@ -12,14 +11,16 @@ from app import app, db
 
 
 #! Test route
-# @app.route('/test')
-# def test_route():
-#   ra = User.query.filter_by(id=15).first()
-#   ra.editor = True
-#   ra.super_editor = True
-#   db.session.add(ra)
-#   db.session.commit()
-  # return "THIS IS FINISHED"
+@app.route('/test')
+def test_route():
+  import pdb
+  pdb.set_trace()
+  # ra = User.query.filter_by(id=15).first()
+  # ra.editor = True
+  # ra.super_editor = True
+  # db.session.add(ra)
+  # db.session.commit()
+  return "THIS IS FINISHED"
 
 
 #! Routes
