@@ -257,16 +257,7 @@ async function get_lots(){
   
   const result = await axios.get('/api/get-lots')
 
-  gridOptions.rowData = result.data
-  // for (const lot of result.data){
-  //   rowDefs.push(lot);
-  // }
-
-  // gridOptions.api is undefined because it has to be called only after the grid is ready
-  // console.log("this is api", gridOptions.api );
-  // for (const lot of result.data){
-  //   gridOptions.api.setRowData([lot])
-  // }
+  gridOptions.rowData = result.data;
 
   const lotGrid = document.querySelector('#lotGrid');
   new agGrid.Grid(lotGrid, gridOptions);
@@ -281,12 +272,6 @@ async function get_lots(){
 }
 
 get_lots()
-
-function remove_color_code(p){
-  console.log(p);
-
-}
-//! AG GRID ------ END
 
 
 //! Save as CSV

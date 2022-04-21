@@ -24,7 +24,8 @@ connect_db(app)
 from .views import views, auth_views, api, super_user_views
 
 #* Import features
-from .features.autoreport import automail
+# from .features.autoreport import automail
+from .features import autoreport
 
 
 #* may be need this for ssl problems
