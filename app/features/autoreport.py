@@ -53,8 +53,8 @@ def group_lots():
   # -1312
   today = date.today()
   for lot in lots:
-    if (lot.actual - today).days < 0:
-      entry = lot.community + lot.section + lot.lot_number
+    if lot.actual and (lot.actual - today).days < 0:
+      entry = str(lot.community) +" "+ str(lot.section) +" "+ str(lot.lot_number)
       drafting_overdue.append(entry)
 
 
