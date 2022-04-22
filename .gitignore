@@ -1,7 +1,7 @@
 __pycache__
 venv
 **/.DS_Store
-# config.py
+config.py
 config_backup.py
-local_config.py
+# local_config.py
 EagleProjectsClean.csv
