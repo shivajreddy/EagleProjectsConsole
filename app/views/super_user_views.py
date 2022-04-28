@@ -45,19 +45,76 @@ def create_new_drafter():
   if "super_editor" not in session or session['super_editor'] != True:
     return redirect('/')
   
-  # form = NewCommunity()
-  # communities = Community.query.all()
   form = NewDrafter()
   drafters = Drafter.query.all()
 
   if form.validate_on_submit():
     # POST request
-    # new_community = Community(community_name=form.community_name.data)
     new_drafter = Drafter(drafter_name=form.drafter_name.data)
     db.session.add(new_drafter)
     db.session.commit()
     return redirect('/super/drafters')
 
   # GET request
-  # return render_template('./super_temp/new_community.html', communities=communities, form=form)
   return render_template('./super_temp/new_drafter.html', drafters=drafters, form=form)
+
+
+@app.route('/super/engineers', methods=["GET", "POST"])
+def create_new_engineer():
+  """Engineers table"""
+
+  if "super_editor" not in session or session['super_editor'] != True:
+    return redirect('/')
+  
+  form = NewEngineer()
+  engineers = Engineer.query.all()
+
+  if form.validate_on_submit():
+    # POST request
+    new_engineer = Engineer(engineer_name=form.engineer_name.data)
+    db.session.add(new_engineer)
+    db.session.commit()
+    return redirect('/super/engineers')
+
+  # GET request
+  return render_template('./super_temp/new_engineer.html', engineers=engineers, form=form)
+
+
+@app.route('/super/platengineers', methods=["GET", "POST"])
+def create_new_platengineer():
+
+  if "super_editor" not in session or session['super_editor'] != True:
+    return redirect('/')
+  
+  form = NewPlatEngineer()
+  platengineers = PlatEngineer.query.all()
+
+  if form.validate_on_submit():
+    # POST request
+    new_platengineer = PlatEngineer(platengineer_name=form.plat_engineer_name.data)
+    db.session.add(new_platengineer)
+    db.session.commit()
+    return redirect('/super/platengineers')
+
+  # GET request
+  return render_template('./super_temp/new_platengineer.html', platengineers=platengineers, form=form)
+
+
+@app.route('/super/jurisdictions', methods=["GET", "POST"])
+def create_new_jurisdictions():
+
+  if "super_editor" not in session or session['super_editor'] != True:
+    return redirect('/')
+  
+  form = NewJurisdiction()
+  jurisdictions = Jurisdiction.query.all()
+
+  if form.validate_on_submit():
+    # POST request
+    new_jurisdiction = Jurisdiction(jurisdiction_name=form.jurisdiction_name.data)
+    db.session.add(NewJurisdiction)
+    db.session.commit()
+    return redirect('/super/jurisdictions')
+
+  # GET request
+  return render_template('./super_temp/new_jurisdiction.html', jurisdictions=jurisdictions, form=form)

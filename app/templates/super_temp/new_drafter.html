@@ -2,27 +2,27 @@
 
 {% block content %}
 
-<h1 class="text-center p-4">New Community</h1>
+<h1 class="text-center p-4">Drafting</h1>
 
 <div class="container">
 
   <div class="card text-center">
     <div class="card-header bg-dark text-white">
-      <h4>Communities</h4>
+      <h4>Existing-Drafting: Assigned to</h4>
     </div>
 
     <div class="card-body">
       <div class="text-start px-4">
-        {% for c in communities %}
+        {% for c in drafters %}
         <div>
-          {{c.id}} : {{c.community_name}}
+          {{c.id}} : {{c.drafter_name}}
         </div>
         {% endfor %}
       </div>
     </div>
 
     <div class="card-footer">
-      <form action="/super/new-community" method="POST">
+      <form action="/super/drafters" method="POST">
         {{ form.hidden_tag() }}
         
         {% for field in form if field.widget.input_type != 'hidden' %}
@@ -32,7 +32,7 @@
         </div>
         {% endfor %}
         <div class="p-2">
-          <button class="btn btn-primary">Add community</button>
+          <button class="btn btn-primary">Add drafter</button>
         </div>
       </form>
     </div>

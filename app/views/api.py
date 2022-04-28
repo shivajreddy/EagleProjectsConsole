@@ -188,7 +188,16 @@ def edit_lot(lot_id):
   lot_form = NewLot(obj=lot)
 
   all_communities = [(c.community_name, c.community_name) for c in Community.query.all()]
+  all_drafters = [(i.drafter_name, i.drafter_name) for i in Drafter.query.all()]
+  all_engineers = [(c.engineer_name, c.engineer_name) for c in Engineer.query.all()]
+  all_platengineers = [(c.platengineer_name, c.platengineer_name) for c in PlatEngineer.query.all()]
+  all_jurisdictions = [(c.jurisdiction_name, c.jurisdiction_name) for c in Jurisdiction.query.all()]
+
   lot_form.community.choices = all_communities
+  lot_form.assigned.choices = all_drafters 
+  lot_form.eng.choices = all_engineers 
+  lot_form.plat_eng.choices = all_platengineers 
+  lot_form.permit_jurisdiction.choices = all_jurisdictions 
 
   #* Validate the edited form
   if lot_form.validate_on_submit():

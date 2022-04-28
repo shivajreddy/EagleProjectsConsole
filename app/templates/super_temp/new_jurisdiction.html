@@ -2,27 +2,27 @@
 
 {% block content %}
 
-<h1 class="text-center p-4">Community</h1>
+<h1 class="text-center p-4">Jurisdictions</h1>
 
 <div class="container">
 
   <div class="card text-center">
     <div class="card-header bg-dark text-white">
-      <h4>Existing Communities</h4>
+      <h4>Existing Jurisdictions</h4>
     </div>
 
     <div class="card-body">
       <div class="text-start px-4">
-        {% for c in communities %}
+        {% for c in jurisdictions %}
         <div>
-          {{c.id}} : {{c.community_name}}
+          {{c.id}} : {{c.jurisdiction_name}}
         </div>
         {% endfor %}
       </div>
     </div>
 
     <div class="card-footer">
-      <form action="/super/new-community" method="POST">
+      <form action="/super/jurisdictions" method="POST">
         {{ form.hidden_tag() }}
         
         {% for field in form if field.widget.input_type != 'hidden' %}
@@ -32,7 +32,7 @@
         </div>
         {% endfor %}
         <div class="p-2">
-          <button class="btn btn-primary">Add community</button>
+          <button class="btn btn-primary">Add Jurisdiction</button>
         </div>
       </form>
     </div>

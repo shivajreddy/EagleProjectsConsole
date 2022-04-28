@@ -2,15 +2,13 @@
 
 from flask import Flask
 
-
-
 #* Define the WSGI applicatin object
 app = Flask(__name__)
 
 
 #* Load Configurations
-# app.config.from_object('heroku_config')
-app.config.from_object('my_local_config')
+app.config.from_object('heroku_config')
+# app.config.from_object('my_local_config')
 
 #* Connect Databaase
 from flask_sqlalchemy import SQLAlchemy
@@ -37,4 +35,3 @@ from .features import autoreport
 
 # from app.plotlydash.dashboard import init_dashboard
 # app = init_dashboard(app)
-
