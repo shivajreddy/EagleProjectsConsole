@@ -23,25 +23,25 @@ class NewLot(FlaskForm):
   contract_date = DateField("Contract Date", validators=[optional()])
 
   #* Drafting Date
-  assigned = StringField("Assigned to", validators=[optional()])
+  assigned = SelectField("Assigned to", validators=[optional()])
   draft_deadline = DateField("Draft Deadline", validators=[optional()])
   actual = DateField("Actual Date", validators=[optional()])
   time = StringField("Time in Minutes", validators=[optional()])
 
   #* Engineering
-  eng = StringField("Engineer Name", validators=[optional()])
+  eng = SelectField("Engineer Name", validators=[optional()])
   eng_sent = DateField("Engineering Sent", validators=[optional()])
   eng_planned_receipt = DateField("Engineering Planned Receipt", validators=[optional()])
   eng_actual_receipt = DateField("Engineering Actual Receipt", validators=[optional()])
   
   #* Plat
-  plat_eng = StringField("Plat Eng", validators=[optional()])
+  plat_eng = SelectField("Plat Eng", validators=[optional()])
   plat_sent = DateField("Plat Sent", validators=[optional()])
   plat_planned_receipt = DateField("Plat Receipt", validators=[optional()])
   plat_actual_receipt = DateField("Plat Actual Receipt", validators=[optional()])
 
   #* Permit
-  permit_jurisdiction = StringField("Jursidiction", validators=[optional()])
+  permit_jurisdiction = SelectField("Jursidiction", validators=[optional()])
   permit_planned_submit = DateField("Permit planned submit", validators=[optional()])
   permit_actual_submit = DateField("Permit Actual submit", validators=[optional()])
   permit_received =DateField("Permit Received", validators=[optional()])

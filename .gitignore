@@ -1,5 +1,6 @@
 __pycache__
 venv
+venv2
 **/.DS_Store
 # heroku_config.py
 config_backup.py

@@ -3,6 +3,10 @@ from flask import jsonify, render_template, redirect, request, session
 
 from ..Models.Lot import LotsDirectory
 from ..Models.Community import Community
+from ..Models.Drafter import Drafter
+from ..Models.Engineer import Engineer
+from ..Models.PlatEngineer import PlatEngineer
+from ..Models.PermitJurisdiction import Jurisdiction
 from ..Models.User import User
 
 from ..forms.NewLotForm import NewLot
@@ -13,8 +17,8 @@ from app import app, db
 #! Test route
 @app.route('/test')
 def test_route():
-  import pdb
-  pdb.set_trace()
+  # import pdb
+  # pdb.set_trace()
   # ra = User.query.filter_by(id=15).first()
   # ra.editor = True
   # ra.super_editor = True

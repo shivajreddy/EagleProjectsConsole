@@ -4,7 +4,13 @@ from flask import jsonify, redirect, render_template, session
 
 from ..Models.Lot import LotsDirectory, serialize_lot
 from ..Models.User import User
+
 from ..Models.Community import Community
+from ..Models.Drafter import Drafter
+from ..Models.Engineer import Engineer
+from ..Models.PlatEngineer import PlatEngineer
+from ..Models.PermitJurisdiction import Jurisdiction
+
 from ..forms.NewLotForm import NewLot
 
 
@@ -82,7 +88,16 @@ def new_lot():
   new_lot_form_inst = NewLot()
 
   all_communities = [(c.community_name, c.community_name) for c in Community.query.all()]
+  all_drafters = [(i.drafter_name, i.drafter_name) for i in Drafter.query.all()]
+  all_engineers = [(c.engineer_name, c.engineer_name) for c in Engineer.query.all()]
+  all_platengineers = [(c.platengineer_name, c.platengineer_name) for c in PlatEngineer.query.all()]
+  all_jurisdictions = [(c.jurisdiction_name, c.jurisdiction_name) for c in Jurisdiction.query.all()]
+
   new_lot_form_inst.community.choices = all_communities
+  new_lot_form_inst.assigned.choices = all_drafters
+  new_lot_form_inst.eng.choices = all_engineers
+  new_lot_form_inst.plat_eng.choices = all_platengineers
+  new_lot_form_inst.permit_jurisdiction.choices = all_jurisdictions
 
   #* Validate the form
   if new_lot_form_inst.validate_on_submit():
@@ -127,7 +142,9 @@ def new_lot():
     db.session.commit()
     return redirect('/')
   else:
-    print("FAILLLLL")
+    # print("Form subbmission failed, giving you the get request")
+    # import pdb
+    # pdb.set_trace()
     return render_template('new_lot.html', form_data = new_lot_form_inst)
 
 

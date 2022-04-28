@@ -39,3 +39,30 @@ db.session.commit()
 #   db.session.commit()
 #   print(usr) 
 #   return f"{usr}"
+
+#! New Model
+from ..Models.Drafter import Drafter
+@app.route('/add-new-models')
+def test_route():
+  db.create_all()
+
+#! Start the Drafter Category, with existing unique names
+@app.route('/test')
+def test_route():
+  all_drafters = LotsDirectory.query.all()
+  drafters = []
+  # querying the LotsDirectory Model for distinct Drafter names
+  for lot in LotsDirectory.query.distinct(LotsDirectory.assigned):
+    drafter_name = lot.assigned
+    if drafter_name != None and drafter_name != '':
+      drafters.append(drafter_name)
+
+  # use pdb_settrace to check the array, before adding to the db
+  # add the entries to database
+  for name in drafters:
+    new_drafter = Drafter(drafter_name=name)
+    db.session.add(new_drafter)
+  db.session.commit()
+
+  return 'done'
+
