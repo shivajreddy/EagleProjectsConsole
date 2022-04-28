@@ -2,7 +2,7 @@ __pycache__
 venv
 venv2
 **/.DS_Store
-# heroku_config.py
 config_backup.py
 local_config.py
 EagleProjectsClean.csv
+local_config.py
