@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 #* Load Configurations
 app.config.from_object('heroku_config')
-# app.config.from_object('local_config')
+# app.config.from_object('my_local_config')
 
 #* Connect Databaase
 from flask_sqlalchemy import SQLAlchemy

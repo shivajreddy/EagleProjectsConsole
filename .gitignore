@@ -3,6 +3,5 @@ venv
 venv2
 **/.DS_Store
 config_backup.py
-local_config.py
 EagleProjectsClean.csv
-local_config.py
+my_local_config.py
