@@ -2,7 +2,6 @@
 
 
 //! Color Coding the dates Feature ----- START
-
 const  today = new Date();
 const prevWeekDate = new Date();
 prevWeekDate.setDate(new Date().getDate() - 7);
@@ -71,9 +70,6 @@ function calc_work_date(from_date_str, no_of_days){
   }
   return to_date;
 }
-
-
-
 //! Color Coding the dates Feature ------ END
 
 
@@ -244,7 +240,7 @@ const gridOptions = {
     // filter: 'agTextColumnFilter',
     floatingFilter: true,
     resizable: false,
-    // lockPosition: true, //ability to drag the columns
+    lockPosition: true, //ability to drag the columns
   },
   // pagination: true,
   // paginationPageSize: 20,
