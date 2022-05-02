@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-center p-4">Product</h1>
+
+<div class="container">
+
+  <div class="card text-center">
+    <div class="card-header bg-dark text-white">
+      <h4>Existing Products</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="text-start px-4">
+        {% for c in products %}
+        <div>
+          {{c.id}} : {{c.product_name}}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <form action="/super/new-community" method="POST">
+        {{ form.hidden_tag() }}
+        
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <div>
+          {{field.label}}
+          {{field}}
+        </div>
+        {% endfor %}
+        <div class="p-2">
+          <button class="btn btn-primary">Add product</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock content %}
