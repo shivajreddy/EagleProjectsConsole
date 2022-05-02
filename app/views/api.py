@@ -101,7 +101,7 @@ def new_lot():
 
   #* Validate the form
   if new_lot_form_inst.validate_on_submit():
-    print("PASSSSSSS")
+    print("New Lot form is VALIDATED ✅")
 
     #* get the responses from the form
     new_lot_entry = LotsDirectory(
@@ -137,6 +137,8 @@ def new_lot():
 
       notes = new_lot_form_inst.notes.data 
     )
+    # import pdb
+    # pdb.set_trace()
 
     db.session.add(new_lot_entry)
     db.session.commit()

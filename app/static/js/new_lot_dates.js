@@ -1,6 +1,5 @@
 //* Auto populate the dates of the form based off Contract date
 
-
 //? Calculate next N'th work date from given Date
 // Helper function to create actual date object from string
 function create_date(str_date){
@@ -29,21 +28,22 @@ function calc_work_date(from_date_str, no_of_days){
 }
 
 
-// event listener for contract date
+// event listener for values based on contract date
 const contract_date = document.getElementById('contract_date');
 contract_date.addEventListener('input', setDates);
 
 const draft_deadline = document.getElementById('draft_deadline');
-draft_deadline.setAttribute('disabled', 'disabled');
+//! disabling these dates, is making flask not read the input values
+// draft_deadline.setAttribute('disabled', 'disabled');
 
 const eng_planned_receipt = document.getElementById('eng_planned_receipt');
-eng_planned_receipt.setAttribute('disabled', 'disabled');
+// eng_planned_receipt.setAttribute('disabled', 'disabled');
 
 const plat_planned_receipt = document.getElementById('plat_planned_receipt');
-plat_planned_receipt.setAttribute('disabled', 'disabled');
+// plat_planned_receipt.setAttribute('disabled', 'disabled');
 
 const permit_planned_submit = document.getElementById('permit_planned_submit');
-permit_planned_submit.setAttribute('disabled', 'disabled');
+// permit_planned_submit.setAttribute('disabled', 'disabled');
 
 
 // event listener for permit received date
@@ -51,7 +51,7 @@ const permit_received = document.getElementById('permit_received');
 permit_received.addEventListener('input', set_bbp_date);
 
 const bbp_planned_posted = document.getElementById('bbp_planned_posted');
-bbp_planned_posted.setAttribute('disabled', 'disabled');
+// bbp_planned_posted.setAttribute('disabled', 'disabled');
 
 
 // Get the Contract Date and set other field's dates
@@ -84,6 +84,5 @@ function set_bbp_date(e){
   const bbp_date = calc_work_date(permit_received_date, 1);
   const str_bbp_date = bbp_date.toJSON().slice(0,10);
   bbp_planned_posted.value = str_bbp_date;
-
 
 }

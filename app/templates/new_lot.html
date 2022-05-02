@@ -45,6 +45,7 @@
 
 {% block custom_script %}
 
-<script src="../static/js/new_lot_dates.js"></script>
+<script src="{{ url_for('static', filename = '/js/new_lot_dates.js')}}"></script>
+<!-- <script src="../static/js/new_lot_dates.js"></script> -->
 
 {% endblock custom_script %}
