@@ -7,6 +7,8 @@ from ..Models.Drafter import Drafter
 from ..Models.Engineer import Engineer
 from ..Models.PlatEngineer import PlatEngineer
 from ..Models.PermitJurisdiction import Jurisdiction
+from ..Models.Elevation import Elevation
+from ..Models.Product import Product
 from ..Models.User import User
 
 from ..forms.NewLotForm import NewLot
@@ -15,16 +17,14 @@ from app import app, db
 
 
 #! Test route
-@app.route('/test')
-def test_route():
-  # import pdb
-  # pdb.set_trace()
-  # ra = User.query.filter_by(id=15).first()
-  # ra.editor = True
-  # ra.super_editor = True
-  # db.session.add(ra)
+# @app.route('/test')
+# def test_route():
+  # curr_user = User.query.filter_by(id=15).first()
+  # curr_user.editor = True
+  # curr_user.super_editor = True
+  # db.session.add(curr_user)
   # db.session.commit()
-  return "THIS IS FINISHED"
+  # return "THIS IS FINISHED"
 
 
 #! Routes
