@@ -150,7 +150,7 @@ def create_new_jurisdictions():
   if form.validate_on_submit():
     # POST request
     new_jurisdiction = Jurisdiction(jurisdiction_name=form.jurisdiction_name.data)
-    db.session.add(NewJurisdiction)
+    db.session.add(new_jurisdiction)
     db.session.commit()
     return redirect('/super/jurisdictions')
 
