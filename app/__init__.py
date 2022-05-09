@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 
 #* Load Configurations
-app.config.from_object('heroku_config')
-# app.config.from_object('my_local_config')
+# app.config.from_object('heroku_config')
+app.config.from_object('my_local_config')
 
 #* Connect Databaase
 from flask_sqlalchemy import SQLAlchemy
@@ -24,7 +24,7 @@ from .views import views, auth_views, api, super_user_views
 
 #* Import features
 # from .features.autoreport import automail
-from .features import autoreport
+from .features import autoreport, testEmail
 
 
 #* may be need this for ssl problems

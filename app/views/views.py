@@ -17,37 +17,14 @@ from app import app, db
 
 
 #! Test route
-@app.route('/test')
-def test_route():
-  product_query = db.session.query(Product)
-  product_query = db.session.query(Product).delete()
-  db.session.commit()
-
-  all_products = LotsDirectory.query.all()
-  products = []
-  # querying the LotsDirectory Model for distinct Drafter names
-  for lot in LotsDirectory.query.distinct(LotsDirectory.product):
-    product_name = lot.product
-    if product_name != None and product_name != '':
-      products.append(product_name)
-
-  # import pdb
-  # pdb.set_trace()
-
-  # use pdb_settrace to check the array, before adding to the db
-  # add the entries to database
-  for name in products:
-    new_product = Product(product_name=name)
-    # new_drafter = Drafter(drafter_name=name)
-    db.session.add(new_product)
-  db.session.commit()
-
+# @app.route('/test')
+# def test_route():
   # curr_user = User.query.filter_by(id=15).first()
   # curr_user.editor = True
   # curr_user.super_editor = True
   # db.session.add(curr_user)
   # db.session.commit()
-  return "THIS IS FINISHED"
+  # return "THIS IS FINISHED"
 
 
 #! Routes

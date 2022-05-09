@@ -6,8 +6,10 @@ mail = Mail(app)
 msg = Message(
   subject="EPC Report ",
   recipients=["sreddy@tecofva.com"],
-  sender="shivatecofva@gmail.com",
-  html = "this is the message text"
+  sender="consoleadmin@eagleofva.com",
+  # recipients=[os.environ.get('EMAIL_RECIPIENT')],
+  # sender=os.environ.get('MAIL_USERNAME'),
+  html = "this is the Auto Generated EPC report"
 )
 
 # Get the lots and categorize them
@@ -18,18 +20,13 @@ lots = LotsDirectory.query.all()
 testlot = lots[0]
 
 
-# Drafting - OVERDUE
-drafting_overdue = []
-# Drafting - Due this week
-drafting_due_this_week = []
-# Engineering - OVERDUE
-eng_overdue = []
-# Engineering - Due this week
-eng_due_this_week = []
-# Plat - OVERDUE
-plat_overdue = []
-# Plat - Due this week
-plat_due_this_week = []
+
+drafting_overdue = []   # Drafting - OVERDUE
+drafting_due_this_week = []   # Drafting - Due this week
+eng_overdue = []    # Engineering - OVERDUE
+eng_due_this_week = []    # Engineering - Due this week
+plat_overdue = []   # Plat - OVERDUE
+plat_due_this_week = []   # Plat - Due this week
 
 def group_lots():
   # clear the array before adding new lots to this
