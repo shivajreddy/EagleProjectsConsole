@@ -62,6 +62,7 @@ def email_test():
 
   return "<h1> you are email </h1>"
 
+all_lots_list = []
 
 from flask_apscheduler import APScheduler
 scheduler = APScheduler()
