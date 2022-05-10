@@ -6,6 +6,8 @@ from ..Models.Lot import LotsDirectory, serialize_lot
 from ..Models.User import User
 
 from ..Models.Community import Community
+from ..Models.Product import Product
+from ..Models.Elevation import Elevation
 from ..Models.Drafter import Drafter
 from ..Models.Engineer import Engineer
 from ..Models.PlatEngineer import PlatEngineer
@@ -88,12 +90,16 @@ def new_lot():
   new_lot_form_inst = NewLot()
 
   all_communities = [(c.community_name, c.community_name) for c in Community.query.all()]
+  all_products = [(p.product_name) for p in Product.query.all()]
+  all_elevations = [(e.elevation_name) for e in Elevation.query.all()]
   all_drafters = [(i.drafter_name, i.drafter_name) for i in Drafter.query.all()]
   all_engineers = [(c.engineer_name, c.engineer_name) for c in Engineer.query.all()]
   all_platengineers = [(c.platengineer_name, c.platengineer_name) for c in PlatEngineer.query.all()]
   all_jurisdictions = [(c.jurisdiction_name, c.jurisdiction_name) for c in Jurisdiction.query.all()]
 
   new_lot_form_inst.community.choices = all_communities
+  new_lot_form_inst.product.choices = all_products
+  new_lot_form_inst.elevation.choices = all_elevations
   new_lot_form_inst.assigned.choices = all_drafters
   new_lot_form_inst.eng.choices = all_engineers
   new_lot_form_inst.plat_eng.choices = all_platengineers

@@ -18,8 +18,8 @@ class NewLot(FlaskForm):
   community = SelectField("Community", validators=[optional()])
   section = StringField("Section", validators=[optional()])
   lot_number = StringField("Lot Number", validators=[optional()])
-  product = StringField("Product", validators=[optional()])
-  elevation = StringField("Elevation", validators=[optional()])
+  product = SelectField("Product", validators=[optional()])
+  elevation = SelectField("Elevation", validators=[optional()])
   contract_date = DateField("Contract Date", validators=[optional()])
 
   #* Drafting Date

@@ -15,7 +15,7 @@
       <div class="text-start px-4">
         {% for c in products %}
         <div>
-          {{c.id}} : {{c.product_name}}
+          {{c.product_name}}
         </div>
         {% endfor %}
       </div>
@@ -24,7 +24,7 @@
     <div class="card-footer">
       <form action="/super/products" method="POST">
         {{ form.hidden_tag() }}
-        
+
         {% for field in form if field.widget.input_type != 'hidden' %}
         <div>
           {{field.label}}
