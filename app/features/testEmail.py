@@ -1,64 +1,14 @@
 from datetime import date, datetime
 from app import app
 from flask_mail import Mail, Message
-from flask import render_template
 
-
-# get the data to send in the email
 from app.Models.Lot import LotsDirectory
-from app.Models.Lot import serialize_lot
-
-
-"""
-----------------------
-Overdue – Drafting
-GF 118 (on hold)
-GF 115
-LC 41-2
-MD 10
-PY 70
-PY 71
-PY 72
-PY 74
-PY 75
-----------------------
-Overdue – Engineering
-HM 18-6
-GF 98
-CY 325
-GG 103-105
-GF 94
-RB 24-4
-CY 324
-RB 23-4
-----------------------
-Overdue – Plat
-HM 25-6
-HM 23-6
-HM 33-6
-HM 18-6
-GF 98
-GG 9-12
-LA 113
-GG 103-105
-GF 94
-RB 23-4
-----------------------
-"""
-
-
-# drafting_overdue = []   # Drafting - OVERDUE
-# drafting_due_this_week = []   # Drafting - Due this week
-# eng_overdue = []    # Engineering - OVERDUE
-# eng_due_this_week = []    # Engineering - Due this week
-# plat_overdue = []   # Plat - OVERDUE
-# plat_due_this_week = []   # Plat - Due this week
 
 from datetime import date
 start = date(year=2022,month=4,day=1)
 end = date(year=2022,month=11,day=30)
 
-def processtest():
+def generate_content():
   drafting_overdue = []   # Drafting - OVERDUE
   eng_overdue = []    # Engineering - OVERDUE
   plat_overdue = []   # Plat - OVERDUE
@@ -75,18 +25,6 @@ def processtest():
   for lot in LotsDirectory.query.filter(LotsDirectory.plat_planned_receipt<= end).filter(LotsDirectory.plat_planned_receipt>= start):
     plat_overdue.append(lot)
   
-  """
-  'The Meadows 0 10'
-  'Readers Branch 4 14'
-  'The Meadows 0 14'
-  'Givens Farm 12 99'
-  'Readers Branch 4 23'
-  'Cypress Creek 7B 324'
-  'Readers Branch 4 24'
-  "Settler's Ridge A 4"
-  "Settler's Ridge E 82"
-  """
-
   msg = ""
   msg += f"<div> <h2 style='text-align:center;'>Project Dashboard - {date.today()}</h2></div>"
   msg += "<div>"
@@ -104,18 +42,14 @@ def processtest():
   msg += "</div>"
   msg += "<div><p style='color:black; text-align:center;'> ⭕️ Eagle Projects Console </p></div>"
 
-  # import pdb
-  # pdb.set_trace()
-
   return msg
-
 
 
 mail = Mail(app)
 
 @app.route('/test-email')
 def email_testing():
-  data = processtest()
+  data = generate_content()
 
   msg = Message(
     subject="EPC Report ",
@@ -131,3 +65,25 @@ def email_testing():
 
   mail.send(msg)
   return f"<h1> you email was sent with body {msg} </h1>"
+
+
+from flask_apscheduler import APScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
+
+# scheduler = APScheduler()
+scheduler = BackgroundScheduler()
+
+def auto_email_job():
+  with app.app_context():
+
+    msg = Message(
+      subject="EPC Report ",
+      recipients=["sreddy@tecofva.com"],
+      sender="consoleadmin@eagleofva.com",
+      html = "default html content of message here"
+    )
+    data = generate_content()
+    msg.html = data
+
+    mail.send(msg)
+    print("Auto email job done")
