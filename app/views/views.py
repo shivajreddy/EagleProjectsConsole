@@ -17,14 +17,14 @@ from app import app, db
 
 
 #! Test route
-# @app.route('/test')
-# def test_route():
-  # curr_user = User.query.filter_by(id=15).first()
-  # curr_user.editor = True
-  # curr_user.super_editor = True
-  # db.session.add(curr_user)
-  # db.session.commit()
-  # return "THIS IS FINISHED"
+@app.route('/test')
+def test_route():
+  curr_user = User.query.filter_by(id=1).first()
+  curr_user.editor = True
+  curr_user.super_editor = True
+  db.session.add(curr_user)
+  db.session.commit()
+  return "THIS IS FINISHED"
 
 
 #! Routes

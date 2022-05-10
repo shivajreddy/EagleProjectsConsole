@@ -20,7 +20,6 @@ lots = LotsDirectory.query.all()
 testlot = lots[0]
 
 
-
 drafting_overdue = []   # Drafting - OVERDUE
 drafting_due_this_week = []   # Drafting - Due this week
 eng_overdue = []    # Engineering - OVERDUE
@@ -59,7 +58,6 @@ def group_lots():
 def email_test():
   import pdb
   pdb.set_trace()
-
   return "<h1> you are email </h1>"
 
 all_lots_list = []
