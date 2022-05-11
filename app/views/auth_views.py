@@ -5,7 +5,6 @@ from flask import flash, session, redirect, render_template
 from ..Models.User import User
 from ..forms.LoginForm import RegistrationForm, LoginForm
 
-from ..views.mail import send_confirmation_mail
 
 #? User Registration
 @app.route('/register', methods=["GET", "POST"])

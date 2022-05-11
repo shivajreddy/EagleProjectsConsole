@@ -9,14 +9,15 @@ def send_confirmation_mail(recipient_email, token):
 
   # create a link with email and token
   # domain = "http://127.0.0.1:5000/confirm/"
-  # domain = "https://archi-tec-tonic.com/"
-  domain = "https://eagle-console-app.herokuapp.com/confirm/"
+  # domain = "https://console.archi-tec-tonic.com/"
+  domain = "https://eagle-console.herokuapp.com/confirm/"
   link = f"{domain}{recipient_email}/{token}"
 
   msg = Message(
     subject="Please confirm your registration to Eagle Console",
-    recipients= [recipient_email, "shivajreddy@outlook.com", "sreddy@tecofva.com"],
-    sender= "console@tecofva.com",
+    recipients= [recipient_email,"sreddy@tecofva.com"],
+    sender = "consoleadmin@eagleofva.com",
+    # sender= "console@tecofva.com",
     # body = f"This is the link {link}",
     # html= f'<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title></head><body> <a href="127.0.0.1.5000/confirm/email/token" target="_blank">Confirm Registration</a> </body></html>'
     html= """
@@ -61,7 +62,7 @@ def send_confirmation_mail(recipient_email, token):
                           </tbody>
                         </table>
                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> ❤️.  We are excited for you to use the Eagle Console.</p>
-                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> 🍀.  We thrive on your feedback, if you have any feedback or suggestions. Please email us at <a href="mailto:consoleadmin@tecofva.com" target="_blank" >consoleadmin@tecofva.com</a></p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;"> 🍀.  We thrive on your feedback, if you have any feedback or suggestions. Please email us at <a href="mailto:consoleadmin@eagleofva.com" target="_blank" >consoleadmin@tecofva.com</a></p>
                       </td>
                     </tr>
                   </table>
