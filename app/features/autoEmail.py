@@ -32,24 +32,24 @@ def generate_content():
   # import pdb
   # pdb.set_trace()
   
-  msg = ""
-  msg += f"<div> <h1 style='text-align:center;'>Project Dashboard - {today} </h1> <h2>Projects past {yesterday}</h2></div>"
-  msg += "<div>"
-  msg += f"<h2 style='color: #E06F38;'> Drafting Overdue - {len(drafting_overdue)} </h2>"
+  html_body = ""
+  html_body += f"<div> <h1 style='text-align:center;'>Project Dashboard - {today} </h1> <h2>Projects past {yesterday}</h2></div>"
+  html_body += "<div>"
+  html_body += f"<h2 style='color: #E06F38;'> Drafting Overdue - {len(drafting_overdue)} </h2>"
   for lot in drafting_overdue:
-    msg += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Drafting Deadline:{lot.draft_deadline}</p>"
-  msg += "-----------------------------------------------------------"
-  msg += f"<h2 style='color: #E06F38;'> Engineering Overdue - {len(eng_overdue)} </h2>"
+    html_body += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Drafting Deadline:{lot.draft_deadline}</p>"
+  html_body += "-----------------------------------------------------------"
+  html_body += f"<h2 style='color: #E06F38;'> Engineering Overdue - {len(eng_overdue)} </h2>"
   for lot in eng_overdue:
-    msg += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Eng.Planned:{lot.eng_planned_receipt}</p>"
-  msg += "-----------------------------------------------------------"
-  msg += f"<h2 style='color: #E06F38;'> Plat Overdue - {len(plat_overdue)} </h2>"
+    html_body += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Eng.Planned:{lot.eng_planned_receipt}</p>"
+  html_body += "-----------------------------------------------------------"
+  html_body += f"<h2 style='color: #E06F38;'> Plat Overdue - {len(plat_overdue)} </h2>"
   for lot in plat_overdue:
-    msg += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Plat Planned:{lot.plat_planned_receipt}</p>"
-  msg += "</div>"
-  msg += "<div><p style='color:black; text-align:center;'> ⭕️ Eagle Projects Console </p></div>"
+    html_body += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Plat Planned:{lot.plat_planned_receipt}</p>"
+  html_body += "</div>"
+  html_body += "<div><p style='color:black; text-align:center;'> ⭕️ Eagle Projects Console </p></div>"
 
-  return msg
+  return html_body
 
 
 mail = Mail(app)
@@ -65,14 +65,14 @@ def email_testing():
   )
   data = generate_content()
   msg.html = data
-  mail.send(msg)
+  # mail.send(msg)
   return f"<h1> you email was sent with body {msg} </h1>"
 
 
-from flask_apscheduler import APScheduler
-from apscheduler.schedulers.background import BackgroundScheduler
-
+# from flask_apscheduler import APScheduler
 # scheduler = APScheduler()
+
+from apscheduler.schedulers.background import BackgroundScheduler
 scheduler = BackgroundScheduler()
 
 def auto_email_job():
@@ -80,8 +80,8 @@ def auto_email_job():
 
     msg = Message(
       subject="EPC Daily Report ",
-      recipients=["sreddy@tecofva.com"],
-      # recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
+      # recipients=["sreddy@tecofva.com"],
+      recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
       sender="consoleadmin@eagleofva.com",
       html = "default html content of message here"
     )
@@ -89,4 +89,4 @@ def auto_email_job():
     msg.html = data
 
     mail.send(msg)
-    return f"<h1> you email was sent with body {msg} </h1>"
+

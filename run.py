@@ -11,7 +11,7 @@ if __name__ == "__main__":
   #                   trigger='interval',
   #                   seconds=30)
 
-  scheduler.add_job(auto_email_job, 'cron', day_of_week='1-5', hour=10, minute=50)
+  scheduler.add_job(auto_email_job, 'cron', day_of_week='1-5', hour=17, minute=0)
 
   scheduler.start()
 
