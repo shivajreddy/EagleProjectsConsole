@@ -30,7 +30,6 @@ from .features import autoEmail, autoreport
 #* may be need this for ssl problems
 # import ssl
 # ssl._create_default_https_context = ssl._create_unverified_context
-# df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/c78bf172206ce24f77d6363a2d754b59/raw/c353e8ef842413cae56ae3920b8fd78468aa4cb2/usa-agricultural-exports-2011.csv')
 
 
 # from app.plotlydash.dashboard import init_dashboard
