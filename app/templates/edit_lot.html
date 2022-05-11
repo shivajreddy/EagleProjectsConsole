@@ -7,26 +7,30 @@
 <!--! Lot container -->
 <div class="container-sm mb-4 pb-4">
   <form action="" method="POST">
-    {{ lot.hidden_tag() }} 
+    {{ lot.hidden_tag() }}
     {{ lot.csrf_token }}
 
     <div class="container">
       {% for field in lot if field.widget.input_type != 'hidden' %}
-      <div class="">
-        <p class="text-secondary p-0 m-0">{{field.label}}</p>
-        <div class="mb-2 pb-2">{{field}}</div>
+      <div class="row align-self-stretch">
+        <div class="col-2">
+          <p>{{field.label}}</p>
+        </div>
+        <div class="col-8">
+          <p>{{field}}</p>
+        </div>
       </div>
       {% endfor %}
     </div>
-    
+
     <div class="text-center">
       <button class="btn btn-success modify-update">
         <i class="bi bi-check-circle-fill"></i> Confirm Changes</button>
-      </div>
-      
+    </div>
+
   </form>
 
-  <form action="/">
+  <form action="/" class="text-center mt-4">
     <button class="btn btn-danger modify-delete" id="modify-delete">
       <i class="bi bi-x-circle-fill"></i> Delete lot
     </button>

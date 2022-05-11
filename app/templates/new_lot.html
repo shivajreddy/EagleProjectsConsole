@@ -1,9 +1,8 @@
-
 {% extends "base.html" %}
 
 {% block content %}
 
-<h3 class="text-center m-2">➕ Add a New Lot </h3>
+<h3 class="text-center m-2 p-4">➕ Add a New Lot </h3>
 
 <div class="visible">
   {% if form_data.errors %}
@@ -11,29 +10,36 @@
   {% endif %}
 </div>
 
-<div class="container p-4">
+<div class="container mb-4 pb-4">
 
   <form action="/lot/new" method="POST">
     {{ form_data.hidden_tag() }}
     {{ form_data.csrf_token }}
-      
+
     <div class="container">
-        
+
       {% for field in form_data if field.widget.input_type != 'hidden'%}
-        {% for error in field.errors %}
-          {{ error }}
-        {% endfor %}
-        <div class="d-flex flex-row">
-          <p class="p-2">{{field.label}}</p>
-          <p>{{field}}</p>
+      {% for error in field.errors %}
+      {{ error }}
+      {% endfor %}
+      <!-- <div class="d-flex flex-row"> -->
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col-2">
+            <p>{{field.label}}</p>
+          </div>
+          <div class="col-8">
+            <p>{{field}}</p>
+          </div>
         </div>
+      </div>
       {% endfor %}
 
     </div>
 
     <div class="col-md-12 text-center">
       <button class="btn btn-primary" type="submit">
-      <i class="bi bi-plus-circle"></i> Add</button>
+        <i class="bi bi-plus-circle"></i> Add</button>
     </div>
 
   </form>

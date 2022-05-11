@@ -24,7 +24,9 @@ MAIL_SERVER = os.environ.get('MAIL_SERVER')
 MAIL_PORT = os.environ.get('MAIL_PORT')
 MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+# this works for mail port 587
 MAIL_USE_TLS = True
 MAIL_USE_SSL = False 
+# this works for mail port 465
 # MAIL_USE_TLS = False
 # MAIL_USE_SSL = True
