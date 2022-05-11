@@ -33,17 +33,17 @@ def generate_content():
   # pdb.set_trace()
   
   html_body = ""
-  html_body += f"<div> <h1 style='text-align:center;'>Project Dashboard - {today} </h1> <h2>Projects past {yesterday}</h2></div>"
+  html_body += f"<div> <h2 style='text-align:center;'>Project Dashboard - {today} </h2> <h3>Projects past {yesterday}</h3></div>"
   html_body += "<div>"
-  html_body += f"<h2 style='color: #E06F38;'> Drafting Overdue - {len(drafting_overdue)} </h2>"
+  html_body += f"<h4 style='color: #E06F38;'> Drafting Overdue - {len(drafting_overdue)} </h4>"
   for lot in drafting_overdue:
     html_body += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Drafting Deadline:{lot.draft_deadline}</p>"
   html_body += "-----------------------------------------------------------"
-  html_body += f"<h2 style='color: #E06F38;'> Engineering Overdue - {len(eng_overdue)} </h2>"
+  html_body += f"<h4 style='color: #E06F38;'> Engineering Overdue - {len(eng_overdue)} </h4>"
   for lot in eng_overdue:
     html_body += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Eng.Planned:{lot.eng_planned_receipt}</p>"
   html_body += "-----------------------------------------------------------"
-  html_body += f"<h2 style='color: #E06F38;'> Plat Overdue - {len(plat_overdue)} </h2>"
+  html_body += f"<h4 style='color: #E06F38;'> Plat Overdue - {len(plat_overdue)} </h4>"
   for lot in plat_overdue:
     html_body += f"<p> <strong>{lot.community}-{lot.lot_number}-{lot.section} </strong>  Plat Planned:{lot.plat_planned_receipt}</p>"
   html_body += "</div>"
