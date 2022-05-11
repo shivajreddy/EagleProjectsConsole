@@ -17,6 +17,6 @@ async function delete_request(e) {
     window.location.assign('/')
   }
   else {
-    console.log('crysis is avertled :)')
+    console.log('crysis is averted :)')
   }
 };

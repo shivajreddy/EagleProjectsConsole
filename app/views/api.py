@@ -196,12 +196,16 @@ def edit_lot(lot_id):
   lot_form = NewLot(obj=lot)
 
   all_communities = [(c.community_name, c.community_name) for c in Community.query.all()]
+  all_products = [(p.product_name) for p in Product.query.all()]
+  all_elevations = [(e.elevation_name) for e in Elevation.query.all()]
   all_drafters = [(i.drafter_name, i.drafter_name) for i in Drafter.query.all()]
   all_engineers = [(c.engineer_name, c.engineer_name) for c in Engineer.query.all()]
   all_platengineers = [(c.platengineer_name, c.platengineer_name) for c in PlatEngineer.query.all()]
   all_jurisdictions = [(c.jurisdiction_name, c.jurisdiction_name) for c in Jurisdiction.query.all()]
 
   lot_form.community.choices = all_communities
+  lot_form.product.choices = all_products
+  lot_form.elevation.choices = all_elevations
   lot_form.assigned.choices = all_drafters 
   lot_form.eng.choices = all_engineers 
   lot_form.plat_eng.choices = all_platengineers 
@@ -257,4 +261,102 @@ def edit_lot(lot_id):
 
   return render_template('edit_lot.html', lot=lot_form)
 
+# delete product instance
+@app.route('/delete/product/<int:p_id>', methods=["GET", "DELETE"])
+def delete_product_instance(p_id):
 
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  p = db.session.query(Product).filter(Product.id==p_id)
+  p.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete product with id {p_id}')
+
+# delete community instance
+@app.route('/delete/community/<int:c_id>', methods=["GET", "DELETE"])
+def delete_community_instance(c_id):
+
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  c = db.session.query(Community).filter(Community.id==c_id)
+  c.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete community with id {c_id}')
+
+# delete elevation instance
+@app.route('/delete/elevation/<int:e_id>', methods=["GET", "DELETE"])
+def delete_elevation_instance(e_id):
+
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  e = db.session.query(Elevation).filter(Elevation.id==e_id)
+  e.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete elevation with id {e_id}')
+
+# delete drafter instance
+@app.route('/delete/drafter/<int:d_id>', methods=["GET", "DELETE"])
+def delete_drafter_instance(d_id):
+
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  d = db.session.query(Drafter).filter(Drafter.id==d_id)
+  d.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete drafter with id {d_id}')
+
+# delete eng instance
+@app.route('/delete/eng/<int:e_id>', methods=["GET", "DELETE"])
+def delete_eng_instance(e_id):
+
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  e = db.session.query(Engineer).filter(Engineer.id==e_id)
+  e.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete eng with id {e_id}')
+
+
+# delete plat instance
+@app.route('/delete/plat/<int:p_id>', methods=["GET", "DELETE"])
+def delete_plat_instance(p_id):
+
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  p = db.session.query(PlatEngineer).filter(PlatEngineer.id==p_id)
+  p.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete plateng with id {p_id}')
+
+
+# delete jury instance
+@app.route('/delete/jury/<int:j_id>', methods=["GET", "DELETE"])
+def delete_jury_instance(j_id):
+
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+
+  j = db.session.query(Jurisdiction).filter(Jurisdiction.id==j_id)
+  j.delete()
+  db.session.commit()
+  db.session.close()
+
+  return jsonify(message=f'delete plateng with id {j_id}')

@@ -15,6 +15,10 @@
       <div class="text-start px-4">
         {% for c in communities %}
         <div>
+          <a class="text-danger modify-community" id="{{c.id}}" href="/delete/community/{{c.id}}"
+            style="text-decoration: none;">
+            <i class="bi bi-x-circle icon-red"></i>
+          </a>
           {{c.community_name}}
         </div>
         {% endfor %}
@@ -24,7 +28,7 @@
     <div class="card-footer">
       <form action="/super/new-community" method="POST">
         {{ form.hidden_tag() }}
-        
+
         {% for field in form if field.widget.input_type != 'hidden' %}
         <div>
           {{field.label}}
@@ -42,3 +46,11 @@
 </div>
 
 {% endblock content %}
+
+
+
+{% block custom_script %}
+
+<script src="{{ url_for('static', filename = '/js/deleteModel.js')}}"></script>
+
+{% endblock %}

@@ -78,7 +78,7 @@ def auto_email_job():
 
     msg = Message(
       subject="EPC Report ",
-      recipients=["sreddy@tecofva.com"],
+      recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
       sender="consoleadmin@eagleofva.com",
       html = "default html content of message here"
     )

@@ -15,6 +15,9 @@
       <div class="text-start px-4">
         {% for c in engineers %}
         <div>
+          <a class="text-danger modify-eng" id="{{c.id}}" href="/delete/eng/{{c.id}}" style="text-decoration: none;">
+            <i class="bi bi-x-circle icon-red"></i>
+          </a>
           {{c.engineer_name}}
         </div>
         {% endfor %}
@@ -24,7 +27,7 @@
     <div class="card-footer">
       <form action="/super/engineers" method="POST">
         {{ form.hidden_tag() }}
-        
+
         {% for field in form if field.widget.input_type != 'hidden' %}
         <div>
           {{field.label}}
@@ -42,3 +45,11 @@
 </div>
 
 {% endblock content %}
+
+
+
+{% block custom_script %}
+
+<script src="{{ url_for('static', filename = '/js/deleteModel.js')}}"></script>
+
+{% endblock %}

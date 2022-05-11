@@ -24,7 +24,7 @@ from .views import views, auth_views, api, super_user_views
 
 #* Import features
 # from .features.autoreport import automail
-from .features import autoreport, testEmail
+from .features import autoEmail, autoreport
 
 
 #* may be need this for ssl problems
