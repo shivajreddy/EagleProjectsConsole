@@ -86,7 +86,7 @@ th {
   background-color: rgb(255, 251, 0);
 } */
 
-.ag-header{
+.ag-header {
   /* background-color: gray !important; */
   color: white !important;
   position: sticky !important;
@@ -99,14 +99,51 @@ body {
   min-height: 100vh;
   position: relative;
   margin: 0;
-  padding-bottom: 50px; /* the height of the footer */
+  padding-bottom: 50px;
+  /* the height of the footer */
   box-sizing: border-box;
 }
 
+/* Legend */
+.my-legend .legend-title {
+  text-align: left;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 90%;
+}
+
+.my-legend .legend-scale ul {
+  margin: 0;
+  padding: 0;
+  float: left;
+  list-style: none;
+}
+
+.my-legend .legend-scale ul li {
+  display: block;
+  float: left;
+  width: 50px;
+  margin-bottom: 6px;
+  text-align: center;
+  font-size: 80%;
+  list-style: none;
+}
+
+.my-legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 15px;
+  width: 50px;
+}
+
+.my-legend a {
+  color: #777;
+}
+
 /* Footer */
-.footer-bs{
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    height: 50px;
+.footer-bs {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 50px;
 }

@@ -2,6 +2,7 @@
 from flask import jsonify, render_template, redirect, request, session
 
 from ..Models.Lot import LotsDirectory
+from ..Models.test_Lot import Test_LotsDirectory
 from ..Models.Community import Community
 from ..Models.Drafter import Drafter
 from ..Models.Engineer import Engineer
@@ -19,12 +20,16 @@ from app import app, db
 #! Test route
 @app.route('/test')
 def test_route():
-  curr_user = User.query.filter_by(id=1).first()
-  curr_user.editor = True
-  curr_user.super_editor = True
-  db.session.add(curr_user)
-  db.session.commit()
-  return "THIS IS FINISHED"
+  db.create_all()
+  all_lots = Test_LotsDirectory.query.filter_by(id=1)
+  # curr_user = User.query.filter_by(id=1).first()
+  # curr_user.editor = True
+  # curr_user.super_editor = True
+  # db.session.add(curr_user)
+  # db.session.commit()
+  # import pdb
+  # pdb.set_trace()
+  return "this is finished"
 
 
 #! Routes
