@@ -91,8 +91,12 @@ th {
   color: white !important;
   position: sticky !important;
   /* top: 180px; */
-  z-index: 99;
-
+  /* this should be 5 or less not not hide the filters*/
+  /* z-index: 5; */
+  /* z-index: 99; */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 body {

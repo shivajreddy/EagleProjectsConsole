@@ -121,7 +121,7 @@ async function get_curr_usr() {
         [
           { headerName: 'Community', field: 'community', sortable: true, filter: true, headerTooltip: 'Community', pinned: 'left', },
           { headerName: 'Section', field: 'section', sortable: true, filter: true, headerTooltip: 'Section', width: 80, pinned: 'left', },
-          { headerName: 'Lot-Number', field: 'lot_number', sortable: true, filter: true, headerTooltip: 'Lot-Number', width: 80, pinned: 'left', },
+          { headerName: 'Lot#', field: 'lot_number', sortable: true, filter: true, headerTooltip: 'Lot-Number', width: 80, pinned: 'left', },
           { headerName: 'Contract-Date', field: 'contract_date', sortable: true, filter: true, headerTooltip: 'Contract-Date', width: 120, pinned: 'left', },
           { headerName: 'Product', field: 'product', sortable: true, filter: true, columnGroupShow: 'open', headerTooltip: 'Product', pinned: 'left', },
           { headerName: 'Elevation', field: 'elevation', sortable: true, filter: true, columnGroupShow: 'open', headerTooltip: 'Elevation', pinned: 'left', },
@@ -264,8 +264,9 @@ const gridOptions = {
     editable: false,
     // filter: 'agTextColumnFilter',
     floatingFilter: true,
-    resizable: false,
-    lockPosition: true, //ability to drag the columns
+    resizable: true,
+    // ability to drag the columns
+    lockPosition: false, //ability to drag the columns
   },
   // pagination: true,
   // paginationPageSize: 20,
