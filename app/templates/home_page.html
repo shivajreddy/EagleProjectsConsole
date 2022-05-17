@@ -4,19 +4,26 @@
 <!-- <img id="lines" src="https://appsrv1-147a1.kxcdn.com/soft-ui-design-v1.0.1/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0"> -->
 <h3 class="p-2 text-center">⭕️ Eagle Lot Specifics</h3>
 
-
-<button type="button" class="btn btn-primary legendbtn" id="liveToastBtn">Show live toast</button>
+<!-- ColorCode Legend button -->
+<div class="mx-4 mb-2 text-end">
+  <button type="button" class="btn btn-secondary legendbtn" id="liveToastBtn">Color-Code Legend</button>
+</div>
 
 <!--! Ag grid div -->
-<div id="lotGrid" class="mx-2 px-4 ag-theme-alpine">
-  <!-- spinner -->
-  <div class="d-flex justify-content-center m-4" id="home-spinner">
-    <div class="spinner-border" role="status" style="width: 5rem; height: 5rem;">
-      <span class="visually-hidden">Loading...</span>
+<section>
+  <div id="lotGrid" class="mx-2 px-4 ag-theme-alpine">
+    <!-- spinner -->
+    <div class="d-flex justify-content-center m-4" id="home-spinner">
+      <div class="spinner-border" role="status" style="width: 5rem; height: 5rem;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
+</section>
 
-
+<!-- ColorCode Legend button -->
+<div class="mx-4 m-2 text-end">
+  <button type="button" class="btn btn-secondary legendbtn" id="liveToastBtn">Color-Code Legend</button>
 </div>
 
 
@@ -39,27 +46,28 @@
 
 
 <!-- TOAST and LEGEND -->
-<button type="button" class="btn btn-primary legendbtn" id="liveToastBtn">Show live toast</button>
-
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <img src="..." class="rounded me-2" alt="...">
-      <strong class="me-auto">Bootstrap</strong>
-      <small>11 mins ago</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+<div class="position-fixed top-0 end-0 p-3 " style="z-index: 999999">
+  <div id="legend-box" class="toast bg-white" data-bs-autohide="false" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="toast-header toast-header d-flex justify-content-between">
+      <i class="bi bi-layout-text-sidebar-reverse"></i>
+      <strong>COLOR-CODE LEGEND</strong>
+      <!-- <small>11 mins ago</small> -->
+      <button type="button" class="btn-close" data-bs-autohide="false" data-bs-dismiss="toast"
+        aria-label="Close"></button>
     </div>
     <div class="toast-body">
-      Hello, world! This is a toast message.
-      <div class='my-legend'>
-        <div class='legend-title'>Color Code Legend</div>
+      No. of working days b/w today and Expected date
+      <div class='my-legend pb-4'>
+        <!-- <div class='legend-title'> between today and Expected date</div> -->
         <div class='legend-scale'>
           <ul class='legend-labels'>
-            <li><span style='background:#F1EEF6;'></span>0 - 20%</li>
-            <li><span style='background:#BDC9E1;'></span>40%</li>
-            <li><span style='background:#74A9CF;'></span>60%</li>
-            <li><span style='background:#2B8CBE;'></span>80%</li>
-            <li><span style='background:#045A8D;'></span>100%</li>
+            <li style="font-weight: bold;"><span style='background:#a2d2ff;'></span> >=11</li>
+            <li style="font-weight: bold;"><span style='background:#99d98c;'></span> 6-10 </li>
+            <li style="font-weight: bold;"><span style='background:#ffb703;'></span>3-5</li>
+            <li style="font-weight: bold;"><span style='background:#e85d04;'></span>1-2</li>
+            <li style="font-weight: bold;"><span style='background:#dc2f02;'></span> =0 </li>
+            <li style="font-weight: bold;"><span style='background:#d00000;'></span>&lt;0 </li>
           </ul>
         </div>
       </div>

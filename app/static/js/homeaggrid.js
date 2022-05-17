@@ -1,15 +1,24 @@
 //? AG Grid script for homepage showing unfinished lots
 
-var toastTrigger = document.getElementById('liveToastBtn')
-var toastLiveExample = document.getElementById('liveToast')
+// var toastTrigger = document.getElementById('liveToastBtn')
 // var toastLiveExample = document.getElementsByClassName('legendbtn');
-if (toastTrigger) {
-  toastTrigger.addEventListener('click', function () {
-    var toast = new bootstrap.Toast(toastLiveExample)
 
-    toast.show()
+var toastLiveExample = document.getElementById('legend-box')
+let legendButtons = Array.from(document.getElementsByClassName('legendbtn'));
+
+legendButtons.forEach(btn => {
+  btn.addEventListener('click', function () {
+    var toast = new bootstrap.Toast(toastLiveExample);
+    toast.show();
   })
-}
+})
+// if (toastTrigger) {
+//   toastTrigger.addEventListener('click', function () {
+//     var toast = new bootstrap.Toast(toastLiveExample)
+
+//     toast.show()
+//   })
+// }
 
 //! Color Coding the dates Feature ----- START
 const today = new Date();
