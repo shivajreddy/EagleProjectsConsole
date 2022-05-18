@@ -16,12 +16,22 @@ from ..forms.NewLotForm import NewLot
 
 from app import app, db
 
-
+import datetime
 #! Test route
 @app.route('/test')
 def test_route():
-  db.create_all()
-  all_lots = Test_LotsDirectory.query.filter_by(id=1)
+
+
+  # last_lot = all_lots[0]
+  # print(last_lot, last_lot.bbp_planned_posted, last_lot.bbp_actual_posted)
+  # print('changking')
+  # last_lot.bbp_planned_posted = None
+  # db.session.add(last_lot)
+  # db.session.commit()
+  # print('finsihed changing')
+  # print(last_lot, last_lot.bbp_planned_posted)
+
+  # print('total are', len(all_lots))
   # curr_user = User.query.filter_by(id=1).first()
   # curr_user.editor = True
   # curr_user.super_editor = True

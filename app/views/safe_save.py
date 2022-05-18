@@ -66,3 +66,13 @@ def test_route():
 
   return 'done'
 
+
+#* Removing a field from multiple instances
+  # target_date = datetime.datetime(2000, 1, 2)
+  # print('target date is ', target_date)
+  # all_lots = LotsDirectory.query.filter_by(finished=False).filter_by(bbp_planned_posted=target_date).all()
+  # for count, lot in enumerate(all_lots):
+  #   print(count, lot, lot.bbp_planned_posted)
+  #   lot.bbp_planned_posted = None
+  #   db.session.add(lot)
+  # db.session.commit()
