@@ -13,6 +13,7 @@ class LotsDirectory(db.Model):
   #* Lot information category
   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
   finished = db.Column(db.Boolean, default=False)
+  released = db.Column(db.Boolean, default=False)
   community = db.Column(db.Text)
   section = db.Column(db.Text)
   lot_number = db.Column(db.Text)

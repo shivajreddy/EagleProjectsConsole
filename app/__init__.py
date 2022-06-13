@@ -2,6 +2,9 @@
 
 from flask import Flask
 
+# trying db migration
+
+
 #* Define the WSGI applicatin object
 app = Flask(__name__)
 

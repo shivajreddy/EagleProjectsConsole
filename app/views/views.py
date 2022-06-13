@@ -39,6 +39,12 @@ def test_route():
   # db.session.commit()
   # import pdb
   # pdb.set_trace()
+  all_lots = LotsDirectory.query.all()
+  # test_lot = all_lots[0]
+  # for lot in all_lots:
+    # lot.released = False
+    # db.session.add(lot)
+    # db.session.commit()
   return "this is finished"
 
 
@@ -49,9 +55,9 @@ def route_homePage():
   if 'user_email' not in session:
     return redirect('/sign-in')
 
-  finished_lots = LotsDirectory.query.filter_by(finished=False).all()
-  return render_template('home_page.html')
+  # finished_lots = LotsDirectory.query.filter_by(finished=False).all()
   # return render_template('home_page.html', lot_data=finished_lots)
+  return render_template('home_page.html')  # Frontend makes an api call and renders data
 
 
 #! ALL lots
@@ -62,7 +68,17 @@ def all_lots_page():
   
   # all_lots = LotsDirectory.query.all()
   # return render_template('all_lots.html', lot_data = all_lots)
-  return render_template('all_lots.html')
+  return render_template('all_lots.html')     # Frontend makes an api call and renders data
+
+#! Released Lots
+@app.route('/released-lots')
+def released_lots_page():
+  if 'user_email' not in session:
+    return redirect('/sign-in')
+  
+  return render_template('released_lots.html')
+  # released_lots = LotsDirectory.query.filter_by(finished=False).all()
+  # return render_template('released_lots.html', lot_data = released_lots)
 
 
 #! Super User Links

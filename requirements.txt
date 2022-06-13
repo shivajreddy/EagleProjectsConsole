@@ -5,6 +5,8 @@ Brotli==1.0.9
 certifi==2021.10.8
 cffi==1.15.0
 click==8.0.4
+clr==1.0.3
+colorama==0.4.4
 dash==2.3.0
 dash-core-components==2.0.0
 dash-html-components==2.0.0
@@ -27,7 +29,6 @@ MarkupSafe==2.1.0
 numpy==1.22.2
 pandas==1.4.1
 plotly==5.6.0
-# psycopg2==2.9.3 -> for linux
 psycopg2-binary==2.9.3
 pycparser==2.21
 pymongo==4.0.1

@@ -15,6 +15,7 @@ class NewLot(FlaskForm):
   #* Lot information category
   # community = StringField("Community", validators=[input_required()])
   finished = BooleanField("Finished", validators=[optional()])
+  released = BooleanField("Released", validators=[optional()])
   community = SelectField("Community", validators=[optional()])
   section = StringField("Section", validators=[optional()])
   lot_number = StringField("Lot Number", validators=[optional()])
@@ -41,7 +42,7 @@ class NewLot(FlaskForm):
   plat_actual_receipt = DateField("Plat Actual Receipt", validators=[optional()])
 
   #* Permit
-  permit_jurisdiction = SelectField("Jursidiction", validators=[optional()])
+  permit_jurisdiction = SelectField("Jurisdiction", validators=[optional()])
   permit_planned_submit = DateField("Permit planned submit", validators=[optional()])
   permit_actual_submit = DateField("Permit Actual submit", validators=[optional()])
   permit_received =DateField("Permit Received", validators=[optional()])

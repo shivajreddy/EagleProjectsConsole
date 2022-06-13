@@ -16,12 +16,23 @@ from ..Models.PermitJurisdiction import Jurisdiction
 from ..forms.NewLotForm import NewLot
 
 
-#! GET FINISHED lots
+#! GET UNFINISHED lots
 @app.route('/api/get-lots', methods=["GET"])
 def get_finished_lots():
-  all_lots = LotsDirectory.query.filter_by(finished=False).all()
+  all_lots = LotsDirectory.query.filter_by(finished=False).filter_by(released=False).all()
+  # all_lots = LotsDirectory.query.filter_by(finished=False).all()
   # serialize each lot
   results = [serialize_lot(lot) for lot in all_lots]
+  return jsonify(results)
+
+
+#! GET RELEASED lots
+@app.route('/api/get-released-lots', methods=["GET"])
+def get_released_lots():
+  # all_lots = LotsDirectory.query.filter_by(finished=False).all()
+  released_lots = LotsDirectory.query.filter_by(released=True).all()
+  # serialize each lot
+  results = [serialize_lot(lot) for lot in released_lots]
   return jsonify(results)
 
 
@@ -217,6 +228,7 @@ def edit_lot(lot_id):
     #* get the edited responses
     #* Lot information category
     lot.finished = lot_form.finished.data
+    lot.released = lot_form.released.data
     lot.community = lot_form.community.data
     lot.section = lot_form.section.data
     lot.lot_number = lot_form.lot_number.data
