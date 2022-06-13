@@ -109,7 +109,7 @@ async function get_curr_usr() {
           return `<a type="button" class="modify-lot" data-id="${params.data.id}" href="/lot/edit/${params.data.id}"><i class="bi bi-pencil-fill"></i></a>`;
         }
       },
-      // {headerName : '✔️', field: 'finished', sortable:false, filter:false, width:50, pinned:'left', cellClass:['editor-only'], headerTooltip:'Finished Status', },
+      { headerName: '‼️', field: 'released', sortable: false, filter: false, width: 50, pinned: 'left', cellClass: ['editor-only'], headerTooltip: 'Released Status', },
     )
   }
 

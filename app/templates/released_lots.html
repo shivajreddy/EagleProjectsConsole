@@ -6,10 +6,7 @@
 <h3 class="p-2 text-center">‼️ Released Lots </h3>
 
 
-<!-- ColorCode Legend button -->
-<div class="mx-4 mb-2 text-end">
-  <button type="button" class="btn btn-secondary legendbtn" id="liveToastBtn">Color-Code Legend</button>
-</div>
+
 
 <!--! Ag grid div -->
 <section>
@@ -23,10 +20,6 @@
   </div>
 </section>
 
-<!-- ColorCode Legend button -->
-<div class="mx-4 m-2 text-end">
-  <button type="button" class="btn btn-secondary legendbtn" id="liveToastBtn">Color-Code Legend</button>
-</div>
 
 
 <!--? print the above table -->
@@ -38,45 +31,7 @@
 </div>
 
 
-<!--! Create new lot  -->
-<div class="col-md-12 p-4 text-center editor-only invisible">
-  <div class="col-md-8 mx-auto">
-    <a href="/lot/new" class="btn btn-primary">
-      <i class="bi bi-plus-circle"></i> New Lot</a>
-  </div>
-</div>
 
-
-<!-- TOAST and LEGEND -->
-<div class="position-fixed top-0 end-0 p-3 " style="z-index: 999999">
-  <div id="legend-box" class="toast bg-white" data-bs-autohide="false" role="alert" aria-live="assertive"
-    aria-atomic="true">
-    <div class="toast-header toast-header d-flex justify-content-between">
-      <i class="bi bi-layout-text-sidebar-reverse"></i>
-      <strong>COLOR-CODE LEGEND</strong>
-      <!-- <small>11 mins ago</small> -->
-      <button type="button" class="btn-close" data-bs-autohide="false" data-bs-dismiss="toast"
-        aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      No. of working days b/w today and Expected date
-      <div class='my-legend pb-4'>
-        <!-- <div class='legend-title'> between today and Expected date</div> -->
-        <div class='legend-scale'>
-          <ul class='legend-labels'>
-            <li style="font-weight: bold;"><span style='background:#a2d2ff;'></span> >=11</li>
-            <li style="font-weight: bold;"><span style='background:#99d98c;'></span> 6-10 </li>
-            <li style="font-weight: bold;"><span style='background:#ffb703;'></span>3-5</li>
-            <li style="font-weight: bold;"><span style='background:#e85d04;'></span>1-2</li>
-            <li style="font-weight: bold;"><span style='background:#dc2f02;'></span> =0 </li>
-            <li style="font-weight: bold;"><span style='background:#d00000;'></span>&lt;0 </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- TOAST and LEGEND -->
 
 {% endblock %}
 

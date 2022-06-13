@@ -70,6 +70,7 @@ def serialize_lot(lot):
   lot_object = {
     # "lot_info" :{
     "finished" : "",
+    "released" : "",
     "id" : lot.id,
     "community" : lot.community,
     "section" : lot.section,
@@ -122,6 +123,8 @@ def serialize_lot(lot):
     lot_object['edit'] = "."
   if lot.finished:
     lot_object['finished'] = "✔️"
+  if lot.released:
+    lot_object['released'] = "‼️"
 
   return lot_object
 
