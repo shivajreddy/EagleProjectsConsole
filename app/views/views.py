@@ -21,7 +21,6 @@ import datetime
 @app.route('/test')
 def test_route():
 
-
   # last_lot = all_lots[0]
   # print(last_lot, last_lot.bbp_planned_posted, last_lot.bbp_actual_posted)
   # print('changking')
