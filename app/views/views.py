@@ -21,7 +21,6 @@ import datetime
 @app.route('/test')
 def test_route():
 
-
   # last_lot = all_lots[0]
   # print(last_lot, last_lot.bbp_planned_posted, last_lot.bbp_actual_posted)
   # print('changking')
@@ -39,7 +38,7 @@ def test_route():
   # db.session.commit()
   # import pdb
   # pdb.set_trace()
-  all_lots = LotsDirectory.query.all()
+  # all_lots = LotsDirectory.query.all()
   # test_lot = all_lots[0]
   # for lot in all_lots:
     # lot.released = False

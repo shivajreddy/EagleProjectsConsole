@@ -37,12 +37,14 @@
 
 
 <!--! Create new lot  -->
+{% if session['super_editor'] %}
 <div class="col-md-12 p-4 text-center editor-only invisible">
   <div class="col-md-8 mx-auto">
     <a href="/lot/new" class="btn btn-primary">
       <i class="bi bi-plus-circle"></i> New Lot</a>
   </div>
 </div>
+{% endif %}
 
 
 <!-- TOAST and LEGEND -->

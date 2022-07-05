@@ -9,14 +9,14 @@ def send_confirmation_mail(recipient_email, token):
 
   # create a link with email and token
   # domain = "http://127.0.0.1:5000/confirm/"
-  # domain = "https://console.archi-tec-tonic.com/"
-  domain = "https://eagle-console.herokuapp.com/confirm/"
+  domain = "https://console.archi-tec-tonic.com/confirm/"
   link = f"{domain}{recipient_email}/{token}"
 
   msg = Message(
     subject="Please confirm your registration to Eagle Console",
     recipients= [recipient_email,"sreddy@tecofva.com"],
-    sender = "consoleadmin@eagleofva.com",
+    sender = "console@archi-tec-tonic.com",
+    # sender = "consoleadmin@eagleofva.com",
     # sender= "console@tecofva.com",
     # body = f"This is the link {link}",
     # html= f'<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title></head><body> <a href="127.0.0.1.5000/confirm/email/token" target="_blank">Confirm Registration</a> </body></html>'

@@ -60,7 +60,8 @@ def email_testing():
   msg = Message(
     subject="EPC Report ",
     recipients=["sreddy@tecofva.com"],
-    sender="consoleadmin@eagleofva.com",
+    sender = "console@archi-tec-tonic.com",
+    # sender="consoleadmin@eagleofva.com",
     html = "this is the message text from consoleadmin"
   )
   data = generate_content()
@@ -80,13 +81,16 @@ def auto_email_job():
 
     msg = Message(
       subject="EPC Daily Report ",
-      recipients=["sreddy@tecofva.com"],
-      # recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
-      sender="consoleadmin@eagleofva.com",
+      # recipients=["sreddy@tecofva.com"],
+      recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
+      # sender="consoleadmin@eagleofva.com",
+      sender = "console@archi-tec-tonic.com",
       html = "default html content of message here"
     )
+
     data = generate_content()
     msg.html = data
 
     mail.send(msg)
+    print("----------------------EMAIL SENT SECESSFULLY -----------------------------------")
 

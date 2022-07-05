@@ -40,6 +40,11 @@ db.session.commit()
 #   print(usr) 
 #   return f"{usr}"
 
+#! Delete a user
+waste = User.query.filter_by(id=29).first()
+db.session.delete(waste)
+db.session.commit()
+
 #! New Model
 from ..Models.Drafter import Drafter
 @app.route('/add-new-models')

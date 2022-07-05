@@ -23,6 +23,7 @@ def sign_in():
       flash(" already exists", f"{form.email.data}")
       return redirect('/sign-in')
 
+    print("trying to create a new user")
     new_user = User.register(form.email.data, form.password.data)
     db.session.add(new_user)
     db.session.commit()
