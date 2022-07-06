@@ -118,7 +118,7 @@ def new_lot():
 
   #* Validate the form
   if new_lot_form_inst.validate_on_submit():
-    print("New Lot form is VALIDATED ✅")
+    print("New Lot form is VALIDATED ")
 
     #* get the responses from the form
     new_lot_entry = LotsDirectory(

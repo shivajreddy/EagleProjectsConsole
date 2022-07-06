@@ -77,12 +77,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 scheduler = BackgroundScheduler()
 
 def auto_email_job():
+  print("AUTO EMAIL STARTING -----------------------------------------------------------------")
   with app.app_context():
 
     msg = Message(
       subject="EPC Daily Report ",
-      # recipients=["sreddy@tecofva.com"],
-      recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
+      recipients=["sreddy@tecofva.com"],
+      # recipients=["sreddy@tecofva.com", "rarias@tecofva.com", "ksimonsen@tecofva.com"],
       # sender="consoleadmin@eagleofva.com",
       sender = "console@archi-tec-tonic.com",
       html = "default html content of message here"
