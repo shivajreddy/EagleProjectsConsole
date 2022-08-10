@@ -8,15 +8,14 @@ def printjob():
 
 if __name__ == "__main__":
 
-  print("going to start the schedulers")
-  scheduler.add_job(id='Auto Email job',
-                    func=printjob,
-                    trigger='interval',
-                    seconds=5)
-
+  ### schedule depreciated feature
+#   print("going to start the schedulers")
+#   scheduler.add_job(id='Auto Email job',
+#                     func=printjob,
+#                     trigger='interval',
+#                     seconds=5)
   # scheduler.add_job(auto_email_job, 'cron', day_of_week='1-5', hour=8, minute=15)
-
-  scheduler.start()
+  # scheduler.start()
 
   print("going to start the app now")
   # app.run(debug=True)

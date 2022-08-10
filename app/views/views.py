@@ -1,5 +1,7 @@
 """ main views """
+import os
 from flask import jsonify, render_template, redirect, request, session
+from werkzeug.utils import secure_filename
 
 from ..Models.Lot import LotsDirectory
 from ..Models.test_Lot import Test_LotsDirectory
@@ -90,3 +92,58 @@ def route_super_links():
     return redirect('/')
 
   return render_template('./super_temp/super_links.html')
+
+
+#! CompareReport -- Start
+# app.config["FILES_UPLOADS_PATH"] = "C:\\Users\\sreddy\\Desktop\\EagleProjectsConsole\\app\static\\reportfiles"
+# app.config["ALLOWED_REPORT_FILE_EXT"] = ["XLSM", "XLS", "TXT"]
+
+def allowed_files(filename):
+  if not "." in filename:
+    return False
+
+  ext = filename.rsplit(".", 1)[1]
+  if ext.upper() in app.config["ALLOWED_REPORT_FILE_EXT"]:
+    return True
+  
+  return False
+
+
+@app.route('/compare-reports')
+def compare_reports():
+  return render_template('./compare_reports.html')
+
+
+@app.route('/run-report', methods=["GET", "POST"])
+def run_comparision_report():
+
+  if request.method == "POST":
+
+    if request.files:
+      print("this is the dict", request.files)
+      file1 = request.files["file1"]
+      file2 = request.files["file2"]
+
+      # redirect to form if both files are not uploaded
+      if file1.filename == "" or file2.filename == "":
+        return redirect('/compare-reports')
+
+      file1_name = secure_filename(file1.filename)
+      file2_name = secure_filename(file2.filename)
+
+      file1.save(os.path.join(app.config["FILES_UPLOADS_PATH"], file1_name))
+      file2.save(os.path.join(app.config["FILES_UPLOADS_PATH"], file2_name))
+
+      if not allowed_files(file1.filename) or not allowed_files(file2.filename):
+        print("One of the files uploaded file extension is not allowed")
+        return redirect('/compare-reports')
+
+      print('\x1b[0;39;43m' + 'This is file 1' + '\x1b[0m')
+      print("this is file1", file1)
+
+      return "both file1, file2 are valid"
+
+
+  print("hi there report ran succesffuly")
+  return "hi there report ran succesffuly"
+#! CompareReport -- END
