@@ -10,13 +10,23 @@
 
     <div class="form-group">
       <label class="form-label"  for="file-1">File 1</label>
+      <div class="progress mb-1">
+        <div id="file1-upload-progressbar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+      </div>
       <input type="file" class="form-control" name="file1" id="file-1" />
+      <button id="file-1-upload" class="invisible btn btn-primary m-1">Upload</button>
+
+      <br/>
       <br/>
       <label class="form-label" for="file-2">File 2</label>
+      <div class="progress mb-1">
+        <div id="file2-upload-progressbar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+      </div>
       <input type="file" class="form-control" name="file2" id="file-2" />
+      <button id="file-2-upload" class="btn btn-primary m-1">Upload</button>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-4">Run Comparision</button>
+    <button type="submit" class="btn btn-danger mt-4">Run Comparision</button>
   </form>
 
 </div>
