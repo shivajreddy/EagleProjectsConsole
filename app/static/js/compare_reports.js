@@ -48,8 +48,9 @@ $(document).ready(function () {
     $.ajax({
       xhr: function () {
         var xhr = new window.XMLHttpRequest();
+        console.log("this is xhr", xhr, xhr.upload);
         xhr.upload.addEventListener("progress", function (e) {
-          // console.log("this is the upload progress", xhr, e);
+          console.log("this is the upload progress", xhr, e);
           if (e.lengthComputable) {
             // console.log("100% bytes Loaded" + e.loaded);
             // console.log("Total Size:" + e.total);

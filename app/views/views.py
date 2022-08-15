@@ -139,8 +139,9 @@ def run_comparision_report():
         print("One of the files uploaded file extension is not allowed")
         return redirect('/compare-reports')
 
-      print('\x1b[0;39;43m' + 'This is file 1' + '\x1b[0m')
-      print("this is file1", file1)
+      print('\x1b[0;39;43m' + 'This are the uploaded files' + '\x1b[0m')
+      print(file1)
+      print(file2)
 
       return "both file1, file2 are valid"
 
