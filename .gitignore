@@ -7,3 +7,4 @@ EagleProjectsClean.csv
 my_local_config.py
 migrations
 **/.vscode
+**/*.MOV
