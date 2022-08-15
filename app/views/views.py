@@ -117,6 +117,7 @@ def compare_reports():
 @app.route('/run-report', methods=["GET", "POST"])
 def run_comparision_report():
 
+  #* This runs for POST method
   if request.method == "POST":
 
     if request.files:
@@ -143,7 +144,7 @@ def run_comparision_report():
 
       return "both file1, file2 are valid"
 
-
+  #* This runs for GET method
   print("hi there report ran succesffuly")
   return "hi there report ran succesffuly"
 #! CompareReport -- END

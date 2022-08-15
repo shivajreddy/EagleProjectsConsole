@@ -6,3 +6,4 @@ config_backup.py
 EagleProjectsClean.csv
 my_local_config.py
 migrations
+**/.vscode

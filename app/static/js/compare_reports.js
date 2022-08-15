@@ -1,22 +1,83 @@
 // Run this after the document has loaded completely
 $(document).ready(function () {
   // console.log("its ready");
-  $("#file-1").change(function () {
-    if ($("#file-1").val() !== "") {
-      return $("#file-1-upload").removeClass("invisible");
+  const upload_button = $("#files-upload");
+  const run_comparison_button = $("#run-comparison");
+
+  //  Show Upload-Files button only after both files are selcted
+  function show_hide_upload_button() {
+    let file1_val = $("#file-1").val();
+    let file2_val = $("#file-2").val();
+
+    if (file1_val !== "" && file2_val !== "") {
+      // remove invisible if it exists already - for upload, run comparision buttons
+      if (upload_button.hasClass("invisible")) {
+        upload_button.removeClass("invisible");
+      }
+      if (run_comparison_button.hasClass("invisible")) {
+        run_comparison_button.removeClass("invisible");
+      }
     } else {
-      return;
+      // add invisible if it doesn't exist
+      if (!upload_button.hasClass("invisible")) {
+        upload_button.addClass("invisible");
+      }
+      if (!run_comparison_button.hasClass("invisible")) {
+        run_comparison_button.addClass("invisible");
+      }
     }
-    // console.log(fil1);
-  });
+  }
 
-  // separate upload buttons for each
-  file1_upload = $("#file-1-upload");
-  file2_upload = $("#file-2-upload");
+  $("#file-1").change(show_hide_upload_button);
+  $("#file-2").change(show_hide_upload_button);
 
-  file1_upload.on("click", function (e) {
+  // start upload
+  upload_button.on("click", function (e) {
     e.preventDefault();
-    console.log("Upload file 1 started");
+
+    // show the progress bar div
+    const progress_bar_div = $("#files-upload-progressbar-div");
+    progress_bar_div.removeClass("invisible");
+
+    const message = "Upload process started ";
+    console.log(`%c ${message}`, "color: orange");
+
+    var report_form_data = new FormData($("#compare-report-form")[0]);
+
+    // start the upload process
+    $.ajax({
+      xhr: function () {
+        var xhr = new window.XMLHttpRequest();
+        xhr.upload.addEventListener("progress", function (e) {
+          // console.log("this is the upload progress", xhr, e);
+          if (e.lengthComputable) {
+            // console.log("100% bytes Loaded" + e.loaded);
+            // console.log("Total Size:" + e.total);
+            // console.log("Percentage Uploaded" + e.loaded / e.total);
+            var percent = Math.round((e.loaded / e.total) * 100);
+            $("#files-upload-progressbar")
+              .attr("aria-valuenow", percent)
+              .css("width", percent + "%")
+              .text(percent + "%");
+            // $("#file2-upload-progressbar")
+            //   .attr("aria-valuenow", percent)
+            //   .css("width", percent + "%")
+            //   .text(percent + "%");
+          }
+        });
+        return xhr;
+      },
+      type: "POST",
+      url: "/run-report",
+      data: report_form_data,
+      processData: false,
+      contentType: false,
+      success: function () {
+        const message =
+          "File upload finished and the form is going to be subbmitted with POSt request";
+        console.log(`%c ${message}`, "color: orange");
+      },
+    });
   });
 
   // get the name of the submit
@@ -51,38 +112,5 @@ $(document).ready(function () {
 
     // Handle form submissions to be proper here on front-end
     // console.log("report form = ", report_form_data);
-
-    $.ajax({
-      xhr: function () {
-        var xhr = new window.XMLHttpRequest();
-        xhr.upload.addEventListener("progress", function (e) {
-          console.log("this is the shit", xhr, e);
-          if (e.lengthComputable) {
-            // console.log("100% bytes Loaded" + e.loaded);
-            // console.log("Total Size:" + e.total);
-            // console.log("Percentage Uploaded" + e.loaded / e.total);
-            var percent = Math.round((e.loaded / e.total) * 100);
-            $("#file1-upload-progressbar")
-              .attr("aria-valuenow", percent)
-              .css("width", percent + "%")
-              .text(percent + "%");
-            $("#file2-upload-progressbar")
-              .attr("aria-valuenow", percent)
-              .css("width", percent + "%")
-              .text(percent + "%");
-          }
-        });
-        return xhr;
-      },
-      type: "POST",
-      url: "/run-report",
-      data: report_form_data,
-      processData: false,
-      contentType: false,
-      success: function () {
-        const message = "Form submitted";
-        console.log(`%c ${message}`, "color: orange");
-      },
-    });
   });
 });
