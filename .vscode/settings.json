@@ -1,3 +1,4 @@
 {
-  "editor.acceptSuggestionOnEnter": "on"
+  "editor.acceptSuggestionOnEnter": "on",
+  "cSpell.words": ["progressbar", "valuenow"]
 }

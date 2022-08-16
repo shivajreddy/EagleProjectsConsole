@@ -109,21 +109,33 @@ def allowed_files(filename):
   return False
 
 
-@app.route('/compare-reports')
+@app.route('/compare-reports', methods=['GET', 'POST'])
 def compare_reports():
   return render_template('./compare_reports.html')
 
 
+# send the names of the uploaded files to run the report on, this should run the algo and return the result report file
 @app.route('/run-report', methods=["GET", "POST"])
-def run_comparision_report():
+def run_comparison_report():
+  print("running the run_comparison_report function on views.py")
 
   #* This runs for POST method
   if request.method == "POST":
+    # import pdb
+    # pdb.set_trace()
+  
+    print("the request object is", request)
 
     if request.files:
-      print("this is the dict", request.files)
-      file1 = request.files["file1"]
-      file2 = request.files["file2"]
+      # print("this is the dict", request.files)
+      print("the request object is", request)
+      # keys for this dict are keys of the form data, sent from client
+      file1 = request.files["file1actual"]
+      file2 = request.files["file2actual"]
+      file1name = request.values['file1name']
+      file2name = request.values['file2name']
+      # file1 = request.files["file1"]
+      # file2 = request.files["file2"]
 
       # redirect to form if both files are not uploaded
       if file1.filename == "" or file2.filename == "":
@@ -140,12 +152,14 @@ def run_comparision_report():
         return redirect('/compare-reports')
 
       print('\x1b[0;39;43m' + 'This are the uploaded files' + '\x1b[0m')
-      print(file1)
-      print(file2)
+      print(file1.filename)
+      print(file2.filename)
 
       return "both file1, file2 are valid"
+    print("got a POST request without request.files")
+    return "got a POST request without request.files"
 
   #* This runs for GET method
-  print("hi there report ran succesffuly")
-  return "hi there report ran succesffuly"
+  print("hi there report ran successfully")
+  return "hi there report ran successfully"
 #! CompareReport -- END

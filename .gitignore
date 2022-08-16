@@ -5,6 +5,7 @@ venv2
 config_backup.py
 EagleProjectsClean.csv
 my_local_config.py
+heroku_config.py
 migrations
 **/.vscode
 **/*.MOV
