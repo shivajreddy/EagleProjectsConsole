@@ -1,31 +1,58 @@
-var $file1, $file2;
+var $file1_input, $file2_input;
+
+function validate_for_xlsm_type(filename) {
+  const arr = filename.split(".");
+  const file_ext = arr[arr.length - 1];
+  if (file_ext === "xlsm" || file_ext === "XLSM") {
+    return true;
+  }
+  return false;
+}
 
 $(document).ready(function () {
-  $file1 = $("#file-1");
-  $file2 = $("#file-2");
+  $file1_input = $("#file-1");
+  $file2_input = $("#file-2");
 
   const upload_button = $("#files-upload");
-  upload_button.on("click", async function (e) {
+  upload_button.on("click", function (e) {
     e.preventDefault();
 
     var xhr;
 
-    const message = "Upload process started ";
-    console.log(`%c ${message}`, "color: orange");
+    // const message = "Upload process started ";
+    // console.log(`%c ${message}`, "color: orange");
 
-    console.log($file1[0].files[0]);
-    console.log($file2[0].files[0]);
+    var file1_actual = $file1_input[0].files[0];
+    var file2_actual = $file2_input[0].files[0];
+
+    //* File validation here on client - both should be .xlsm files
+    if (
+      !validate_for_xlsm_type(file1_actual.name) ||
+      !validate_for_xlsm_type(file2_actual.name)
+    ) {
+      console.error("One or both files are NOT VALID. Not .xlsm files");
+      throw Error("One or both files are NOT VALID. Not .xlsm files");
+      return;
+    }
+
+    // Create unique file names using the info from file objects
+    var file1name, file2name;
+    file1name =
+      file1_actual.name.substring(0, file1_actual.name.length - 5) +
+      file1_actual.lastModified +
+      ".xlsm";
+    file2name =
+      file2_actual.name.substring(0, file2_actual.name.length - 5) +
+      file2_actual.lastModified +
+      ".xlsm";
+    console.log("these are the generated names", file1name, file2name);
 
     // the names of these are used as keys for reference
     var formData = new FormData();
-    formData.append("file1actual", $file1[0].files[0]);
-    formData.append("file1name", "AQT_01_01_2022");
-    formData.append("file2actual", $file2[0].files[0]);
-    formData.append("file2name", "AQT_01_02_2022");
-    // console.log("this form data", formData, formData.values());
-    for (const k of formData.keys()) {
-      console.log(k);
-    }
+    formData.append("file1actual", file1_actual);
+    formData.append("file1name", file1name);
+    formData.append("file2actual", file2_actual);
+    formData.append("file2name", file2name);
 
     $.ajax({
       xhr: function () {
@@ -50,8 +77,7 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: function (data) {
-        // alert(data);
-        console.log("the post request is a success");
+        // console.info("the post request is a success");
         $("#run-comparison").removeClass("invisible");
       },
     });
@@ -59,4 +85,20 @@ $(document).ready(function () {
 });
 
 const down_btn = $("#download-report-btn");
-console.log(down_btn);
+down_btn.on("click", function (e) {
+  $.ajax({
+    xhr: function () {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/compare-sheets-algorithm");
+      xhr.send();
+      return xhr;
+    },
+    type: "GET",
+    url: "/compare-sheets-algorithm",
+    processData: false,
+    contentType: false,
+    success: function () {
+      console.log("download here you go");
+    },
+  });
+});
