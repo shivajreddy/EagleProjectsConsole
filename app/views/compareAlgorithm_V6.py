@@ -16,9 +16,9 @@ from openpyxl.styles import PatternFill
 # result_path = "C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\generated_reports"
 
 #! original paths
-file_1 = pd.ExcelFile(r'C:\Users\sreddy\OneDrive - Eagle Construction of VA\Automation Estimating Local\newtest.xlsm')
-file_2 = pd.ExcelFile(r'C:\Users\sreddy\OneDrive - Eagle Construction of VA\Automation Estimating Local\newtest2.xlsm')
-r_file_path = r'C:\Users\sreddy\OneDrive - Eagle Construction of VA\Automation Estimating Local\compare_test4.xlsm'
+# file_1 = pd.ExcelFile(r'C:\Users\sreddy\OneDrive - Eagle Construction of VA\Automation Estimating Local\newtest.xlsm')
+# file_2 = pd.ExcelFile(r'C:\Users\sreddy\OneDrive - Eagle Construction of VA\Automation Estimating Local\newtest2.xlsm')
+# r_file_path = r'C:\Users\sreddy\OneDrive - Eagle Construction of VA\Automation Estimating Local\compare_test4.xlsm'
 
 # file_1 = pd.ExcelFile(r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\uploaded_aqt_files\Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-18.xlsm")
 # file_2 = pd.ExcelFile(r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\uploaded_aqt_files\Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-19.xlsm")
@@ -74,7 +74,7 @@ def all_sheets_data_frames(input_file_1, input_file_2, excel_workbook_number):
 
     return file1_data_frames, file2_data_frames
 
-all_sheets_data_frames(file_1, file_2, excel_sheet_number)
+# all_sheets_data_frames(file_1, file_2, excel_sheet_number)
 
 # PART 1 - (END) - GET THE DATA, & CONVERT IT INTO DICTIONARIES
 #####
@@ -211,10 +211,13 @@ def remove_same_and_modified_items(input_same_items, input_modified_items, origi
 
 #####
 # PART 3 - (END) - SENDING DATA TO EXCEL
-total_number_of_sheets = len(file_1.sheet_names)
-total_number_of_sheets = len(file_1.sheet_names)
 
 def comparing_algorithm(excel_file_1, excel_file_2):
+
+    total_number_of_sheets = len(excel_file_1.sheet_names)
+    total_number_of_sheets = len(excel_file_2.sheet_names)
+
+
     combined_output_same = []
     combined_output_modified = []
     combined_output_modified_indices = []
@@ -251,7 +254,7 @@ def comparing_algorithm(excel_file_1, excel_file_2):
 
         # Variables to Print Data in to Report Excel File
         wb = load_workbook(r_file_path, keep_vba= True)
-        sn_list = sheet_names(file_1, file_2)
+        sn_list = sheet_names(excel_file_1, excel_file_2)
         ws = wb[sn_list[x]]
 
         combined_output_same.append(final_output_same)
