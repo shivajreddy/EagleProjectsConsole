@@ -2,6 +2,8 @@
 import os
 from flask import jsonify, render_template, redirect, request, session, send_file, send_from_directory
 from werkzeug.utils import secure_filename
+from .compareAlgorithm_V6 import run_algorithm
+
 
 # from ...my_local_config import REPORT_DOWNLOADS_PATH
 #! Use these following imports when modifying models
@@ -128,7 +130,14 @@ def run_comparison_report():
       print(file1name)
       print(file2name)
 
+      #!run it
+      print('\x1b[0;39;43m' + 'RUNNING ALGO ON' + '\x1b[0m')
+      print(os.path.join(app.config["FILES_UPLOADS_PATH"], file1name))
+      print(os.path.join(app.config["FILES_UPLOADS_PATH"], file2name))
+      run_algorithm(os.path.join(app.config["FILES_UPLOADS_PATH"], file1name), os.path.join(app.config["FILES_UPLOADS_PATH"], file2name))
+
       # return "both file1, file2 are valid"
+
       print('Going to redirect')
       return redirect('/compare-sheets-algorithm')
 
@@ -151,6 +160,11 @@ def download_report(filename):
     # print("printing at", app.config["REPORT_DOWNLOADS_PATH"], filename )
     file_with_path = app.config["DOWNLOADS_DIR"] +filename + ".xlsm"
     print(file_with_path)
+
+    #! RUN it
+
+    # run_algorithm()
+
     return send_file(file_with_path, as_attachment=True)
     return send_from_directory(
       app.config["DOWNLOADS_DIR"],
