@@ -2,8 +2,9 @@
 import os
 from flask import jsonify, render_template, redirect, request, session, send_file, send_from_directory
 from werkzeug.utils import secure_filename
+from datetime import date
 
-from my_local_config import DOWNLOADS_DIR, FILES_UPLOADS_PATH
+# from my_local_config import DOWNLOADS_DIR, FILES_UPLOADS_PATH
 from .compareAlgorithm_V6 import run_algorithm
 import shutil
 
@@ -25,7 +26,6 @@ from ..forms.NewLotForm import NewLot
 
 from app import app, db
 
-import datetime
 #! Test route
 
 
@@ -108,14 +108,16 @@ def route_super_links():
 
 
 #! CompareReport -- Start
-DOWNLOADS_DIR = os.getcwd() + "/app/static/generated_reports"
-REPORT_TEMPLATE_PATH = DOWNLOADS_DIR + "/ChangeReport_Template.xlsm"
+UPLOADS_DIR = os.getcwd() + "/app/static/uploaded_aqt_files"
+GENERATED_REPORTS_DIR = os.getcwd() + "/app/static/generated_reports"
+REPORT_TEMPLATE_FILE = GENERATED_REPORTS_DIR + "/ChangeReport_Template_v2.xlsm"
+FILES_UPLOADS_PATH = os.getcwd() + "/app/static/uploaded_aqt_files"
 
 
 @app.route('/tr')
 def test_routes():
-    print(DOWNLOADS_DIR)
-    return DOWNLOADS_DIR
+    print(GENERATED_REPORTS_DIR)
+    return GENERATED_REPORTS_DIR
 
 # Form, and client side file verification
 
@@ -126,7 +128,7 @@ def compare_reports():
 
 
 # RUN -> Upload files -> Run the algo -> Start download
-@app.route('/upload-run-download', methods=["POST"])
+@app.route('/upload-run-download', methods=["GET", "POST"])
 def upload_run_download():
 
     if request.files:
@@ -136,112 +138,76 @@ def upload_run_download():
         # keys for this dict are keys of the form data, sent from client
         file1 = request.files["file1actual"]
         file2 = request.files["file2actual"]
-        file1name = request.values['file1name']
-        file2name = request.values['file2name']
+        file1_name_ext = request.values['file1name']
+        file2_name_ext = request.values['file2name']
 
-        FILES_UPLOADS_PATH = os.curdir
-        file1.save(os.path.join(
-            app.config["FILES_UPLOADS_PATH"], file1name))
-        file2.save(os.path.join(
-            app.config["FILES_UPLOADS_PATH"], file2name))
+        file_1_path_name_ext = UPLOADS_DIR + "/" + file1_name_ext
+        file_2_path_name_ext = UPLOADS_DIR + "/" + file2_name_ext
 
-        result_file_name = file1name + file2name
-        # Create a copy of the report template
+        print("this are the file names", file1_name_ext, file2_name_ext)
+        # /Users/shiva/Desktop/EagleProjectsConsole/app/static/uploaded_aqt_files
+
+        file1.save(file_1_path_name_ext)
+        file2.save(file_2_path_name_ext)
+
+        # Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-181661174495883.xlsm   find the index of last _
+        i = file2_name_ext.rfind('_')
+        result_file_name = file2_name_ext[0:i-4] + \
+            "-ComparisonReport-" + date.today().strftime("%d-%m-%Y")
+
+        # Create a copy of the report template, with new result_file_name as name
         shutil.copy(
-            f'{app.config["DOWNLOADS_DIR"]}ChangeReport_Template.xlsm',
-            f'{app.config["DOWNLOADS_DIR"]}{result_file_name}')
+            REPORT_TEMPLATE_FILE,
+            f'{GENERATED_REPORTS_DIR}/{result_file_name}.xlsm')
 
         print('\x1b[0;39;43m' + 'This are the uploaded files' + '\x1b[0m')
-        print(file1name)
-        print(file2name)
+        print(file1_name_ext)
+        print(file2_name_ext)
 
         #!Run Report
-        print('\x1b[0;39;43m' + 'RUNNING ALGO ON' + '\x1b[0m')
-        file_1_path = os.path.join(app.config["FILES_UPLOADS_PATH"], file1name)
-        file_2_path = os.path.join(app.config["FILES_UPLOADS_PATH"], file2name)
-        run_algorithm(file_1_path, file_2_path)
+        # TODO send the report file path
+        print('\x1b[0;39;43m' + 'RUNNING ALGO ON' +
+              '\x1b[0m', file1_name_ext, file2_name_ext)
+
+        comparison_report_path_name_ext = GENERATED_REPORTS_DIR + \
+            "/" + result_file_name + ".xlsm"
+        run_algorithm(file_1_path_name_ext, file_2_path_name_ext,
+                      comparison_report_path_name_ext)
+
+        # file_1_path = os.path.join(
+        #     app.config["FILES_UPLOADS_PATH"], file1_name_ext)
+        # file_2_path = os.path.join(
+        #     app.config["FILES_UPLOADS_PATH"], file2_name_ext)
+        # run_algorithm(file_1_path, file_2_path)
 
         # return "both file1, file2 are valid"
 
-        print('Going to redirect')
-        return redirect('/compare-sheets-algorithm')
+        # TODO Start downloading the file
+        # print('START DOWNLOADING RESULT FILE')
+        result_file_name_ext = result_file_name + ".xlsm"
+        print(GENERATED_REPORTS_DIR, result_file_name_ext)
+        result = send_from_directory(
+            GENERATED_REPORTS_DIR, result_file_name_ext, as_attachment=True
+        )
+        print("this is the result", result)
+        return result_file_name_ext
+        return result
+        # return redirect(f'/download-report/{result_file_name_ext}')
 
     # * Throw error if there are no files in the POST request
     raise Exception("The request object has no files in it")
 
 
-# send the names of the uploaded files to run the report on, this should run the algo and return the result report file
-@app.route('/run-report', methods=["GET", "POST"])
-def run_comparison_report():
-    print("running the run_comparison_report function on views.py")
-
-    # * This runs for POST method
-    if request.method == "POST":
-
-        if request.files:
-            # print("this is the dict", request.files)
-            print("the request object is", request)
-
-            # keys for this dict are keys of the form data, sent from client
-            file1 = request.files["file1actual"]
-            file2 = request.files["file2actual"]
-            file1name = request.values['file1name']
-            file2name = request.values['file2name']
-
-            file1.save(os.path.join(
-                app.config["FILES_UPLOADS_PATH"], file1name))
-            file2.save(os.path.join(
-                app.config["FILES_UPLOADS_PATH"], file2name))
-
-            print('\x1b[0;39;43m' + 'This are the uploaded files' + '\x1b[0m')
-            print(file1name)
-            print(file2name)
-
-            #!run it
-            print('\x1b[0;39;43m' + 'RUNNING ALGO ON' + '\x1b[0m')
-            print(os.path.join(app.config["FILES_UPLOADS_PATH"], file1name))
-            print(os.path.join(app.config["FILES_UPLOADS_PATH"], file2name))
-            run_algorithm(os.path.join(app.config["FILES_UPLOADS_PATH"], file1name), os.path.join(
-                app.config["FILES_UPLOADS_PATH"], file2name))
-
-            # return "both file1, file2 are valid"
-
-            print('Going to redirect')
-            return redirect('/compare-sheets-algorithm')
-
-        # * Throw error if there are no files in the POST request
-        raise Exception("The request object has no files in it")
-
-    # * This runs for GET method
-    print("hi there report ran successfully")
-    return "hi there report ran successfully"
-
-
-@app.route('/compare-sheets-algorithm', methods=["GET", "POST"])
-def run_compare_sheets_algorithm():
-    print('you are here')
-    return redirect('/download-report/testdown')
-
-
 @app.route("/download-report/<filename>")
 def download_report(filename):
-    try:
-        # print("printing at", app.config["REPORT_DOWNLOADS_PATH"], filename )
-        file_with_path = app.config["DOWNLOADS_DIR"] + filename + ".xlsm"
-        print(file_with_path)
+    # print('START DOWNLOADING RESULT FILE')
+    result_file_name_ext = filename + ".xlsm"
+    print("these are given", GENERATED_REPORTS_DIR, filename)
+    result = send_from_directory(
+        GENERATED_REPORTS_DIR, filename, as_attachment=True
+    )
+    print("result is", result)
+    return result
 
-        #! RUN it
-
-        # run_algorithm()
-
-        return send_file(file_with_path, as_attachment=True)
-        return send_from_directory(
-            app.config["DOWNLOADS_DIR"],
-            filename,
-            as_attachment=True)
-    except Exception as e:
-        print("got exception")
-        print(str(e))
-        return str(e)
 
 #! CompareReport -- END

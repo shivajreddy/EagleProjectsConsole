@@ -22,7 +22,7 @@ from openpyxl.styles import PatternFill
 
 # file_1 = pd.ExcelFile(r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\uploaded_aqt_files\Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-18.xlsm")
 # file_2 = pd.ExcelFile(r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\uploaded_aqt_files\Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-19.xlsm")
-r_file_path = r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\generated_reports\ChangeReport_Template.xlsm"
+# r_file_path = r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\generated_reports\ChangeReport_Template.xlsm"
 
 
 # PART 1.1 - CHOOSE THE TWO FILES
@@ -38,6 +38,7 @@ def sheet_names(location_1, location_2):
     # names_of_sheet2 = pd_file_2.sheet_names
     names_of_sheets.remove(names_of_sheets[0])
     return names_of_sheets
+
 
 def create_data_frames(input_file_1, input_file_2, sheet_name):
     df1_1 = pd.read_excel(input_file_1, sheet_name, header=None)
@@ -60,6 +61,7 @@ def create_data_frames(input_file_1, input_file_2, sheet_name):
 
     return f1_s1, f2_s1
 
+
 excel_sheet_number = 7
 
 
@@ -68,7 +70,8 @@ def all_sheets_data_frames(input_file_1, input_file_2, excel_workbook_number):
     list_of_all_sheet_names = sheet_names(input_file_1, input_file_2)
     file1_data_frames = []
     file2_data_frames = []
-    data_frames_for_2versions_single_sheet = create_data_frames(input_file_1, input_file_2, list_of_all_sheet_names[i])
+    data_frames_for_2versions_single_sheet = create_data_frames(
+        input_file_1, input_file_2, list_of_all_sheet_names[i])
     file1_data_frames.append(data_frames_for_2versions_single_sheet[0])
     file2_data_frames.append(data_frames_for_2versions_single_sheet[1])
 
@@ -81,6 +84,7 @@ def all_sheets_data_frames(input_file_1, input_file_2, excel_workbook_number):
 
 #####
 # PART 2 - (START) - COMPARING ALGORITHM
+
 
 # PART 2.0 - CREATE INPUTS AND OUTPUTS FOR PART 2
 # same_items = []
@@ -103,7 +107,8 @@ def compare_single_item_to_a_list(list_a, item_of_b, return_same_items_list, ):
 # PART 2.1.2 - REPEATING 2.1.1 FOR EVERY ITEM IN LIST_B
 def compare_lists_for_same_items(first_list, second_list, return_same_items_list):
     for current_item in second_list:
-        compare_single_item_to_a_list(first_list, current_item, return_same_items_list)
+        compare_single_item_to_a_list(
+            first_list, current_item, return_same_items_list)
 
 
 # PART 2.1.3 - REMOVING REPLACED ITEMS FROM LIST
@@ -158,7 +163,8 @@ def compare_single_dict_to_a_list(list_a, item_of_b, return_modified_items_list,
     for current_item in list_a:
         try:
             if ((list(current_item.values())[0]) == (list(item_of_b.values())[0])) & (item_of_b != current_item):
-                indices_of_modified(current_item, item_of_b, out_modified_indices, the_total_columns)
+                indices_of_modified(current_item, item_of_b,
+                                    out_modified_indices, the_total_columns)
                 return_modified_items_list.append(item_of_b)
                 list_a[list_a.index(current_item)] = "removed the dict"
                 new_data_2.append(item_of_b)
@@ -172,7 +178,8 @@ def compare_single_dict_to_a_list(list_a, item_of_b, return_modified_items_list,
 # PART 2.2.2 - REPEATING 2.2.1 FOR EVERY DICTIONARY ITEM IN LIST_B
 def compare_lists_for_modified_items(first_list, second_list, return_modified_items_list, out_modified_items, the_total_columns):
     for current_item in second_list:
-        compare_single_dict_to_a_list(first_list, current_item, return_modified_items_list, out_modified_items, the_total_columns)
+        compare_single_dict_to_a_list(
+            first_list, current_item, return_modified_items_list, out_modified_items, the_total_columns)
 
 
 # PART 2.2.3 - REMOVE REPLACEMENTS IN LIST_A
@@ -192,7 +199,8 @@ def remove_dicts_from_list_type2(input_list):
 # PART 2.2.5 - RUNNING THE COMPARISON FUNCTIONS FOR TWO DICTIONARY LISTS &  DELETING THE REPLACED ITEMS
 def compare_modified_items(list_a, list_b, return_modified_items_list, out_modified_items, the_total_items):
     # tot_columns = len(list(original_data1[0].keys()))
-    compare_lists_for_modified_items(list_a, list_b, return_modified_items_list, out_modified_items, the_total_items)
+    compare_lists_for_modified_items(
+        list_a, list_b, return_modified_items_list, out_modified_items, the_total_items)
     remove_dicts_from_list(list_a)
     remove_dicts_from_list_type2(list_b)
 
@@ -212,11 +220,10 @@ def remove_same_and_modified_items(input_same_items, input_modified_items, origi
 #####
 # PART 3 - (END) - SENDING DATA TO EXCEL
 
-def comparing_algorithm(excel_file_1, excel_file_2):
+def comparing_algorithm(excel_file_1, excel_file_2, output_file_path):
 
     total_number_of_sheets = len(excel_file_1.sheet_names)
     total_number_of_sheets = len(excel_file_2.sheet_names)
-
 
     combined_output_same = []
     combined_output_modified = []
@@ -228,8 +235,10 @@ def comparing_algorithm(excel_file_1, excel_file_2):
         # print("doing this for sheet", x)
         data1 = all_sheets_data_frames(excel_file_1, excel_file_2, x)[0][0]
         data2 = all_sheets_data_frames(excel_file_1, excel_file_2, x)[1][0]
-        original_data1 = all_sheets_data_frames(excel_file_1, excel_file_2, x)[0][0]
-        original_data2 = all_sheets_data_frames(excel_file_1, excel_file_2, x)[1][0]
+        original_data1 = all_sheets_data_frames(
+            excel_file_1, excel_file_2, x)[0][0]
+        original_data2 = all_sheets_data_frames(
+            excel_file_1, excel_file_2, x)[1][0]
         number_of_columns = len(list(original_data1[0].keys()))
 
         same_items = []
@@ -241,19 +250,22 @@ def comparing_algorithm(excel_file_1, excel_file_2):
         total_columns = len(list(original_data1[0].keys()))
         modified_indices = []
 
-        compare_modified_items(data1, data2, modified_items, modified_indices, total_columns)
+        compare_modified_items(data1, data2, modified_items,
+                               modified_indices, total_columns)
 
-        new_items = remove_same_and_modified_items(same_items, modified_items, original_data2)
+        new_items = remove_same_and_modified_items(
+            same_items, modified_items, original_data2)
 
         final_output_same = pd.DataFrame(same_items)
         final_output_modified = pd.DataFrame(modified_items)
         final_output_indices = modified_indices
-        new_modified_indices = [modified_indices[i:i+total_columns]for i in range(0, len(modified_indices), total_columns)]
+        new_modified_indices = [modified_indices[i:i+total_columns]
+                                for i in range(0, len(modified_indices), total_columns)]
         final_output_new = pd.DataFrame(new_items)
         final_output_deleted = pd.DataFrame(data1)
 
         # Variables to Print Data in to Report Excel File
-        wb = load_workbook(r_file_path, keep_vba= True)
+        wb = load_workbook(output_file_path, keep_vba=True)
         sn_list = sheet_names(excel_file_1, excel_file_2)
         ws = wb[sn_list[x]]
 
@@ -271,17 +283,17 @@ def comparing_algorithm(excel_file_1, excel_file_2):
         fill_pattern1 = PatternFill(patternType='solid', fgColor='BDD7EE')
         for i in range(len(final_output_same.columns)):
             ws.cell(row=rowindex, column=i+1).fill = fill_pattern1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
         # 'Same Item' Data writing
         for index, row in final_output_same.iterrows():
             for i in range(number_of_columns):
                 ws.cell(row=rowindex+1, column=i+1).value = row.iloc[i]
-            rowindex = rowindex +1
-        wb.save(r_file_path)
+            rowindex = rowindex + 1
+        wb.save(output_file_path)
 
         # 'Modified Item' Title writing
-        rowindex = rowindex +2
+        rowindex = rowindex + 2
         offset1 = rowindex
         ws.cell(row=rowindex, column=2).value = 'Modified Items'
 
@@ -290,13 +302,13 @@ def comparing_algorithm(excel_file_1, excel_file_2):
             for i in range(number_of_columns):
                 ws.cell(row=rowindex + 1, column=i + 1).value = row.iloc[i]
             rowindex = rowindex + 1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
         # 'Modified Item' Title Coloring
         fill_pattern1 = PatternFill(patternType='solid', fgColor='FFFF99')
         for i in range(len(final_output_same.columns)):
             ws.cell(row=offset1, column=i+1).fill = fill_pattern1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
         # 'Modified Item' modified elements coloring
         # 'Modified Item' modified elements detecting boolean mask
@@ -305,18 +317,18 @@ def comparing_algorithm(excel_file_1, excel_file_2):
         for i in range(len(indices_list)):
             for j in range(len(indices_list[i])):
                 if indices_list[i][j] == False:
-                        flist.append([i, j])
+                    flist.append([i, j])
 
         # print('flist: ', flist)
 
         # 'Modified Item' modified elements coloring by boolean mask
         fill_pattern = PatternFill(patternType='solid', fgColor='FFC000')
         for i, j in flist:
-                ws.cell(row= offset1+1+i, column=j+1).fill = fill_pattern
-        wb.save(r_file_path)
+            ws.cell(row=offset1+1+i, column=j+1).fill = fill_pattern
+        wb.save(output_file_path)
 
         # 'Added Item' Title writing
-        rowindex = rowindex +2
+        rowindex = rowindex + 2
         offset2 = rowindex
         ws.cell(row=rowindex, column=2).value = 'Added Items'
 
@@ -324,17 +336,17 @@ def comparing_algorithm(excel_file_1, excel_file_2):
         fill_pattern1 = PatternFill(patternType='solid', fgColor='C6E0B4')
         for i in range(len(final_output_same.columns)):
             ws.cell(row=offset2, column=i+1).fill = fill_pattern1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
         # 'Added Item' data writing
         for index, row in final_output_new.iterrows():
             for i in range(number_of_columns):
                 ws.cell(row=rowindex + 1, column=i + 1).value = row.iloc[i]
             rowindex = rowindex + 1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
         # 'Deleted Item' Title writing
-        rowindex = rowindex +2
+        rowindex = rowindex + 2
         offset3 = rowindex
         ws.cell(row=rowindex, column=2).value = 'Deleted Items'
 
@@ -342,87 +354,90 @@ def comparing_algorithm(excel_file_1, excel_file_2):
         fill_pattern1 = PatternFill(patternType='solid', fgColor='F8CBAD')
         for i in range(len(final_output_same.columns)):
             ws.cell(row=offset3, column=i+1).fill = fill_pattern1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
         # 'Deleted Item' data writing
         for index, row in final_output_deleted.iterrows():
             for i in range(number_of_columns):
                 ws.cell(row=rowindex + 1, column=i + 1).value = row.iloc[i]
             rowindex = rowindex + 1
-        wb.save(r_file_path)
+        wb.save(output_file_path)
 
 
-def coverpage_data_retrieving(file_1, file_2):
-    wb = load_workbook(r_file_path, keep_vba=True)
+def coverpage_data_retrieving(file_1, file_2, output_file_path):
+    wb = load_workbook(output_file_path, keep_vba=True)
     ws = wb['00-CoverPage']
     df_cover_read = pd.read_excel(file_1, sheet_name='00-CoverPage')
     df_cover_read2 = pd.read_excel(file_2, sheet_name='00-CoverPage')
-    df_cover_read=df_cover_read.fillna("")
-    df_cover_read2=df_cover_read2.fillna("")
+    df_cover_read = df_cover_read.fillna("")
+    df_cover_read2 = df_cover_read2.fillna("")
 
     i = 1
     rowindex = 10
     for i in range(1, 12):
-          ws.cell(row=rowindex, column=4).value = df_cover_read.iloc[i,1]
-          rowindex = rowindex + 1
+        ws.cell(row=rowindex, column=4).value = df_cover_read.iloc[i, 1]
+        rowindex = rowindex + 1
 
-    wb.save(r_file_path)
+    wb.save(output_file_path)
     #
     rowindex = 24
     for i in range(15, 23):
-        ws.cell(row=rowindex, column=4).value = df_cover_read.iloc[i,1]
+        ws.cell(row=rowindex, column=4).value = df_cover_read.iloc[i, 1]
         rowindex = rowindex + 1
-    wb.save(r_file_path)
+    wb.save(output_file_path)
 
-    ws.cell(row=44, column=4).value = df_cover_read.iloc[24,1]
-    ws.cell(row=45, column=4).value = df_cover_read.iloc[26,1]
-    wb.save(r_file_path)
+    ws.cell(row=44, column=4).value = df_cover_read.iloc[24, 1]
+    ws.cell(row=45, column=4).value = df_cover_read.iloc[26, 1]
+    wb.save(output_file_path)
 
-    #### Previous Version CoverPage Data to EXCEL
+    # Previous Version CoverPage Data to EXCEL
     i = 1
     rowindex = 10
     for i in range(1, 12):
-          ws.cell(row=rowindex, column=12).value = df_cover_read2.iloc[i,1]
-          rowindex = rowindex + 1
+        ws.cell(row=rowindex, column=12).value = df_cover_read2.iloc[i, 1]
+        rowindex = rowindex + 1
 
-    wb.save(r_file_path)
+    wb.save(output_file_path)
     #
     rowindex = 24
     for i in range(15, 23):
-        ws.cell(row=rowindex, column=12).value = df_cover_read2.iloc[i,1]
+        ws.cell(row=rowindex, column=12).value = df_cover_read2.iloc[i, 1]
         rowindex = rowindex + 1
-    wb.save(r_file_path)
+    wb.save(output_file_path)
 
-    ws.cell(row=44, column=12).value = df_cover_read2.iloc[24,1]
-    ws.cell(row=45, column=12).value = df_cover_read2.iloc[26,1]
-    wb.save(r_file_path)
+    ws.cell(row=44, column=12).value = df_cover_read2.iloc[24, 1]
+    ws.cell(row=45, column=12).value = df_cover_read2.iloc[26, 1]
+    wb.save(output_file_path)
 
 
 def three_d_model_image_importing_to_excel():
-    wb = load_workbook(r_file_path, keep_vba=True)
+    wb = load_workbook(output_file_path, keep_vba=True)
     ws = wb['00-CoverPage']
     backimg_path = r'C:\Users\jwoo\PycharmProjects\Automation project\logos2.jpg'
     backimg_path2 = r'C:\Users\jwoo\PycharmProjects\Automation project\Changing detection\front3.png'
 
     backimag = openpyxl.drawing.image.Image(backimg_path)
-    backimag.anchor='A1'
+    backimag.anchor = 'A1'
     ws.add_image(backimag)
-    wb.save(r_file_path)
+    wb.save(output_file_path)
 
     backimag2 = openpyxl.drawing.image.Image(backimg_path2)
-    backimag2.anchor='C35'
+    backimag2.anchor = 'C35'
     ws.add_image(backimag2)
-    wb.save(r_file_path)
+    wb.save(output_file_path)
 
 
 # comparing_algorithm(file_1, file_2)
 # coverpage_data_retrieving(file_1, file_2)
 # three_d_model_image_importing_to_excel()
 
-def run_algorithm(path1, path2):
+def run_algorithm(path1, path2, result_file_path):
     file_1 = pd.ExcelFile(path1)
     file_2 = pd.ExcelFile(path2)
     # file_1 = pd.ExcelFile(r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\uploaded_aqt_files\Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-18.xlsm")
     # file_2 = pd.ExcelFile(r"C:\Users\sreddy\Desktop\EagleProjectsConsole\app\static\uploaded_aqt_files\Main_EST_Lot-003-04-PV_CVX-10_AQT_2022-08-19.xlsm")
-    comparing_algorithm(file_1, file_2)
-    coverpage_data_retrieving(file_1, file_2)
+    print("changing the result file path")
+    r_file_path = result_file_path
+    print("now its", r_file_path)
+    comparing_algorithm(file_1, file_2, result_file_path)
+    coverpage_data_retrieving(file_1, file_2, result_file_path)
