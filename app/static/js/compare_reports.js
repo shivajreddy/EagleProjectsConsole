@@ -1,79 +1,101 @@
 var $file1_input, $file2_input;
 
-function validate_for_xlsm_type(filename) {
-  const arr = filename.split(".");
-  const file_ext = arr[arr.length - 1];
-  if (file_ext === "xlsm" || file_ext === "XLSM") {
-    return true;
-  }
-  return false;
+function transform_button_to_spinner() {
+  const $generate_report_button = $("#generate-report-btn");
+  $generate_report_button.removeClass("btn-danger");
+  $generate_report_button.addClass("btn-primary");
+  $generate_report_button.text("Generating Comparison Report");
+  $generate_report_button.prop("disabled", true);
+  $generate_report_button.prepend(
+    '<span id="button-spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span> </span>'
+  );
 }
 
-const Generate_Comparison_Report_button = $("#files-upload");
-function show_hide_upload_button() {
-  let file1_val = $("#file-1").val();
-  let file2_val = $("#file-2").val();
-
-  if (file1_val !== "" && file2_val !== "") {
-    // remove invisible if it exists already - for upload, run comparision buttons
-    if (Generate_Comparison_Report_button.hasClass("invisible")) {
-      Generate_Comparison_Report_button.removeClass("invisible");
-    }
-  } else {
-    // add invisible if it doesn't exist
-    if (!Generate_Comparison_Report_button.hasClass("invisible")) {
-      Generate_Comparison_Report_button.addClass("invisible");
-    }
-  }
+function transform_button_to_finished() {
+  const $generate_report_button = $("#generate-report-btn");
+  $generate_report_button.empty();
+  $generate_report_button.text("Report Successfully Downloaded");
+  $generate_report_button.removeClass("btn-primary");
+  $generate_report_button.addClass("btn-success");
 }
 
 $(document).ready(function () {
+  // DOM nodes
+  // const generate_report_button = $("#files-upload");
+  const generate_report_button = $("#generate-report-btn");
   $file1_input = $("#file-1");
   $file2_input = $("#file-2");
 
-  $("#file-1").change(show_hide_upload_button);
-  $("#file-2").change(show_hide_upload_button);
+  // Helper Function -> Show Button after both files selected
+  function show_hide_upload_button() {
+    let file1_val = $("#file-1").val();
+    let file2_val = $("#file-2").val();
 
-  const upload_button = $("#files-upload");
-  Generate_Comparison_Report_button.on("click", function (e) {
+    if (file1_val !== "" && file2_val !== "") {
+      // remove invisible if it exists already - for upload, run comparision buttons
+      if (generate_report_button.hasClass("invisible")) {
+        generate_report_button.removeClass("invisible");
+      }
+    } else {
+      // add invisible if it doesn't exist
+      if (!generate_report_button.hasClass("invisible")) {
+        generate_report_button.addClass("invisible");
+      }
+    }
+  }
+
+  // Helper function -> File extension validation
+  function validate_for_xlsm_type(filename) {
+    const arr = filename.split(".");
+    const file_ext = arr[arr.length - 1];
+    if (file_ext === "xlsm" || file_ext === "XLSM") {
+      return true;
+    }
+    return false;
+  }
+
+  $file1_input.change(show_hide_upload_button);
+  $file2_input.change(show_hide_upload_button);
+
+  // Generate_Comparison_Report_button.on("click", function (e) {
+  generate_report_button.on("click", function (e) {
     e.preventDefault();
 
-    var xhr;
+    //? Disable button, Show generating spinner, Change Text
+    transform_button_to_spinner();
+    // return;
 
-    // const message = "Upload process started ";
-    // console.log(`%c ${message}`, "color: orange");
-
-    var file1_actual = $file1_input[0].files[0];
-    var file2_actual = $file2_input[0].files[0];
+    var file_1_fileObject = $file1_input[0].files[0];
+    var file_2_fileObject = $file2_input[0].files[0];
 
     //* File validation here on client - both should be .xlsm files
     if (
-      !validate_for_xlsm_type(file1_actual.name) ||
-      !validate_for_xlsm_type(file2_actual.name)
+      !validate_for_xlsm_type(file_1_fileObject.name) ||
+      !validate_for_xlsm_type(file_2_fileObject.name)
     ) {
       console.error("One or both files are NOT VALID. Not .xlsm files");
       throw Error("One or both files are NOT VALID. Not .xlsm files");
       return;
     }
 
-    // Create unique file names using the info from file objects
-    var file1name, file2name;
-    file1name =
-      file1_actual.name.substring(0, file1_actual.name.length - 5) +
-      file1_actual.lastModified +
+    //? Create unique file names using the info from file objects
+    var file_1_name_ext, file_2_name_ext;
+    file_1_name_ext =
+      file_1_fileObject.name.substring(0, file_1_fileObject.name.length - 5) +
+      file_1_fileObject.lastModified +
       ".xlsm";
-    file2name =
-      file2_actual.name.substring(0, file2_actual.name.length - 5) +
-      file2_actual.lastModified +
+    file_2_name_ext =
+      file_2_fileObject.name.substring(0, file_2_fileObject.name.length - 5) +
+      file_2_fileObject.lastModified +
       ".xlsm";
-    console.log("these are the generated names", file1name, file2name);
 
-    // the names of these are used as keys for reference
+    //? Create form data, with files and and their names
+    //? the names of the files given here are used as keys for reference on server
     var formData = new FormData();
-    formData.append("file1actual", file1_actual);
-    formData.append("file1name", file1name);
-    formData.append("file2actual", file2_actual);
-    formData.append("file2name", file2name);
+    formData.append("file1actual", file_1_fileObject);
+    formData.append("file1name", file_1_name_ext);
+    formData.append("file2actual", file_2_fileObject);
+    formData.append("file2name", file_2_name_ext);
 
     function startDownload(signedRequest, url) {
       var link = document.createElement("a");
@@ -84,29 +106,29 @@ $(document).ready(function () {
       document.body.removeChild(link);
     }
 
+    var xhr;
     $.ajax({
       xhr: function () {
         var xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", function (e) {
-          // console.log("this is upload progress", xhr, e);
-          if (e.lengthComputable) {
-            var percent = Math.round((e.loaded / e.total) * 100);
-            $("#files-upload-progressbar")
-              .attr("aria-valuenow", percent)
-              .css("width", percent + "%")
-              .text(percent + "%");
-          }
-        });
-        xhr.addEventListener("readystatechange", function (e) {
-          if (xhr.readyState === 2 && xhr.status === 200) {
-            // download is being started
-            console.log("Download is starting");
-          } else if (xhr.readyState === 3) {
-            console.log("download is under progress");
-          } else if (xhr.readyState === 4) {
-            console.log("The download has finished");
-          }
-        });
+        // xhr.upload.addEventListener("progress", function (e) {
+        //   if (e.lengthComputable) {
+        //     var percent = Math.round((e.loaded / e.total) * 100);
+        //     $("#files-upload-progressbar")
+        //       .attr("aria-valuenow", percent)
+        //       .css("width", percent + "%")
+        //       .text(percent + "%");
+        //   }
+        // });
+        // xhr.addEventListener("readystatechange", function (e) {
+        //   if (xhr.readyState === 2 && xhr.status === 200) {
+        //     // download is being started
+        //     console.log("Download is starting");
+        //   } else if (xhr.readyState === 3) {
+        //     console.log("download is under progress");
+        //   } else if (xhr.readyState === 4) {
+        //     console.log("The download has finished");
+        //   }
+        // });
         return xhr;
       },
       type: "POST",
@@ -116,7 +138,6 @@ $(document).ready(function () {
       contentType: false,
       // flask creates the file and sends the filename
       success: function (fileName) {
-
         console.info("the post request is a success");
         $("#run-comparison").removeClass("invisible");
 
@@ -136,6 +157,9 @@ $(document).ready(function () {
           a[0].click();
           $("body").remove(a);
         }
+
+        //? Change the button state to finished
+        transform_button_to_finished();
       },
     });
   });
@@ -155,7 +179,7 @@ down_btn.on("click", function (e) {
     processData: false,
     contentType: false,
     success: function () {
-      console.log("download here you go");
+      // console.log("download here you go");
     },
   });
 });
