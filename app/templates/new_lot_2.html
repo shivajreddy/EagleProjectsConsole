@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="text-center m-2 p-4">➕ Add a New Lot </h3>
+
+<div class="visible">
+  {% if form_data.errors %}
+  {{ form_data.errors }}
+  {% endif %}
+</div>
+
+<div class="container mb-4 pb-4">
+
+  <form action="/lot/new" method="POST">
+    {{ form_data.hidden_tag() }}
+    {{ form_data.csrf_token }}
+
+    <div class="container">
+      {% for field in form_data if field.widget.input_type != 'hidden'%}
+      <div class="container">
+
+        <!-- {{field.widget.input_type}}
+        {% if field.widget.input_type == "checkbox" %}
+        its checkbox
+        {% endif %}
+        {% if field.widget.input_type == "date" %}
+        its date
+        {% endif %}
+        {% if field.widget.input_type == "text" %}
+        its text
+        {% endif %} -->
+      </div>
+      {% endfor %}
+    </div>
+
+
+    <div class="col-md-12 text-center">
+      <button class="btn btn-primary" type="submit">
+        <i class="bi bi-plus-circle"></i> Add</button>
+    </div>
+
+  </form>
+
+</div>
+
+
+{% endblock content %}
+
+{% block custom_script %}
+
+<script src="{{ url_for('static', filename = 'js/new_lot_dates.js')}}"></script>
+<!-- <script src="../static/js/new_lot_dates.js"></script> -->
+
+{% endblock custom_script %}
