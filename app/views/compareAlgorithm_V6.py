@@ -72,8 +72,12 @@ def all_sheets_data_frames(input_file_1, input_file_2, excel_workbook_number):
     file2_data_frames = []
     data_frames_for_2versions_single_sheet = create_data_frames(
         input_file_1, input_file_2, list_of_all_sheet_names[i])
-    file1_data_frames.append(data_frames_for_2versions_single_sheet[0])
-    file2_data_frames.append(data_frames_for_2versions_single_sheet[1])
+    if data_frames_for_2versions_single_sheet:
+        file1_data_frames.append(data_frames_for_2versions_single_sheet[0])
+        file2_data_frames.append(data_frames_for_2versions_single_sheet[1])
+    else:
+        file1_data_frames.append(None)
+        file2_data_frames.append(None)
 
     return file1_data_frames, file2_data_frames
 
@@ -235,14 +239,19 @@ def comparing_algorithm(excel_file_1, excel_file_2, output_file_path):
         # print("doing this for sheet", x)
         data1 = all_sheets_data_frames(excel_file_1, excel_file_2, x)[0][0]
         data2 = all_sheets_data_frames(excel_file_1, excel_file_2, x)[1][0]
+        number_of_columns = 0
         original_data1 = all_sheets_data_frames(
             excel_file_1, excel_file_2, x)[0][0]
         original_data2 = all_sheets_data_frames(
             excel_file_1, excel_file_2, x)[1][0]
-        number_of_columns = len(list(original_data1[0].keys()))
+        if original_data1 and original_data2:
+            number_of_columns = len(list(original_data1[0].keys()))
 
         same_items = []
         all_sheets_data_frames(excel_file_1, excel_file_2, x)
+        if not data1 or not data2:
+            continue
+
         compare_same_items(data1, data2, same_items)
         data2 = remove_same_items_from_data2(data2, new_data_2)
 
