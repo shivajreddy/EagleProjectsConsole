@@ -97,92 +97,34 @@ $(document).ready(function () {
     formData.append("file2actual", file_2_fileObject);
     formData.append("file2name", file_2_name_ext);
 
-    function startDownload(signedRequest, url) {
-      var link = document.createElement("a");
-      link.href = signedRequest;
-      link.setAttribute("download", "download");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    async function postData(url = "/upload-run-download", data = formData) {
+      const response = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        redirect: "follow",
+        body: data,
+      });
+      return response;
     }
 
-    var xhr;
-    $.ajax({
-      xhr: function () {
-        var xhr = new XMLHttpRequest();
-        // xhr.upload.addEventListener("progress", function (e) {
-        //   if (e.lengthComputable) {
-        //     var percent = Math.round((e.loaded / e.total) * 100);
-        //     $("#files-upload-progressbar")
-        //       .attr("aria-valuenow", percent)
-        //       .css("width", percent + "%")
-        //       .text(percent + "%");
-        //   }
-        // });
-        // xhr.addEventListener("readystatechange", function (e) {
-        //   if (xhr.readyState === 2 && xhr.status === 200) {
-        //     // download is being started
-        //     console.log("Download is starting");
-        //   } else if (xhr.readyState === 3) {
-        //     console.log("download is under progress");
-        //   } else if (xhr.readyState === 4) {
-        //     console.log("The download has finished");
-        //   }
-        // });
-        return xhr;
-      },
-      type: "POST",
-      url: "/upload-run-download",
-      data: formData,
-      processData: false,
-      contentType: false,
-      // flask creates the file and sends the filename
-      success: function (fileName) {
-        console.info("the post request is a success");
-        $("#run-comparison").removeClass("invisible");
+    async function downloadUsingFetch(file) {
+      // const file = await postData();
+      const fileBlob = await file.blob();
+      const fileURL = URL.createObjectURL(fileBlob);
 
-        var blob = new Blob([fileName], { type: "application/octetstream" });
-
-        //Check the Browser type and download the File.
-        var isIE = false || !!document.documentMode;
-        if (isIE) {
-          window.navigator.msSaveBlob(blob, fileName);
-        } else {
-          var url = window.URL || window.webkitURL;
-          link = url.createObjectURL(blob);
-          var a = $("<a />");
-          a.attr("download", fileName);
-          a.attr("href", link);
-          $("body").append(a);
-          a[0].click();
-          $("body").remove(a);
-        }
-
-        //? Change the button state to finished
-        transform_button_to_finished();
-      },
+      const anchor = document.createElement("a");
+      anchor.href = fileURL;
+      anchor.download = "new file name";
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(fileURL);
+    }
+    postData().then((data) => {
+      downloadUsingFetch(data);
+      console.log("this is the response data", data);
+      transform_button_to_finished();
     });
   });
 });
-
-const down_btn = $("#download-report-btn");
-down_btn.on("click", function (e) {
-  $.ajax({
-    xhr: function () {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/compare-sheets-algorithm");
-      xhr.send();
-      return xhr;
-    },
-    type: "GET",
-    url: "/compare-sheets-algorithm",
-    processData: false,
-    contentType: false,
-    success: function () {
-      // console.log("download here you go");
-    },
-  });
-});
-
-// TODO UI changes copy from old file.
-// TODO Change the file name, remove the old js file.

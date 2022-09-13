@@ -1,18 +1,14 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
-
-<h3 class="text-center m-2 p-4"> Compare Lots form</h3>
+<h3 class="text-center m-2 p-4">Compare Lots form</h3>
 
 <div class="container mb-4 pb-4 compare-reports-form">
-
   <!-- <form action="/run-report" method="POSt" enctype="multipart/form-data" id="compare-report-form"> -->
   <form enctype="multipart/form-data" id="compare-report-form">
-
     <div class="form-group">
-      <label class="form-label"  for="file-1">File 1</label>
+      <label class="form-label" for="file-1">File 1</label>
       <input type="file" class="form-control" name="file1" id="file-1" />
-      <br/>
+      <br />
       <label class="form-label" for="file-2">File 2</label>
       <input type="file" class="form-control" name="file2" id="file-2" />
     </div>
@@ -20,25 +16,25 @@
     <!-- <div class="progress mx-1 my-4 " id="files-upload-progressbar-div">
       <div class="progress-bar" id="files-upload-progressbar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div> -->
-    <br/>
+    <br />
 
     <div class="text-center">
-    <button id="generate-report-btn" class="btn btn-danger invisible align-self-center">
-       Generate Report
-    </button>
+      <button
+        id="generate-report-btn"
+        class="btn btn-danger invisible align-self-center"
+      >
+        Generate Report
+      </button>
     </div>
-
   </form>
-
 </div>
 
+{% endblock content %} {% block custom_script %}
 
-
-{% endblock content %}
-
-{% block custom_script %}
-
-<script src="{{ url_for('static', filename = 'js/compare_reports.js')}}"></script>
+<script
+  type="module"
+  src="{{ url_for('static', filename = 'js/compare_reports.js')}}"
+></script>
 <!-- <script src="{{ url_for('static', filename = 'js/old_compare_report.js')}}"></script> -->
 <!-- <script src="../static/js/new_lot_dates.js"></script> -->
 

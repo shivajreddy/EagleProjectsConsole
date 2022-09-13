@@ -116,12 +116,14 @@ FILES_UPLOADS_PATH = os.getcwd() + "/app/static/uploaded_aqt_files"
 
 @app.route('/tr')
 def test_routes():
+    return send_file("/Users/smbp/Desktop/EagleProjectsConsole/app/static/generated_reports/Lot-124-01-LA_HEL-30_V03-ComparisonReport-13-09-2022.xlsm", as_attachment=True, )
     print(GENERATED_REPORTS_DIR)
     return GENERATED_REPORTS_DIR
 
 # Form, and client side file verification
 
 
+# Test route to serve files
 @app.route('/compare-reports')
 def compare_reports():
     return render_template('./compare_reports.html')
@@ -183,6 +185,11 @@ def upload_run_download():
         # return "both file1, file2 are valid"
 
         # TODO Start downloading the file
+        result_file_name_ext = "/" + result_file_name + ".xlsm"
+        finalPath = GENERATED_REPORTS_DIR + result_file_name_ext
+        print("the final sheet name", finalPath)
+        return send_file(finalPath, as_attachment=True)
+
         # print('START DOWNLOADING RESULT FILE')
         result_file_name_ext = result_file_name + ".xlsm"
         print(GENERATED_REPORTS_DIR, result_file_name_ext)
@@ -201,8 +208,11 @@ def upload_run_download():
 @app.route("/download-report/<filename>")
 def download_report(filename):
     # print('START DOWNLOADING RESULT FILE')
-    result_file_name_ext = filename + ".xlsm"
+    result_file_name_ext = "/" + filename + ".xlsm"
     print("these are given", GENERATED_REPORTS_DIR, filename)
+    finalPath = GENERATED_REPORTS_DIR + result_file_name_ext
+    return send_file(finalPath, as_attachment=True)
+
     result = send_from_directory(
         GENERATED_REPORTS_DIR, filename, as_attachment=True
     )
