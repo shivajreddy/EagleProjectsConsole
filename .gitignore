@@ -9,3 +9,5 @@ heroku_config.py
 migrations
 **/.vscode
 **/*.MOV
+
+.idea
